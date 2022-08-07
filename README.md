@@ -1,2 +1,2 @@
 # RAScripts
-Epic RAScripts written by myself, from From https://github.com/Jamiras/RATools for https://retroachievements.org
+Epic RAScripts written by myself, from https://github.com/Jamiras/RATools for https://retroachievements.org
