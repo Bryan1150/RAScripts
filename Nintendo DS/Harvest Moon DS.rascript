@@ -12,8 +12,6 @@ tool_WateringCan = 0x0005
 
 tools = [tool_Axe, tool_FishingRod, tool_Hammer, tool_Sickle, tool_WateringCan, tool_Hoe]
 
-
-
 item_Clipper = 0x0006
 item_Milker = 0x0007
 item_LegendarySword = 0x0008
@@ -62,6 +60,8 @@ EquippedTool = word(0x3d6b0c)
 //Event Flags
 //0x3dde08 = Bit 7 - Recieve Fishing Rod
 RecieveFishingRod = bit7(0x3dde08)
+//0x3dde05 Bit 6 - Get Horse
+GetHorse = bit6(0x3dde05)
 
 //Bought/Upgraded Flags
 //0x3de17f = Bit 7 - Basquet
@@ -135,6 +135,14 @@ Basement = bit0(0x3dcd0c)
 
 Built = 0x5
 BeingBuilt = 0x14
+
+//Animals 1 heart every 100, 10 hearts 1000
+//[16-bit] Dog's Affection 0x3dc976
+DogAffection = word(0x3dc976)
+//[16-bit] Cat's Affection 0x3dc98e
+CatAffection = word(0x3dc98e)
+//[16-bit] Horse's Affection 0x3dc95e
+HorseAffection = word(0x3dc95e)
 
 //Buildings
 //0x01 = Chicken Coop 0x02 = Animal Barn
@@ -240,6 +248,73 @@ MineEnemiesEnd = 0x3ddf68
 //0x3ddf3b Bit 4 - H. Goddess Earrings Bit 5 - Kappa Earrings Bit 6 - Witch P Earrings Bit 7 - Friendship Pendant
 //0x3ddf3c Bit 0 - Slow Shoes Bit 1 - Time Ring Bit 2 - H. Goddess Pendant Bit 3 - Kappa Pendant Bit 4 - Harvest Goddess Hat Bit 5 - Kappa Hat
 CursedAccessories = [bit4(0x3ddf3b), bit5(0x3ddf3b), bit6(0x3ddf3b), bit7(0x3ddf3b), bit0(0x3ddf3c), bit1(0x3ddf3c), bit2(0x3ddf3c), bit3(0x3ddf3c), bit4(0x3ddf3c), bit5(0x3ddf3c)]
+//0x3d73a8 to 0x3d762c Beauty Box Inventory
+BeautyBoxStart = 0x3d73a8
+BeautyBoxEnd = 0x3d762c
+//Accessories IDs 0x0125: Teleport Stone 0x0126 = Pedometer 0x0127 = Clock[Unused] 0x0128 = Red Cloak 0x0129 = Slow Shoes 0x012a = Truth Bangle 0x012b = Love Bangle 0x012c = Godhand 0x012d = Miracle Gloves
+//0x012e = Touch Panel Gloves 0x012f =Necklace 0x0130 = H. Goddess Earrings 0x0131 = Kappa Earrings 0x0132 = Witch P Earrings 0x0133 = Friendship Pendant 0x0134 = H. Goddess Pendant
+//0x0135 = Kappa Pendant 0x0136 = Time Ring 0x0137 = Harvest Goddess Hat 0x0138 = Kappa Hat
+KappaEarings = 0x030131
+HGoddessEarrings = 0x030130
+WitchPEarrings = 0x010132
+FriendshipPendant = 0x030133
+FastShoes = 0x010129
+TimeRing = 0x010136
+HGoddessPendant = 0x030134
+KappaPendant = 0x030135
+HarvestGoddessHat = 0x030137
+KappaHat = 0x030138
+BlessedAccessories = [KappaEarings, HGoddessEarrings, WitchPEarrings, FriendshipPendant, FastShoes, TimeRing, HGoddessPendant, KappaPendant, HarvestGoddessHat, KappaHat]
+EquippedAccessorySlot = 0x3d6b14
+
+//KingFishes [N-bits] Fish Catched Bit 0 - Message in a bottle  Bit 1 - Huchen Bit 2 - Angler Fish Bit 3 - Spa Catfish Bit 4 - Carp  Bit 5 - Coelacanth Bit 6 - Squid
+Huchen = bit1(0x3de07c)
+AnglerFish = bit2(0x3de07c)
+SpaCatfish = bit3(0x3de07c)
+Carp = bit4(0x3de07c)
+Coelacanth = bit5(0x3de07c)
+Squid = bit6(0x3de07c)
+KingFishes = [Huchen, AnglerFish, SpaCatfish, Carp, Coelacanth, Squid]
+
+//Harvest Sprites
+//RedTeam 0x3dc548 0x3dc554 0x3dc560 0x3dc56c 0x3dc578 0x3dc584 0x3dc590 0x3dc59c 0x3dc5a8 0x3dc5b4 0x3dc5c0 0x3dc5cc
+RedTeamStart = 0x3dc548
+RedTeamEnd = 0x3dc5cc
+OrangeTeamStart = 0x3dc5d8
+OrangeTeamEnd = 0x3dc65c
+YellowTeamStart = 0x3dc668
+YellowTeamEnd = 0x3dc6ec
+GreenTeamStart = 0x3dc6f8
+GreenTeamEnd = 0x3dc77c
+IndigoTeamStart = 0x3dc788
+IndigoTeamEnd = 0x3dc80c
+PurpleTeamStart = 0x3dc818
+PurpleTeamEnd = 0x3dc89c
+BlueTeamStart = 0x3dc8a8
+BlueTeamEnd = 0x3dc92c
+//Brown Team Single Flags
+Guts = bit0(0x3dc938)
+Roller = bit0(0x3dc93c)
+Hops = bit0(0x3dc940)
+Tep = bit0(0x3dc944)
+Jum = bit0(0x3dc948)
+Jet = bit0(0x3dc94c)
+Jackie = bit0(0x3dc950)
+BrownTeam = [Guts, Roller, Hops, Tep, Jum, Jet, Jackie]
+//White team baby
+WBaby = bit0(0x3dc954)
+//BlackTeam
+Mercury = bit5(0x3dddcd)
+Venus = bit6(0x3dddcd)
+Earth = bit7(0x3dddcd)
+Mars = bit0(0x3dddce)
+Jupiter = bit1(0x3dddce)
+Saturn = bit2(0x3dddce)
+Uranus = bit3(0x3dddce)
+Neptune = bit4(0x3dddce)
+Pluto = bit5(0x3dddce)
+BlackTeam = [Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto]
+AllRemainingTeamMembers = [Guts, Roller, Hops, Tep, Jum, Jet, Jackie,Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, WBaby]
 
 //Map on bottom Screen
 NotMap = byte(0x1cbb01) == 0
@@ -396,6 +471,60 @@ function CheckReceivedItem(item){
     return any_of(inventory, a => a)
 }
 
+function checkAccessories(item){
+    logic = always_false()
+    logicTemp = always_true()
+    for address in range(FirstItemSlot, LastItemSlot, 4){              
+        logic = logic || (tbyte(address) == item)       
+    }
+    
+    for address in range(BeautyBoxStart, BeautyBoxEnd, 4){              
+        logic = logic || (tbyte(address) == item)       
+    }
+    
+    logic = logic || (tbyte(EquippedAccessorySlot) == item)
+    return logic
+}
+
+function checkAccessoriesPrev(item){
+    logic = always_false()
+    for address in range(FirstItemSlot, LastItemSlot, 4){      
+        logic = logic || (prev(tbyte(address)) == item)        
+    }
+    
+    for address in range(BeautyBoxStart, BeautyBoxEnd, 4){              
+        logic = logic || (prev(tbyte(address)) == item)       
+    }
+    logic = logic || (prev(tbyte(EquippedAccessorySlot)) == item)
+    return logic
+}
+
+function BlessedAccessories(title, description, points){
+    achievement(
+        title, description, points,
+        trigger =  SaveProtection() &&
+            measured(tally(6, tally(1, checkAccessories(KappaEarings)), tally(1, checkAccessories(HGoddessEarrings)), tally(1, checkAccessories(WitchPEarrings)), tally(1, checkAccessories(FriendshipPendant)),
+            tally(1, checkAccessories(HGoddessPendant)), tally(1, checkAccessories(KappaPendant))
+            )) &&
+            never(tally(6, tally(1, checkAccessoriesPrev(KappaEarings)), tally(1, checkAccessoriesPrev(HGoddessEarrings)), tally(1, checkAccessoriesPrev(WitchPEarrings)), tally(1, checkAccessoriesPrev(FriendshipPendant)),
+            tally(1, checkAccessoriesPrev(HGoddessPendant)), tally(1, checkAccessoriesPrev(KappaPendant))
+            ))
+        
+    )
+}
+//[KappaEarings, HGoddessEarrings, WitchPEarrings, FriendshipPendant, FastShoes, TimeRing, HGoddessPendant, KappaPendant, HarvestGoddessHat, KappaHat
+function BlessedAccessories2(title, description, points){
+    achievement(
+        title, description, points,
+        trigger =  SaveProtection() &&
+            measured(tally(4, tally(1, checkAccessories(TimeRing)), tally(1, checkAccessories(FastShoes)), tally(1, checkAccessories(KappaHat)), tally(1, checkAccessories(HarvestGoddessHat))
+            )) &&
+            never(tally(4, tally(1, checkAccessoriesPrev(TimeRing)), tally(1, checkAccessoriesPrev(FastShoes)), tally(1, checkAccessoriesPrev(KappaHat)), tally(1, checkAccessoriesPrev(HarvestGoddessHat))
+            ))
+        
+    )
+}
+
 function BuildingCheck(buildingType){
     buildingLogic = []
     for build in Buildings{
@@ -465,12 +594,29 @@ function BitflagRangeCount(RangeStart, RangeEnd){
     return count
 }
 
+function BitflagsSprites(RangeStart, RangeEnd){
+    count = 0
+    for address in range(RangeStart, RangeEnd, 12){
+        count = count + bit0(address)
+    }
+    return count
+}
+
+function BitRangeSprites(RangeStart, RangeEnd, ExtraFlags, quantity, title, description, points){    
+       achievement(
+            title, description, points,
+            trigger = SaveProtection() &&
+                measured(BitflagsSprites(RangeStart, RangeEnd) + sum_of(ExtraFlags, f => f)  ==  (quantity)) &&
+                (prev(BitflagsSprites(RangeStart, RangeEnd)) + sum_of(ExtraFlags, f => prev(f))) == (quantity - 1)
+       )                                  
+}
+
 function BitflagRange(RangeStart, RangeEnd, ExtraFlags, title, description, points){    
        achievement(
             title, description, points,
             trigger = SaveProtection() &&
-                measured((BitflagRangeCount(RangeStart, RangeEnd) + sum_of(ExtraFlags, f => f)) == (length(range(RangeStart, RangeEnd))*8) + length(ExtraFlags)) &&
-                (prev(BitflagRangeCount(RangeStart, RangeEnd)) + sum_of(ExtraFlags, f => prev(f))) == (length(range(RangeStart, RangeEnd))*8) + length(ExtraFlags) - 1
+             measured((BitflagRangeCount(RangeStart, RangeEnd) + sum_of(ExtraFlags, f => f)) == (length(range(RangeStart, RangeEnd))*8) + length(ExtraFlags)) &&
+                (prev(BitflagRangeCount(RangeStart, RangeEnd)) + sum_of(ExtraFlags, f => prev(f))) == (length(range(RangeStart, RangeEnd))*8) + length(ExtraFlags) - 1            
        )                                  
 }
 
@@ -482,15 +628,186 @@ function AddSourceCount32bit(RangeStart, RangeEnd){
     return count
 }
 
+function AddSourceCount32bitprev(RangeStart, RangeEnd){
+    count = 0
+    for address in range(RangeStart, RangeEnd, 4){
+        count = count + (prev(dword(address)) / prev(dword(address)))
+    }
+    return count
+}
+
 function AddSource32bit(RangeStart, RangeEnd, title, description, points){
     achievement(
         title, description, points,
         trigger = SaveProtection() &&
-            measured(AddSourceCount32bit(RangeStart,RangeEnd) == (RangeEnd - RangeStart / 4 + 1) &&
-            prev(AddSourceCount32bit(RangeStart, RangeEnd)) == (RangeEnd - RangeStart) / 4) 
+            measured(AddSourceCount32bit(RangeStart,RangeEnd) == (RangeEnd - RangeStart) / 4 + 1) &&
+            AddSourceCount32bitprev(RangeStart, RangeEnd) == (RangeEnd - RangeStart) / 4)   
+        
+}
+
+function AddSource32bitlessthan(RangeStart, RangeEnd, title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() &&
+            measured(AddSourceCount32bit(RangeStart,RangeEnd) == (RangeEnd - RangeStart) / 4 + 1) &&
+            AddSourceCount32bitprev(RangeStart, RangeEnd) <= (RangeEnd - RangeStart) / 4)   
+        
+}
+
+//0x3dce3c-0x3dce9c
+//0x3dcee8-0x3dcf08
+function VegetablesAddsource(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection () &&
+        measured(AddSourceCount32bit(0x3dce3c, 0x3dce9c) + AddSourceCount32bit(0x3dcee8, 0x3dcf08) == 34) &&
+        AddSourceCount32bitprev(0x3dce3c, 0x3dce9c) + AddSourceCount32bitprev(0x3dcee8, 0x3dcf08) <= 33
     )
 }
 
+//0x3dcf28-0x3dcf90
+function EdiblesAddsource(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection () &&
+        measured(AddSourceCount32bit(0x3dcf28, 0x3dcf90) == 27) &&
+        AddSourceCount32bitprev(0x3dcf28, 0x3dcf90) <= 26
+    )
+}
+
+//0x3dcea0-0x3dcee4
+//0x3dcf0c-0x3dcf24
+
+function AnimalProductsAddsource(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection () &&
+        measured(AddSourceCount32bit(0x3dcea0, 0x3dcee4) + AddSourceCount32bit(0x3dcf0c, 0x3dcf24) == 25) &&
+        AddSourceCount32bitprev(0x3dcea0, 0x3dcee4) + AddSourceCount32bitprev(0x3dcf0c, 0x3dcf24) <= 24
+    )
+}
+
+//0x3dcfa0-0x3dd00c
+//0x3dd04c-0x3dd058
+//0x3dd01c
+//0x3dd03c
+function MineItemsAddsource(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection () &&
+        measured(AddSourceCount32bit(0x3dcfa0, 0x3dd00c) + AddSourceCount32bit(0x3dd04c, 0x3dd058) + (dword(0x3dd01c) / dword(0x3dd01c)) + (dword(0x3dd03c) / dword(0x3dd03c)) == 34) &&
+        AddSourceCount32bitprev(0x3dcfa0, 0x3dd00c) + AddSourceCount32bitprev(0x3dd04c, 0x3dd058) + (prev(dword(0x3dd01c)) / prev(dword(0x3dd01c))) + (prev(dword(0x3dd03c)) / prev(dword(0x3dd03c))) <= 33
+    )
+}
+//0x3dcf94-0x3dcf9c
+//0x3dd028-0x3dd038
+//0x3dd020
+function FishItemsAddSource(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection () &&
+        measured(AddSourceCount32bit(0x3dcf94, 0x3dcf9c) + AddSourceCount32bit(0x3dd028, 0x3dd038) + (dword(0x3dd020) / dword(0x3dd020)) == 9) &&
+        AddSourceCount32bitprev(0x3dcf94, 0x3dcf9c) + AddSourceCount32bitprev(0x3dd028, 0x3dd038) + (prev(dword(0x3dd020)) / prev(dword(0x3dd020))) <= 8
+    )
+}
+
+//0x3dd010-0x3dd018
+//0x3dd024
+//0x3dd040-0x3dd048
+//0x3dd05c-0x3dd074
+function MiscItemsAddSource(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() &&
+        measured(AddSourceCount32bit(0x3dd010, 0x3dd018) + AddSourceCount32bit(0x3dd040, 0x3dd048) + AddSourceCount32bit(0x3dd05c, 0x3dd074) + (dword(0x3dd024) / dword(0x3dd024)) == 14) &&
+        AddSourceCount32bitprev(0x3dd010, 0x3dd018) + AddSourceCount32bitprev(0x3dd040, 0x3dd048) + AddSourceCount32bitprev(0x3dd05c, 0x3dd074) + (prev(dword(0x3dd024)) / prev(dword(0x3dd024))) <= 13
+    )
+}
+
+//Catch all fish 0x3ddfac-0x3de074 AND bit0(0x3de07c)
+function CatchAllFish(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection () &&
+        measured(AddSourceCount32bit(0x3ddfac, 0x3de074) + bit0(0x3de07c) == 52) &&
+        AddSourceCount32bitprev(0x3ddfac, 0x3de074) + prev(bit0(0x3de07c)) <= 51
+    )
+}
+
+
+//First Animal
+FirstAnimalType = 0x3dc9a0
+LastAnimalType = 0x3dcc28
+//0x1 = Cow 0x2 = Sheep 0x3 = Chicken 0x4 = Duck
+Cow = 0x1
+Sheep = 0x2
+Chicken = 0x3
+Duck = 0x4
+
+function checkAnimals(type){
+    logic = always_false()
+    for address in range(FirstAnimalType, LastAnimalType, 24){      
+        logic = logic || low4(address) == type       
+    }
+
+    return logic
+}
+
+function checkPrevAnimals(type){
+    logic = always_false()
+    for address in range(FirstAnimalType, LastAnimalType, 24){      
+        logic = logic || prev(low4(address)) == type       
+    }
+
+    return logic
+}
+
+function AnimalDeathReset(){
+    logic = always_false()
+    for address in range(FirstAnimalType, LastAnimalType, 24){      
+        logic = logic || (prev(low4(address)) > 0 && low4(address) == 0)
+    }
+    return logic
+}
+
+function FourAnimals(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = 
+        measured(tally(4, tally(1, checkAnimals(Cow)), tally(1, checkAnimals(Sheep)), tally(1, checkAnimals(Chicken)), tally(1, checkAnimals(Duck)))) &&
+        never(tally(4, tally(1, checkPrevAnimals(Cow)), tally(1, checkPrevAnimals(Sheep)), tally(1, checkPrevAnimals(Chicken)), tally(1, checkPrevAnimals(Duck)))) &&
+        never(AnimalDeathReset())
+    )
+}
+
+function DeltaToMemLessThan(address, current, title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() &&
+            prev(address) <= current &&
+            address == current
+    )
+}
+
+function checkAnimalCrown(type){
+    logic = always_false()
+    for address in range(FirstAnimalType, LastAnimalType, 24){      
+        logic = logic || (low4(address) == type &&        
+    }
+
+    return logic
+}
+
+function AnimalWin(type, title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() &&
+        
+    )
+}
+
+
+//Tool Cheevos
 EventCheevo("Angler's Heritage", "Get the fishing rod", 1, RecieveFishingRod)
 BuyOrUpgradeCheevo("Kuroko no Basket", "Buy the Basket", 1, BoughtBasquet)
 RuckSackCheevo(SmallRucksack, MediumRucksack, "Moderate Capacity", "Buy the Medium Rucksack", 2)
@@ -511,7 +828,7 @@ MythicToolUpgradeCheevo(tool_Hoe, "Demeter's Cultivator [m]", "Upgrade your hoe 
 MythicToolUpgradeCheevo(tool_Sickle, "Grim Reaper [m]", "Upgrade your sickle to the Mythic tier", 10)
 MythicToolUpgradeCheevo(tool_WateringCan, "Poseidon's Grace [m]", "Upgrade your watering can to the Mythic tier", 10)
 LegendarySword("Master Sword", "Get the legendary sword from the second mine", 5)
-//
+//Housing Cheevos
 DeltaToValue(MediumHouse, LargeHouse, HouseLevel, "Architectural Beauty", "Fully expand your house", 10)
 AllFlagsTrueCellphone(Furniture, "Fully Furnished", "Buy all the furniture", 10)
 DeltaToValue(BeingBuilt, Built, Bathroom, "Water and Soap", "Build a bath room in your house", 5)
@@ -526,22 +843,43 @@ SingleFlag(DuckPond, "Quacky Pool", "Build a duck pond", 5)
 SingleFlag(MakerShed, "Artesanal Shed", "Build a maker shed", 5)
 AllFlagsTrue(Makers, "Manufacture Machinery", "Get all the makers", 10)
 SingleFlag(Cottage, "Vacation Villa", "Build the cottage on the desert island", 50)
-//
+//Mining Cheevos
 SingleFlag(SecondMine, "10 Floors of Mystery", "Unlock the 2nd mine", 5)
 SingleFlag(ThirdMine, "255 Floors of Grief", "Unlock the 3rd mine", 10)
 SingleFlag(FourthMine, "999 Floors of Death [m]", "Unlock the 4rd mine", 25)
 CertainValueRange(50000, 65535, FourthMineLowestFloor, "65535 Floors of Despair [m] ", "Reach the bottom of the 4th mine", 50)
 EventCheevo("Marvelous Gems [m]", "Find all the wonderful stones in the 4th mine and ask for the Goddess Gift", 10, WonderfulsFlag)
 BitflagRange(MineItemStart, MineItemEnd, RemainingMineFlags, "Quarry Discovery [m]", "Find all the mine items", 10)
-AddSource32bit(MineEnemiesStart, MineEnemiesEnd, "Is That... Me? [m]", "Kill all the mine creatures", 10)
+AddSource32bitlessthan(MineEnemiesStart, MineEnemiesEnd, "Is That... Me? [m]", "Kill all the mine creatures", 10)
 AllFlagsTrue(CursedAccessories, "Damned Components", "Dig all the cursed accessories", 10)
-
-
-
-
-
-
-
-
-
-
+BlessedAccessories("Saint Adornments: Old Testament", "Bless all the pendant and earrings cursed accessories", 10)
+BlessedAccessories2("Saint Adornments: New Testament", "Bless all the ring, shoe and hats cursed accessories", 10)
+//Collection Cheevos
+VegetablesAddsource("Variety Harvest","Ship every crop, flower, mushroom and tree fruit", 10)
+EdiblesAddsource("Agrestal Comestibles","Ship every wild or purchasable edible item", 10)
+AnimalProductsAddsource("Fauna Goods ", "Ship every animal product", 10)
+MineItemsAddsource("Excavation Wares [m]", "Ship every mine item", 10)
+FishItemsAddSource("Angle Variation", "Ship every fish item", 10)
+MiscItemsAddSource("Disparate Elements", "Ship every miscellaneous item", 10)
+AddSource32bitlessthan(0x3dd078, 0x3dd280, "Culinary Connoisseur", "Cook and ship all successful and failed dishes", 25) //0x3dd078-0x3dd280
+AddSource32bitlessthan(0x3dce3c, 0x3dd280, "Flexible Vendor [m]", "Ship every shippable item", 25) //0x3dce3c - 0x3dd280
+CatchAllFish("Marine Exhibit [m]", "Catch all 52 fish and items", 25) 
+AllFlagsTrue(KingFishes, "Legend of Forget-Me-Not Valley Kings", "Catch the 6 fish kings", 25)
+//Sprites Cheevos
+BitRangeSprites(RedTeamStart, RedTeamEnd, [], 12, "Scarlet Team", "Rescue all the Red Team sprites", 10)
+BitRangeSprites(OrangeTeamStart, OrangeTeamEnd, [], 12, "Tangerine Group", "Rescue all the Orange Team sprites", 10)
+BitRangeSprites(YellowTeamStart, YellowTeamEnd, [], 12, "Gold Squad", "Rescue all the Yellow Team sprites", 10)
+BitRangeSprites(GreenTeamStart, GreenTeamEnd, [], 12, "Lime Gang", "Rescue all the Green Team sprites", 10)
+BitRangeSprites(BlueTeamStart, BlueTeamEnd, [], 12, "Cobalt Crew", "Rescue all the Blue Team sprites", 10)
+BitRangeSprites(IndigoTeamStart, IndigoTeamEnd, [], 12, "Azure Troup", "Rescue all the Indigo Team sprites", 10)
+BitRangeSprites(PurpleTeamStart, PurpleTeamEnd, [], 12, "Lavender Lineup", "Rescue all the Purple Team sprites", 10)
+AllFlagsTrue(BrownTeam, "Walnut Party", "Rescue all the Brown Team sprites", 10)
+AllFlagsTrue(BlackTeam, "Obsidian Forces", "Rescue all the Black Team sprites", 10)
+BitRangeSprites(RedTeamStart, BlueTeamEnd, AllRemainingTeamMembers, 60, "Harvest Goddess Rescued", "Rescue 60 sprites", 10)
+BitRangeSprites(RedTeamStart, BlueTeamEnd, AllRemainingTeamMembers, 101, "Unbound Sprites", "Rescue all 101 sprites", 25)
+//Animal Cheevos
+FourAnimals("Poultry Diversity", "Have a chicken, a duck, a cow and a sheep", 5)
+EventCheevo("Stallion Ride", "Obtain your horse", 3, GetHorse)
+DeltaToMemLessThan(DogAffection, 1000, "What’s Up Dog", "Get your Dog to 10 hearts", 10)
+DeltaToMemLessThan(CatAffection, 1000, "A Sinking Feline", "Get your Cat to 10 hearts", 10)
+DeltaToMemLessThan(HorseAffection, 1000, "A Show Pony", "Get your Horse to 10 hearts", 10)
