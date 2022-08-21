@@ -744,10 +744,14 @@ Sheep = 0x2
 Chicken = 0x3
 Duck = 0x4
 
+function threebits(address){
+    return bit0(address) * 1 + bit1(address) * 2 + bit2(address) * 4
+}
+
 function checkAnimals(type){
     logic = always_false()
     for address in range(FirstAnimalType, LastAnimalType, 24){      
-        logic = logic || low4(address) == type       
+        logic = logic || (threebits(address) == type)     
     }
 
     return logic
@@ -756,7 +760,7 @@ function checkAnimals(type){
 function checkPrevAnimals(type){
     logic = always_false()
     for address in range(FirstAnimalType, LastAnimalType, 24){      
-        logic = logic || prev(low4(address)) == type       
+        logic = logic || (prev(threebits(address))) == type       
     }
 
     return logic
@@ -765,7 +769,7 @@ function checkPrevAnimals(type){
 function AnimalDeathReset(){
     logic = always_false()
     for address in range(FirstAnimalType, LastAnimalType, 24){      
-        logic = logic || (prev(low4(address)) > 0 && low4(address) == 0)
+        logic = logic || (prev(threebits(address)) > 0 && threebits(address)== 0)
     }
     return logic
 }
@@ -773,7 +777,7 @@ function AnimalDeathReset(){
 function FourAnimals(title, description, points){
     achievement(
         title, description, points,
-        trigger = 
+        trigger = OnCellphone &&
         measured(tally(4, tally(1, checkAnimals(Cow)), tally(1, checkAnimals(Sheep)), tally(1, checkAnimals(Chicken)), tally(1, checkAnimals(Duck)))) &&
         never(tally(4, tally(1, checkPrevAnimals(Cow)), tally(1, checkPrevAnimals(Sheep)), tally(1, checkPrevAnimals(Chicken)), tally(1, checkPrevAnimals(Duck)))) &&
         never(AnimalDeathReset())
@@ -784,7 +788,7 @@ function DeltaToMemLessThan(address, current, title, description, points){
     achievement(
         title, description, points,
         trigger = SaveProtection() &&
-            prev(address) <= current &&
+            prev(address) <= current-1 &&
             address == current
     )
 }
@@ -792,20 +796,38 @@ function DeltaToMemLessThan(address, current, title, description, points){
 function checkAnimalCrown(type){
     logic = always_false()
     for address in range(FirstAnimalType, LastAnimalType, 24){      
-        logic = logic || (low4(address) == type &&        
+        logic = logic || (threebits(address)  == type && byte(address + 7) == prev(byte(address + 7) + 1))      
     }
 
     return logic
 }
 
 function AnimalWin(type, title, description, points){
-    achievement(
+    achievement( 
         title, description, points,
         trigger = SaveProtection() &&
-        
+        checkAnimalCrown(type)
     )
 }
 
+
+//0x3d6af8 [32-bit] Global time... somehow
+GlobalTime = dword(0x3d6af8)
+function CookingFestivalCheck(){
+    logic = always_false()
+    for index in range(0, 254) {
+        logic = logic || (GlobalTime >= (756000 + (4320000 * index)) && GlobalTime <= (792000 + (4320000 * index)))
+    }
+    return logic
+}
+//0x3ddea8 [32-bits] Farm Degree
+FarmDegree = dword(0x3ddea8)
+function WinCookingFestival(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = CookingFestivalCheck() && (FarmDegree == (prev(FarmDegree) + 100)) && location == Beach
+    )
+}
 
 //Tool Cheevos
 EventCheevo("Angler's Heritage", "Get the fishing rod", 1, RecieveFishingRod)
@@ -883,3 +905,11 @@ EventCheevo("Stallion Ride", "Obtain your horse", 3, GetHorse)
 DeltaToMemLessThan(DogAffection, 1000, "What’s Up Dog", "Get your Dog to 10 hearts", 10)
 DeltaToMemLessThan(CatAffection, 1000, "A Sinking Feline", "Get your Cat to 10 hearts", 10)
 DeltaToMemLessThan(HorseAffection, 1000, "A Show Pony", "Get your Horse to 10 hearts", 10)
+AnimalWin(Chicken, "A Different Perspecktive", "Win the Chicken Festival", 10)
+AnimalWin(Duck, "Golden Duck", "Win the Duck Festival", 10)
+AnimalWin(Cow, "Holy Cow!", "Win the Cow Festival", 10)
+AnimalWin(Sheep, "Counting Sheep", "Win the Sheep Festival", 10)
+//Festival Cheevos
+
+
+WinCookingFestival("Baking Master", "Win the Cooking Festival", 10)
