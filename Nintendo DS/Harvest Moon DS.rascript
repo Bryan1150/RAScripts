@@ -57,11 +57,113 @@ FirstItemSlot = 0x3d6b24
 LastItemSlot = 0x3d6bf8
 EquippedTool = word(0x3d6b0c)
 
+//Time
+//0x1cbb02 [8-bit] Time | Hours
+Hours = byte(0x1cbb02)
+//0x1cbb03 [8-bit] Time | Minutes
+Minutes = byte(0x1cbb03)
+
+//SongID 0x1d1334 0x12 = Bear Shuffle Minigame / Heart Event 2
+//0x2d = Dog House Minigame / Credits
+//0x30 = Girl memory Minigame / Last Dance
+BearShuffleSong = byte(0x1d1334) == 0x12
+DogHouseSong = byte(0x1d1334) == 0x2d
+GirlMemorySong = byte(0x1d1334) == 0x30
+HarvestGoddessSong = byte(0x1d1334) == 0x13
+
 //Event Flags
 //0x3dde08 = Bit 7 - Recieve Fishing Rod
 RecieveFishingRod = bit7(0x3dde08)
 //0x3dde05 Bit 6 - Get Horse
 GetHorse = bit6(0x3dde05)
+//0x3dde54 Bit 1 - Entered New Years Day Area/Goes to 0 when festival ends
+NewYearsDay = bit1(0x3dde54)
+//0x3dde60  Bit 3 - Gave Cookies to Celia Bit 4 - Gave Cookies to Muffy Bit 5 - Gave Cookies to Nami Bit 6 - Gave Cookies to Lumina Bit 7 - Gave Cookies to Flora
+CookieCelia = bit3(0x3dde60)
+CookieMuffy = bit4(0x3dde60)
+CookieNami = bit5(0x3dde60)
+CookieLumina = bit6(0x3dde60)
+CookieFlora = bit7(0x3dde60)
+//0x3dde61 Bit 0 - Gave Cookies to Karen Bit 1 - Gave Cookies to Popuri Bit 2 - Gave Cookies to Ann Bit 3 - Gave Cookies to Mary Bit 4 - Gave Cookies to Elli 
+//Bit 5 - Gave Cookies to H. Goddess Bit 6 - Gave Cookies to W. Princess Bit 7 - Gave Cookies to Keira
+CookieKaren = bit0(0x3dde61)
+CookiePopuri = bit1(0x3dde61)
+CookieAnn = bit2(0x3dde61)
+CookieMary = bit3(0x3dde61)
+CookieElli = bit4(0x3dde61)
+CookieGoddess = bit5(0x3dde61)
+CookieWitch = bit6(0x3dde61)
+CookieKeira = bit7(0x3dde61)
+//0x3dde62 Bit 0 - Gave Cookies to Leia
+CookieLeia = bit0(0x3dde62)
+SpringThanksgiving = [CookieCelia, CookieMuffy, CookieNami, CookieLumina, CookieFlora, CookieKaren, CookiePopuri, CookieAnn, CookieMary, CookieElli, CookieGoddess, CookieWitch, CookieKeira, CookieLeia]
+//0x3dde55 Bit 2 - Entered Kai beach event area
+KaiBeach = bit2(0x3dde55)
+//0x3dde6b Bit 5 = Festival ocurred
+FestivalOcurred = bit5(0x3dde6b)
+//0x3dde56 Bit 1 - Entered Fireworks Area
+Fireworks = bit1(0x3dde56)
+//0x3dde60 Bit 1 - Provided an ingredient for the harvest festival
+HarvestFestival = bit1(0x3dde60)
+//0x3dde56 Bit 7 - Kate came for Pumpkin Festival
+KatePumpkin = bit7(0x3dde56)
+//0x3dde57 Bit 0 - Hugh came for Pumpkin Festival Bit 1 - Popuri came for Pumpkin Festival
+HughPumpkin = bit0(0x3dde57)
+PopuriPumpkin = bit1(0x3dde57)
+PumpkinFestival = [KatePumpkin, HughPumpkin, PopuriPumpkin]
+//Friendships And Affections
+//0x3dbec0 [8-bit] Kate's Friendship
+KateFriendship = byte(0x3dbec0)
+//0x3dbee8 [8-bit] Hugh's Friendship
+HughFriendship = byte(0x3dbee8)
+//0x3dc280 [8-bit] Popuri's Friendship
+PopuriFriendship = byte(0x3dc280)
+//Winter Thanksgiving
+//0x3dde62 
+//Bit 1 - Recieved Cookies from Celia
+ReceivedCelia = bit1(0x3dde62)
+//Bit 2 - Recieved Cookies from Muffy
+ReceivedMuffy = bit2(0x3dde62)
+//Bit 3 - Recieved Cookies from Nami
+ReceivedNami = bit3(0x3dde62)
+//Bit 4 - Recieved Cookies from Lumina
+ReceivedLumina = bit4(0x3dde62)
+//Bit 5 - Recieved Cookies from Flora
+ReceivedFlora = bit5(0x3dde62)
+WinterThanksgiving = [ReceivedCelia, ReceivedMuffy, ReceivedNami, ReceivedLumina, ReceivedFlora]
+//0x3dde58 
+//Bit 2 - Spend Starry Night with Celia
+SNCelia = bit2(0x3dde58)
+//Bit 3 - Spend Starry Night with Muffy
+SNMuffy = bit3(0x3dde58)
+//Bit 4 - Spend Starry Night with Nami
+SNNami = bit4(0x3dde58)
+//Bit 5 - Spend Starry Night with Lumina
+SNLumina = bit5(0x3dde58)
+//Bit 6 - Spend Starry Night with Flora
+SNFlora = bit6(0x3dde58)
+//Bit 7 - Spend Starry Night with H. Goddess
+SNGoddess = bit7(0x3dde58)
+//0x3dde59
+//Bit 0 - Spend Starry Night with Witch Princess
+SNPrincess = bit0(0x3dde59)
+//Bit 2 - Spend Starry Night with Leia
+SNLeia = bit2(0x3dde59)
+StarryNight = [SNCelia, SNMuffy, SNNami, SNLumina, SNFlora, SNGoddess, SNPrincess, SNLeia]
+//0x3dde12 Bit 7- Nina made socks for you
+NinaSocks = bit7(0x3dde12)
+//0x3ddebe Christmas gift buffer [Item ID]
+ChristmasGift = word(0x3ddebe)
+//0x3dde59 Bit 5 - Entered New Years Eve area
+NewYearsEve = bit5(0x3dde59)
+//0x3d33e0 [N-bit] Girl Minigame Win Flag Bit 0 - Won Bit 1 - Give Up
+MemoryMinigameState = bit0(0x3d33e0)
+//0x3d33f4 [8-bit] Bear Shuffle Win Count
+BearShuffleWinCount = byte(0x3d33f4)
+//0x3d33ac [8-bit] Quantity of girls beaten - Doghouse minigame
+GirlsBeatenDogHouse = byte(0x3d33ac)
+//0x3d33c8 [8-bit] Marriage Candidate - Doghouse Minigame / Low-High Minigame Score
+LowHighScore = byte(0x3d33c8)
 
 //Bought/Upgraded Flags
 //0x3de17f = Bit 7 - Basquet
@@ -225,6 +327,8 @@ TakakuraHouse = 0x34
 Stable = 0x37
 Mine = 0x3c
 LegendarySwordPlace = 0x40
+//0x39 = Mine Entrance / Minigames
+MineEntrance = 0x39
 
 //Mine Flags 0x3ddf41
 //Bit 4 = Unlocked 1st Mine Bit 5 = Unlocked 2nd Mine Bit 6 = Unlocked 3rd Mine Bit 7 = Unlocked 4rd Mine
@@ -364,6 +468,43 @@ function EventCheevo(title, description, points, eventFlag){
     )
 }
 
+function StarryNightLogic(Flags){
+    logic = always_false()
+    for flag in Flags{
+        logic = logic || once(SaveProtection() && flag == 1 && prev(flag) == 0)
+    }
+    return logic
+}
+
+function StarryNight(title, description, points, eventFlags){
+    achievement(
+        title, description, points,
+        trigger = 
+            StarryNightLogic(eventFlags) &&
+            !InCutscene
+    )
+}
+
+function FestivalCheevo(eventFlag, title, description, points){
+    achievement(
+        title, description, points,
+        trigger = 
+            once(SaveProtection() && eventFlag == 1 && prev(eventFlag) == 0) &&
+            (FestivalOcurred == 1 && prev(FestivalOcurred) == 0) &&
+            never(location != prev(location))
+    )
+}
+
+function FestivalCheevo2(eventFlag, title, description, points){
+    achievement(
+        title, description, points,
+        trigger = 
+            once(SaveProtection() && eventFlag == 1 && prev(eventFlag) == 0) &&
+            location == FarmHouse &&
+            never(location == Farmland && prev(location) == FarmHouse)
+    )
+}
+
 function BuyOrUpgradeCheevo(title, description, points, BuyOrUpgradeFlag){
     achievement(
         title, description, points,
@@ -429,6 +570,22 @@ function AnyFlagTrue(Flags, title, description, points){
             SaveProtection() &&
             SumFlags(Flags, 1) &&
             SumPreviousFlags(Flags, 0) 
+    )
+}
+
+function FlagOrChain(Flags){
+    logic = always_false()
+    for flag in Flags{
+        logic = logic || (flag == 1 && prev(flag) == 0)
+    }
+    return logic
+}
+
+function AnyFlagTrueNotSum(Flags, title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() &&
+        FlagOrChain(Flags)
     )
 }
 
@@ -566,6 +723,16 @@ function SingleFlag(flag, title, description, points){
         trigger = SaveProtection() &&
             prev(flag) == 0 &&
             flag == 1
+    )
+}
+
+
+function SingleFlagReverse(flag, title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() &&
+            prev(flag) == 1 &&
+            flag == 0
     )
 }
 
@@ -789,7 +956,7 @@ function DeltaToMemLessThan(address, current, title, description, points){
         title, description, points,
         trigger = SaveProtection() &&
             prev(address) <= current-1 &&
-            address == current
+            measured(address == current)
     )
 }
 
@@ -825,7 +992,42 @@ FarmDegree = dword(0x3ddea8)
 function WinCookingFestival(title, description, points){
     achievement(
         title, description, points,
-        trigger = CookingFestivalCheck() && (FarmDegree == (prev(FarmDegree) + 100)) && location == Beach
+        trigger = SaveProtection () && CookingFestivalCheck() && (FarmDegree == (prev(FarmDegree) + 100)) && location == Beach
+    )
+}
+
+function ChristmasCheevo(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection () && (NinaSocks == 1 && ChristmasGift != 0 && ChristmasGift != 0xffff && (prev(ChristmasGift) == 0 || prev(ChristmasGift) == 0xffff))
+    )
+}
+
+function GirlSelect(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() && Hours == 6 && Minutes == 2 && GirlMemorySong && location == MineEntrance && MemoryMinigameState == 1 && prev(MemoryMinigameState) == 0
+    )
+}
+
+function BearShuffle(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() && Hours == 0 && Minutes == 1 && BearShuffleSong && location == MineEntrance && BearShuffleWinCount == 10 && prev(BearShuffleWinCount) == 9
+    )
+}
+
+function DogBattle(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() && Hours == 4 && Minutes == 45 && DogHouseSong && location == MineEntrance && GirlsBeatenDogHouse == 6 && prev(GirlsBeatenDogHouse) == 5
+    )
+}
+
+function HighLow(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() && HarvestGoddessSong && location == GoddessPond && LowHighScore == 10 && prev(LowHighScore) == 9
     )
 }
 
@@ -910,6 +1112,20 @@ AnimalWin(Duck, "Golden Duck", "Win the Duck Festival", 10)
 AnimalWin(Cow, "Holy Cow!", "Win the Cow Festival", 10)
 AnimalWin(Sheep, "Counting Sheep", "Win the Sheep Festival", 10)
 //Festival Cheevos
-
-
+SingleFlagReverse(NewYearsDay, "Grain Smack", "Pound some rice in New Years Day", 3)
+AnyFlagTrueNotSum(SpringThanksgiving, "Sweet Biscuit", "Give your sweetheart some Cookies in the Spring Thanksgiving", 3)
 WinCookingFestival("Baking Master", "Win the Cooking Festival", 10)
+FestivalCheevo(KaiBeach, "Beach Opening Day", "Take part in the opening of Kai's summertime snack shack", 2)
+FestivalCheevo2(Fireworks, "Stunning Pyrotechnics", "Watch the beautiful Fireworks", 3)
+SingleFlag(HarvestFestival, "Communal Soup", "Provide an ingredient for the Harvest Festival pot", 2)
+AllFlagsTrue(PumpkinFestival, "Ghostrick Lantern", "Play a part in the Pumpkin Festival and recieve the 3 kids that come to your house", 2)
+SingleFlag(bit0(OrangeTeamStart), "Gleaming Gift", "Help Thomas and get a Golden Lumber in exchange", 5)
+AnyFlagTrueNotSum(WinterThanksgiving, "Sugared Cocoa", "Recieve Chocolates from a girl in the Winter Thanksgiving", 3)
+StarryNight("Flaming Flowers That Brightly Blaze", "Celebrate the Starry Night with someone special", 3, StarryNight)
+ChristmasCheevo("Stocking Festival", "Recieve a present from Thomas-Claus during Christmas", 3)
+SingleFlagReverse(NewYearsEve, "A Brand New Year", "Enjoy some festive Buckwheat Noodles on New Years Eve", 3)
+//Minigame Cheevos
+GirlSelect("Lady Remembrance","Win the Girl Select minigame", 3)
+BearShuffle("Witch's Plushes", "Win the Bear Shuffle minigame", 10)
+DogBattle("Harvest Quest", "Win the Doghouse Battle minigame", 10)
+HighLow("RNGoddess", "Score 10 points in the Guess High/Low minigame", 5)
