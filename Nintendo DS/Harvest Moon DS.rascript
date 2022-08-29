@@ -52,6 +52,104 @@ item_ToadstoolSeeds = 0x00e2
 
 //#endregion
 
+//Friendship Max 255
+//0x3dbd58 [8-bit] Celia's Friendship
+CeliaFP = byte(0x3dbd58)
+//0x3dbd80 [8-bit] Muffy's Friendship
+MuffyFP = byte(0x3dbd80)
+//0x3dbda8 [8-bit] Nami's Friendship
+NamiFP = byte(0x3dbda8)
+//0x3dbdd0 [8-bit] Romana's Friendship
+RomanaFP = byte(0x3dbdd0)
+//0x3dbe20 [8-bit] Lumina's Friendship
+LuminaFP = byte(0x3dbe20)
+//0x3dbe48 [8-bit] Wally's Friendship
+WallyFP = byte(0x3dbe48)
+//0x3dbe70 [8-bit] Chris' Friendship
+ChrisFP = byte(0x3dbe70)
+//0x3dbe98 [8-bit] Grant's Friendship
+GrantFP = byte(0x3dbe98)
+//0x3dbec0 [8-bit] Kate's Friendship
+KateFP = byte(0x3dbec0)
+//0x3dbee8 [8-bit] Hugh's Friendship
+HughFP = byte(0x3dbee8)
+//0x3dbf10 [8-bit] Carter's Friendship
+CarterFP = byte(0x3dbf10)
+//0x3dbf38 [8-bit] Flora's Friendship
+FloraFP = byte(0x3dbf38)
+//0x3dbf60 [8-bit] Vesta's Friendship
+VestaFP = byte(0x3dbf60)
+//0x3dbf88 [8-bit] Marlin's Friendship
+MarlinFP = byte(0x3dbf88)
+//0x3dbfb0 [8-bit] Ruby's Friendship
+RubyFP = byte(0x3dbfb0)
+//0x3dbfd8 [8-bit] Rock's Friendship
+RockFP = byte(0x3dbfd8)
+//0x3dc000 [8-bit] Dr. Hardy's Friendship
+HardyFP = byte(0x3dc000)
+//0x3dc028 [8-bit] Galen - Friendship Points
+GalenFP = byte(0x3dc028)
+//[8-bit] Nina - Friendship Points
+NinaFP = byte(0x3dc050)
+//0x3dc078 [8-bit] Daryll - Friendship Points
+DaryllFP = byte(0x3dc078)
+//0x3dc0f0 [8-bit] Griffin's Friendship
+GriffinFP = byte(0x3dc0f0)
+//0x3dc280 [8-bit] Popuri's Friendship
+PopuriFP = byte(0x3dc280)
+//0x3dc3e8 [8-bit] Gray's Friendship
+GrayFP = byte(0x3dc3e8)
+//0x3dc398 [8-bit] Rick's Friendship
+RickFP = byte(0x3dc398)
+//0x3dc320 [8-bit] Mary's Friendship
+MaryFP = byte(0x3dc320)
+//0x3dc2d0 [8-bit] Karen's Friendship Points
+KarenFP = byte(0x3dc2d0)
+//0x3dc2f8 [8-bit] Elli's Friendship
+ElliFP = byte(0x3dc2f8)
+//0x3dc3c0 [8-bit] Trent's Friendship
+TrentFP = byte(0x3dc3c0)
+//0x3dc2a8 [8-bit] Ann's Friendship
+AnnFP = byte(0x3dc2a8)
+//0x3dc370 [8-bit] Cliff's Friendship
+CliffFP = byte(0x3dc370)
+//0x3dc500 [8-bit] Witch's Princess' Friendship
+WitchFP = byte(0x3dc500)
+//0x3dc118 [8-bit] Van's Friendship
+VanFP = byte(0x3dc118)
+//0x3dc1b8 [8-bit] Takakura's Friendship
+TakakuraFP = byte(0x3dc1b8)
+//0x3dc438 [8-bit] Thomas' Friendship
+ThomasFP = byte(0x3dc438)
+//0x3dbdf8 [8-bit] Sebastian's Friendship
+SebastianFP = byte(0x3dbdf8)
+//0x3dc0a0 [8-bit] Cody's Friendship
+CodyFP = byte(0x3dc0a0)
+//0x3dc0c8 [8-bit] Gustafa's Friendship
+GustafaFP = byte(0x3dc0c8)
+//0x3dc168 [8-bit] Patrick's Friendship
+PatrickFP = byte(0x3dc168)
+//0x3dc140 [8-bit] Kassey's Friendship
+KasseyFP = byte(0x3dc140)
+//0x3dc190 [8-bit] Murrey's Friendship
+MurreyFP = byte(0x3dc190)
+//0x3dc1e0 [8-bit] Mukumuku's Friendship
+MukumukuFP = byte(0x3dc1e0)
+//0x3dc4b0 [8-bit] Leia's Friendship
+LeiaFP = byte(0x3dc4b0)
+//0x3dc4d8 [8-bit] Keira's Friendship
+KeiraFP = byte(0x3dc4d8)
+//0x3dc348 [8-bit] Kai's Friendship
+KaiFP = byte(0x3dc348)
+//0x3dc460 [8-bit] Gotz's Affection
+GotzFP = byte(0x3dc460)
+//0x3dc410 [8-bit] Harvest Goddess' Friendship
+GoddessFP = byte(0x3dc410)
+//0x3dc230 [8-bit] Barney's Friendship
+BarneyFP = byte(0x3dc230)
+//0x3dc258 [8-bit] Mimi's Friendship
+MimiFP = byte(0x3dc258)
+
 //Item Slots
 FirstItemSlot = 0x3d6b24
 LastItemSlot = 0x3d6bf8
@@ -164,6 +262,79 @@ BearShuffleWinCount = byte(0x3d33f4)
 GirlsBeatenDogHouse = byte(0x3d33ac)
 //0x3d33c8 [8-bit] Marriage Candidate - Doghouse Minigame / Low-High Minigame Score
 LowHighScore = byte(0x3d33c8)
+//0x3de0a6 Questions 5 - 13 0x3de0a8 Questions 22 - 29
+QuestionStart = 0x3de0a6
+QuestionEnd = 0x3de0a8
+//0x3de0a5 Bit 3 - Bit 7 - Questions 1-5
+Question1 = bit3(0x3de0a5)
+Question2 = bit4(0x3de0a5)
+Question3 = bit5(0x3de0a5)
+Question4 = bit6(0x3de0a5)
+Question5 = bit7(0x3de0a5)
+//0x3de0a9 Questions 30-35 (Bit 0 to Bit 5)
+Question30 = bit0(0x3de0a9)
+Question31 = bit1(0x3de0a9)
+Question32 = bit2(0x3de0a9)
+Question33 = bit3(0x3de0a9)
+Question34 = bit4(0x3de0a9)
+Question35 = bit5(0x3de0a9)
+ExtraQuestions = [Question1, Question2, Question3, Question4, Question5, Question30, Question31, Question32, Question33, Question34, Question35]
+//0x3de189 [N-bit] Casino Bought Flags Bit 7 - Teleport Stone
+TeleportStone = bit7(0x3de189)
+//0x3de18a Bit 0 - Truth Bangle
+TruthBangle = bit0(0x3de18a)
+//Bit 1 - Love Bangle
+LoveBangle = bit1(0x3de18a)
+//Bit 2 - Red Cloak
+RedCloak = bit2(0x3de18a)
+//Bit 3 - Godhand
+Godhand = bit3(0x3de18a)
+//Bit 4 - Miracle Gloves
+MiracleGloves = bit4(0x3de18a)
+//0x3ddc38 [N-bit] Card List | Common | 001 - 008
+CommonStart = 0x3ddc38
+//0x3ddc83 [N-bit] Card List | Common | 600 - 608
+CommonEnd = 0x3ddc83
+//0x3ddc84 [N-bit] Card List | Uncommon | 001 - 008
+UncommonStart = 0x3ddc84
+//0x3ddccf [N-bit] Card List | Uncommon | 600 - 608
+UncommonEnd = 0x3ddccf
+//0x3ddcd0 [N-bit] Card List | Rare | 001 - 008
+RareStart = 0x3ddcd0
+//0x3ddd1b [N-bit] Card List | Rare | 600 - 608
+RareEnd = 0x3ddd1b
+//0x3ddd1c [N-bit] Card List | Very Rare | 001 - 008
+VeryRareStart = 0x3ddd1c
+//0x3ddd67 [N-bit] Card List | Very Rare | 600 - 608
+VeryRareEnd = 0x3ddd67
+//0x3ddd68 [N-bit] Card List | Super Rare | 001 - 008
+SuperRareStart = 0x3ddd68
+//0x3dddb3 [N-bit] Card List | Super Rare | 600 - 608
+SuperRareEnd = 0x3dddb3
+//0x3de0aa Song Flags 1
+SongFlags1 = 0x3de0aa
+//0x3de0ab Song Flags 2
+SongFlags2 = 0x3de0ab
+//0x3de0a9 Bit 6 - Spring Song Bit 7 - Town Spirit
+SpringSong = bit6(0x3de0a9)
+TownSpirit = bit7(0x3de0a9)
+//0x3de0ac Bit 0 - WALK
+WALK = bit0(0x3de0ac)
+//Bit 1 - Sprite Samba
+SpriteSamba = bit1(0x3de0ac)
+//Bit 2 - FoMT Spring Song
+FOMTSpring = bit2(0x3de0ac)
+//Bit 3 - FoMT Summer Song
+FOMTSummer = bit3(0x3de0ac)
+//Bit 4 - FoMT Fall Song
+FOMTFall = bit4(0x3de0ac)
+//Bit 5 - FoMT Winter Song
+FOMTWinter = bit5(0x3de0ac)
+//BIt 6 - FoMT Last Dance
+FOMTLastDance = bit6(0x3de0ac)
+RemainingSongs = [SpringSong, TownSpirit, WALK, SpriteSamba, FOMTSpring, FOMTSummer, FOMTFall, FOMTWinter, FOMTLastDance]
+//0x3dde0e Bit 3 - The Painting, part 1
+ThePaintingPart1 = bit3(0x3dde0e)
 
 //Bought/Upgraded Flags
 //0x3de17f = Bit 7 - Basquet
@@ -327,6 +498,7 @@ TakakuraHouse = 0x34
 Stable = 0x37
 Mine = 0x3c
 LegendarySwordPlace = 0x40
+Casino = 0x2e
 //0x39 = Mine Entrance / Minigames
 MineEntrance = 0x39
 
@@ -437,6 +609,7 @@ lpPopUp = 0x01
 
 //Cutscene Check
 InCutscene = bit0(0x3d31d8) == 1
+InCutscenePrev = prev(bit0(0x3d31d8)) == 1
 
 //OnCellphone Check
 OnCellphone = byte(0x3d687c) == 0x01
@@ -586,6 +759,23 @@ function AnyFlagTrueNotSum(Flags, title, description, points){
         title, description, points,
         trigger = SaveProtection() &&
         FlagOrChain(Flags)
+    )
+}
+
+//0x3dd289-0x3dd63f
+function FlagOrChainCrop(){
+    logic = always_false()
+    for flag in range(0x3dd289, 0x3dd63f, 50){
+        logic = logic || (bit1(flag) == 1 && prev(bit1(flag)) == 0)
+    }
+    return logic
+}
+
+function CropLevel(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = SaveProtection() &&
+        FlagOrChainCrop()
     )
 }
 
@@ -786,6 +976,26 @@ function BitflagRange(RangeStart, RangeEnd, ExtraFlags, title, description, poin
                 (prev(BitflagRangeCount(RangeStart, RangeEnd)) + sum_of(ExtraFlags, f => prev(f))) == (length(range(RangeStart, RangeEnd))*8) + length(ExtraFlags) - 1            
        )                                  
 }
+
+function BitflagRangeLimit(RangeStart, RangeEnd, ExtraFlags, limit, title, description, points){    
+       achievement(
+            title, description, points,
+            trigger = SaveProtection() &&
+             measured((BitflagRangeCount(RangeStart, RangeEnd) + sum_of(ExtraFlags, f => f)) >= limit) &&
+                (prev(BitflagRangeCount(RangeStart, RangeEnd)) + sum_of(ExtraFlags, f => prev(f))) < limit           
+       )                                  
+}
+
+
+function BitflagRangeQuestions(RangeStart, RangeEnd, ExtraFlags, title, description, points){    
+       achievement(
+            title, description, points,
+            trigger = SaveProtection() &&
+             measured((BitflagRangeCount(RangeStart, RangeEnd) + sum_of(ExtraFlags, f => f)) == 0) &&
+                (prev(BitflagRangeCount(RangeStart, RangeEnd)) + sum_of(ExtraFlags, f => prev(f))) == 34          
+       )                                  
+}
+
 
 function AddSourceCount32bit(RangeStart, RangeEnd){
     count = 0
@@ -1031,6 +1241,275 @@ function HighLow(title, description, points){
     )
 }
 
+//0x3b5ef9 [8-bit] Casino Minigame Identifier Upper 4 = 0xc = Matching 0xb = Poker 0xa = Blackjack
+CasinoIdentifier = high4(0x3b5ef9)
+Matching = 0xc
+Poker = 0xb
+Blackjack = 0xa
+
+function CasinoCheck(Type){
+    logic = OnCellphone && location == Casino && CasinoIdentifier == Type
+    return logic
+}
+
+//0x3b65e7 [8-bit] Casino Match Started
+//0x01 = Started
+MatchStarted = bit0(0x3b65e7) == 1
+//0x3b65be [8-bit] Player Score - Matching 0x04 = Win
+MatchScore = byte(0x3b65be)
+
+function MatchingCasino(title, description, points){
+    achievement(
+        title, description, points, 
+        trigger = CasinoCheck(Matching) && MatchStarted && (prev(MatchScore) == 3 && MatchScore == 4)
+    )
+}
+
+//0x3b64d8 [8-bit] Poker type of hand
+//0x0a = 1 Pair
+//0x09 = 2 Pair
+//0x08 = 3-of-a-Kind
+//0x07 = Straight
+//0x06 = Flush
+//0x05 = Full House
+//0x04 = 4 of a Kind
+//0x03 = Straight Flush
+//0x02 = 5 card
+//0x01 = Royal Flush
+PokerHand = low4(0x3b64d8)
+
+function PokerCasino(title, description, points){
+    achievement(
+        title, description, points, 
+        trigger = CasinoCheck(Poker) && ((prev(PokerHand) == 0 || ((prev(PokerHand) >= 8 ) && (prev(PokerHand) < 11 ))) && PokerHand <= 7 && PokerHand > 0)
+    )
+}
+
+//0x3b663a [8-bits] Type of blackjack, blackjack minigame
+//0x04 = Blackjack
+//0x03 = 5 Card Charlie
+//0x02 = Three Seven
+//0x01 = 6 Card Charlie
+BlackjackHand = low4(0x3b663a)
+
+function BlackjackCasino(title, description, points){
+    achievement(
+        title, description, points, 
+        trigger = CasinoCheck(Blackjack) && ((prev(BlackjackHand) == 0 || ((prev(BlackjackHand) == 4 ))) && BlackjackHand <= 3 && BlackjackHand> 0)
+    )
+}
+
+//0x3dde09 Bit 0 - Initial Mayor Cutscene
+InitialMayorCutscene = bit0(0x3dde09)
+//[8-bit] Related to convo script
+//0x3d31e1 0x0c = Check for ending in initial cutscene
+EndingCheck = byte(0x3d31e1)
+
+function InitialCutscene(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = once(SaveProtection() && InitialMayorCutscene == 1 && prev(InitialMayorCutscene) == 0) &&
+            InCutscene && EndingCheck == 0x0c && prev(EndingCheck) == 0x0b && location == Farmland &&
+            never(!InCutscene && InCutscenePrev)            
+    )
+}
+
+//0x3dde0e Bit 4 - Fierce Bargaining
+FierceBargaining = bit4(0x3dde0e)
+//0x3dde10 Bit 0 - Kate's Life Advice
+KateLifeAdvice = bit0(0x3dde10)
+//0x3dde08 Bit 5 - Strange Dream
+StrangeDream = bit5(0x3dde08)
+//0x3dde15 Bit 2 = Mukumuku's Gift
+MukumukuGift = bit2(0x3dde15)
+//0x3dde15 Bit 3 = Mukumuku's Sickness
+MukumukuSickness = bit3(0x3dde15)
+//0x3dde11 Bit 7 - Path to cooking expert
+CookingExpert = bit7(0x3dde11)
+//0x3dde14 Bit 0 - Attacked
+//Bit 1 - New Trade Negotiations
+//Bit 2 - Muffy's Meddling
+Attacked = bit0(0x3dde14)
+NewTradeNegotiations = bit1(0x3dde14)
+MuffyMeddling = bit2(0x3dde14)
+//0x3dde14 Bit 6 - Begging, part 1
+BeggingPart1 = bit6(0x3dde14)
+//0x3dde14 Bit 4 - Secret Fireworks - Part 1
+SecretFireworksPart1 = bit4(0x3dde14)
+//0x3dde14 Bit 5 - Secret Fireworks - Part 2
+SecretFireworksPart2 = bit5(0x3dde14)
+//0x3dde13 [N-bit] Event Flags
+//Bit 2 - Persuit of Beauty
+//Bit 3 - Cody's Aesthetics
+PersuitOfBeauty = bit2(0x3dde13)
+CodyAesthetics = bit3(0x3dde13)
+//0x3dde17 Bit 7 - A Visit to Romana
+AVisitToRomana = bit7(0x3dde17)
+//0x3dde0e Bit 6 - Cooking Pride
+CookingPride = bit6(0x3dde0e)
+//0x3dde17 Bit 6 - Dr.Hardy's Help
+DrHardyHelp = bit6(0x3dde17)
+//0x3dde19 Bit 0 - Teacher Student
+TeacherStudent = bit0(0x3dde19)
+//0x3dde17 Bit 2 - Cooking Bonzai
+CookingBonzai = bit2(0x3dde17)
+//0x3dde0d Bit 7 - Karens Earring
+KarenEarring = bit7(0x3dde0d)
+//0x3dde14 Bit 3 - Karen's Meddling
+KarenMeddling = bit3(0x3dde14)
+//0x3dde1a Bit 1 - Iron Arts
+IronArts = bit1(0x3dde1a)
+//0x3dde17 Bit 3 - Fireworks Shop
+FireworksShop = bit3(0x3dde17)
+//0x3dde0f Bit 2 - The Big Plan
+TheBigPlan = bit2(0x3dde0f)
+//0x3dde0f Bit 5 - Family Argument - Part 1
+FamilyArgumentPart1 = bit5(0x3dde0f)
+//0x3dde0f Bit 0 - Best Friends
+BestFriends = bit0(0x3dde0f)
+//0x3dde0e Bit 0 - Cocktail Challenge
+CocktailChallenge = bit0(0x3dde0e)
+//0x3dde14 Bit 7 - Begging, part 2
+BeggingPart2 = bit7(0x3dde14)
+//Bit 6 - Ancestor's Pride
+AncestorPride = bit6(0x3dde13)
+//0x3dde17 Bit 0 - Popuri Problem
+PopuriProblem = bit0(0x3dde17)
+//0x3dde13 Bit 4 - Path to Musician
+PathToMusician = bit4(0x3dde13)
+//0x3dde0e Bit 2 - Family
+Family = bit2(0x3dde0e)
+//0x3dde12 Bit 0 - Fickleness Expert
+FicklenessExpert = bit0(0x3dde12)
+//0x3dde0d Bit 5 - Thankful Feelings
+ThankfulFeelings = bit5(0x3dde0d)
+//0x3dde16 Bit 0 - Budding Romance
+BuddingRomance = bit0(0x3dde16)
+//0x3dde10 Bit 1 - The Apprentice, Part 1
+TheApprenticePart1 = bit1(0x3dde10)
+//0x3dde0f Bit 6 - Family Argument - Part 2
+FamilyArgumentPart2 = bit6(0x3dde0f)
+//0x3dde13 Bit 7 - Original Cocktail Drink
+OriginalCocktailDrink = bit7(0x3dde13)
+//0x3dde08 Bit 2 - 2nd Hot Spring
+SecondHotSpring = bit2(0x3dde08)
+//0x3dde16 Bit 6 - Princess' Past
+PrincessPast = bit6(0x3dde16)
+//0x3dde0f Bit 3 - Education Policy Part 1
+EducationPolicyPart1 = bit3(0x3dde0f)
+//0x3dde10 Bit 5 - Education Policy, Part 2
+EducationPolicyPart2 = bit5(0x3dde10)
+
+//0x3dde29 Bit 6 - Muffin and Griffin Marriage
+MuffinGriffinMarriage = bit6(0x3dde29)
+//0x3dde28 Bit 4 - Flora and Carter Marriage
+FloraCarterMarriage = bit4(0x3dde28)
+//0x3dde27 Bit 2 - Nami and Gustafa Marriage
+NamiGustafaMarriage = bit2(0x3dde27)
+//0x3dde29 Bit 1 - Celia and Marlin Marriage
+CeliaMarlinMarriage = bit1(0x3dde29)
+//0x3dde27 Bit 7 - Rock and Lumina Marriage
+RockLuminaMarriage = bit7(0x3dde27)
+
+//0x3dde0e Bit 1 - Somewhere, Sometime
+SomewhereSometime = bit1(0x3dde0e)
+
+//0x3dde12 Bit 4 - Bonsai Concert
+BonsaiConcert = bit4(0x3dde12)
+
+//Bit 4 - Celia Yellow Heart Event
+CeliaYellow = bit4(0x3dddd6)
+//Bit 4 - Flora Yellow Heart Event
+FloraYellow = bit4(0x3dddd3)
+//0x3dddd2 Bit 6 - Lumina Yellow Heart Event
+LuminaYellow = bit6(0x3dddd2)
+//0x3dddd1 Bit 1 - Muffy Yellow Heart Event
+MuffyYellow = bit1(0x3dddd1)
+//0x3dddd1 Bit 7 - Nami Yellow Heart Event
+NamiYellow = bit7(0x3dddd1)
+//0x3dddd6 Bit 0 - Ann Yellow Heart Event
+AnnYellow = bit0(0x3dddd6)
+//0x3dddd7 Bit 5 - Elli Yellow Heart Event
+ElliYellow = bit5(0x3dddd7)
+//0x3dddd4 Bit 3 - Karen Yellow Heart Event
+KarenYellow = bit3(0x3dddd4)
+//0x3dddd6 Bit 7 - Mary Yellow Heart Event
+MaryYellow = bit7(0x3dddd6)
+//0x3dddd5 Bit 2 - Popuri Yellow Heart Event
+PopuriYellow = bit2(0x3dddd5)
+
+//0x3dddd1 Bit 3 - Muffy Marriage
+MuffyMarriage = bit3(0x3dddd1)
+//0x3dddd2 BIt 1 - Nami Marriage
+NamiMarriage = bit1(0x3dddd2)
+//0x3dddd3 Bit 0 - Lumina Marriage
+LuminaMarriage = bit0(0x3dddd3)
+//0x3dddd3 Bit 7 - Flora Marriage
+FloraMarriage = bit7(0x3dddd3)
+//0x3dddd9 Bit 2 - Celia Marriage
+CeliaMarriage = bit2(0x3dddd9)
+FMNMarriages = [MuffyMarriage, NamiMarriage, LuminaMarriage, FloraMarriage, CeliaMarriage]
+
+//0x3dddd8 Bit 6 - H. Goddess Marriage
+HGoddessMarriage = bit6(0x3dddd8)
+//0x3dddd9 Bit 5 - W. Princess Marriage
+WPrincessMarriage = bit5(0x3dddd9)
+//0x3ddddb Bit 0 - Keira Marriage
+KeiraMarriage = bit0(0x3ddddb)
+//0x3ddddb Bit 6 - Leia Marriage
+LeiaMarriage = bit6(0x3ddddb)
+
+//0x3dddd4 Bit 4 - Proposed to Karen
+KarenProposal = bit4(0x3dddd4)
+//0x3dddd5 Bit 3 - Proposed to Popuri
+PopuriProposal = bit3(0x3dddd5)
+//0x3dddd6 Bit 1 - Proposed to Ann
+AnnProposal = bit1(0x3dddd6)
+//0x3dddd7 Bit 0 - Proposed to Mary
+MaryProposal = bit0(0x3dddd7)
+//0x3dddd7 Bit 6 - Proposed to Elli
+ElliProposal = bit6(0x3dddd7)
+MTMarriages = [KarenProposal, PopuriProposal, AnnProposal, MaryProposal, ElliProposal]
+
+
+//0x3dbd34 [16-bit] Child Age
+ChildAge = word(0x3dbd34)
+
+function StrangeDreamCheevo(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = once(SaveProtection() && StrangeDream == 1 && prev(StrangeDream) == 0) &&
+        location != FarmHouse &&
+        never(location == FarmHouse && Hours == 6 && Minutes == 0)
+    )
+}
+
+function OrNextFlagsEvents(Flags){
+    logic = always_false()
+    for eventFlag in Flags{
+        logic = logic || once(SaveProtection() && (eventFlag == 1 && prev(eventFlag) == 0))
+    }
+    return logic  
+}
+
+
+function EventCheevoGroup(title, description, points, eventFlags){
+    achievement(
+        title, description, points,
+        trigger = 
+            OrNextFlagsEvents(eventFlags) &&
+            !InCutscene
+    )
+}
+
+function SonCheevo(title, description, points){
+    achievement(
+        title, description, points,
+        trigger = 
+        SaveProtection() && ChildAge >= 1 && prev(ChildAge) == 0
+    )
+}
+
 //Tool Cheevos
 EventCheevo("Angler's Heritage", "Get the fishing rod", 1, RecieveFishingRod)
 BuyOrUpgradeCheevo("Kuroko no Basket", "Buy the Basket", 1, BoughtBasquet)
@@ -1070,8 +1549,8 @@ SingleFlag(Cottage, "Vacation Villa", "Build the cottage on the desert island", 
 //Mining Cheevos
 SingleFlag(SecondMine, "10 Floors of Mystery", "Unlock the 2nd mine", 5)
 SingleFlag(ThirdMine, "255 Floors of Grief", "Unlock the 3rd mine", 10)
-SingleFlag(FourthMine, "999 Floors of Death [m]", "Unlock the 4rd mine", 25)
-CertainValueRange(50000, 65535, FourthMineLowestFloor, "65535 Floors of Despair [m] ", "Reach the bottom of the 4th mine", 50)
+SingleFlag(FourthMine, "999 Floors of Death [m]", "Unlock the 4th mine", 25)
+CertainValueRange(50000, 65535, FourthMineLowestFloor, "65535 Floors of Despair [m]", "Reach the bottom of the 4th mine", 50)
 EventCheevo("Marvelous Gems [m]", "Find all the wonderful stones in the 4th mine and ask for the Goddess Gift", 10, WonderfulsFlag)
 BitflagRange(MineItemStart, MineItemEnd, RemainingMineFlags, "Quarry Discovery [m]", "Find all the mine items", 10)
 AddSource32bitlessthan(MineEnemiesStart, MineEnemiesEnd, "Is That... Me? [m]", "Kill all the mine creatures", 10)
@@ -1114,18 +1593,217 @@ AnimalWin(Sheep, "Counting Sheep", "Win the Sheep Festival", 10)
 //Festival Cheevos
 SingleFlagReverse(NewYearsDay, "Grain Smack", "Pound some rice in New Years Day", 3)
 AnyFlagTrueNotSum(SpringThanksgiving, "Sweet Biscuit", "Give your sweetheart some Cookies in the Spring Thanksgiving", 3)
-WinCookingFestival("Baking Master", "Win the Cooking Festival", 10)
+WinCookingFestival("Baking Master", "Win the Cooking Festival", 4)
 FestivalCheevo(KaiBeach, "Beach Opening Day", "Take part in the opening of Kai's summertime snack shack", 2)
 FestivalCheevo2(Fireworks, "Stunning Pyrotechnics", "Watch the beautiful Fireworks", 3)
 SingleFlag(HarvestFestival, "Communal Soup", "Provide an ingredient for the Harvest Festival pot", 2)
 AllFlagsTrue(PumpkinFestival, "Ghostrick Lantern", "Play a part in the Pumpkin Festival and recieve the 3 kids that come to your house", 2)
-SingleFlag(bit0(OrangeTeamStart), "Gleaming Gift", "Help Thomas and get a Golden Lumber in exchange", 5)
+SingleFlag(bit0(OrangeTeamStart), "Gleaming Gift", "Help Thomas and get a Golden Lumber in exchange", 4)
 AnyFlagTrueNotSum(WinterThanksgiving, "Sugared Cocoa", "Recieve Chocolates from a girl in the Winter Thanksgiving", 3)
 StarryNight("Flaming Flowers That Brightly Blaze", "Celebrate the Starry Night with someone special", 3, StarryNight)
-ChristmasCheevo("Stocking Festival", "Recieve a present from Thomas-Claus during Christmas", 3)
+ChristmasCheevo("Stocking Festival", "Recieve a present from Thomas-Claus during Christmas", 4)
 SingleFlagReverse(NewYearsEve, "A Brand New Year", "Enjoy some festive Buckwheat Noodles on New Years Eve", 3)
 //Minigame Cheevos
 GirlSelect("Lady Remembrance","Win the Girl Select minigame", 3)
 BearShuffle("Witch's Plushes", "Win the Bear Shuffle minigame", 10)
 DogBattle("Harvest Quest", "Win the Doghouse Battle minigame", 10)
 HighLow("RNGoddess", "Score 10 points in the Guess High/Low minigame", 5)
+BitflagRangeQuestions(QuestionStart, QuestionEnd, ExtraQuestions, "Bokumono Encyclopedia", "Answer all 35 questions of Channel 9 correctly", 10)
+//Casino Cheevos
+MatchingCasino("Pairing and Matching", "Get 4 matches in the Casino Matching game", 3)
+PokerCasino("King of Poker", "Get a Straight of better in the Casino Poker game", 5)
+BlackjackCasino("What's 9+10?", "Get a 5-Card Charlie or higher in the Casino Blackjack game", 5)
+BuyOrUpgradeCheevo("Teletransportation Gem", "Buy the Teleport Stone", 2, TeleportStone)
+BuyOrUpgradeCheevo("Rich Presence", "Buy the Truth Bangle", 2, TruthBangle)
+BuyOrUpgradeCheevo("Stalking Bracelet", "Buy the Love Bangle", 3, LoveBangle)
+BuyOrUpgradeCheevo("Olé!", "Buy the Red Cloak", 5, RedCloak)
+BuyOrUpgradeCheevo("Get Over Here", "Buy the Godhand", 10, Godhand)
+BuyOrUpgradeCheevo("Farming Simulator", "Buy the Miracle Gloves", 10, MiracleGloves)
+BitflagRange(CommonStart, CommonEnd, [], "Normal Rare", "Have all the Common cards", 5)
+BitflagRange(UncommonStart, UncommonEnd, [], "Super Rare", "Have all the Uncommon cards", 5)
+BitflagRange(RareStart, RareEnd, [], "Parallel Rare", "Have all the Rare cards", 10)
+BitflagRange(VeryRareStart, VeryRareEnd, [], "Secret Rare", "Have all the Very Rare cards", 25)
+BitflagRangeLimit(SuperRareStart, SuperRareEnd, [], 304, "Secret Ultra Rare", "Have 304 Super Rare cards", 25)
+BitflagRange(CommonStart, SuperRareEnd, [], "Filled Binder", "Collect all cards", 50)
+BitflagRange(SongFlags1, SongFlags2, RemainingSongs, "Nostalgic Tracks", "Have all song records [GBA]", 10)
+CropLevel("Quality Assurance", "Ship a level 10 crop", 10)
+//Event Cheevos
+EventCheevo("The Painting - Part 1", "Hear Romana talk about Jeff and his painting", 2, ThePaintingPart1)
+EventCheevo("Kate's Life Advice", "Overhear Lumina and Kate's Conversation", 2, KateLifeAdvice)
+EventCheevo("Fierce Bargaining", "Watch Van do a special deal for Romana", 2, FierceBargaining)
+StrangeDreamCheevo("New Year Dream [m]", "Have a weird dream in New Years Eve", 2)
+EventCheevo("Mukumuku's Gift", "Receive a fish from Mukumuku", 2, MukumukuGift)
+
+EventCheevo("Mukumuku's Sickness", "Take Mukumuku to the clinic after giving him a mushroom", 2, MukumukuSickness)
+EventCheevo("Path to Cooking Expert", "See Ruby's problems with cooking", 2, CookingExpert)
+EventCheevo("Attacked!", "See Murrey steal some food from Van", 2, Attacked)
+EventCheevo("New Trade Negotiations", "Watch Daryll offer his 'Super Ultra Great Delicious Wonderful Water Pistol' for sale", 2, NewTradeNegotiations)
+EventCheevo("Muffy's Meddling", "Watch Kassey complimenting Muffy at the bar", 2, MuffyMeddling)
+EventCheevo("Begging - Part 1", "See Murrey ask for the 'usual' at the Farm Shop for the first time", 2, BeggingPart1)
+EventCheevo("Secret Fireworks - Part 1", "Watch Kassey work on making the fireworks for next year's Fireworks Festival", 2, SecretFireworksPart1)
+EventCheevo("Secret Fireworks - Part 2", "See the two brothers quarrelling about the way fireworks are made", 2, SecretFireworksPart2)
+EventCheevo("Persuit of Beauty", "Be asked about what the ultimate beauty is by Cody", 2, PersuitOfBeauty)
+EventCheevo("Cody's Aesthetics", "Meet Cody in his house and hear about his worry about his next artwork", 2, CodyAesthetics)
+EventCheevo("2nd Hot Spring", "Get a 2nd hot spring built by using the 1st one 100 times", 2, SecondHotSpring)
+EventCheevo("Bonsai Contest", "See Galen showing off his Bonsai tree to Hardy", 2, BonsaiConcert)
+EventCheevo("Budding Romance", "Hear Mimi talk about wanting love", 2, BuddingRomance)
+EventCheevo("The Apprentice", "Watch Kate and Mary talking about books [GBA]", 2, TheApprenticePart1)
+
+EventCheevo("A Visit to Romana", "Watch Elli checkup on Romana [GBA]", 2, AVisitToRomana)
+EventCheevo("Cooking Pride", "Eat the Takaran Pepe Special made by Sebastian [GBA]", 2, CookingPride)
+
+EventCheevo("Dr. Hardy's Help", "Watch Elli get some medicine to Dr. Hardy [GBA]", 2, DrHardyHelp)
+EventCheevo("Teacher Student", "Hear Trent and Dr. Hardy's medicinal conversation [GBA]", 2, TeacherStudent)
+EventCheevo("Cooking Bonzai", "Try some of Ruby's Stir Fry [GBA]", 2, CookingBonzai)
+EventCheevo("Karen's Earring", "See Muffy and Karen talk about earrings [GBA]", 2, KarenEarring)
+EventCheevo("Karen's Meddling", "Watch Kassey complimenting Karen at the bar [GBA]", 2, KarenMeddling)
+EventCheevo("Iron Arts", "See Gray get inspired by Cody [GBA]", 2, IronArts)
+EventCheevo("Fireworks Shop", "Be kicked out of Kassey and Patrick's house [GBA]", 2, FireworksShop)
+EventCheevo("The Big Plan [m]", "Learn from Wally about what 'Project B' is *You are not married*", 3, TheBigPlan)
+EventCheevo("Family Argument - Part 1 [m]", "Watch Kate and Grant's first argument *You are not married*", 3, FamilyArgumentPart1)
+EventCheevo("Family Argument - Part 2 [m]", "Watch Kate and Grant's second argument", 3, FamilyArgumentPart2)
+EventCheevo("Best Friends [m]", "Get told that one of Mary's books has won a prize [GBA] *Not married to Lumina*", 3, BestFriends)
+EventCheevo("Ancestor's Pride [m]", "Learn about Griffin's parents professions *Not married to Muffy*", 3, AncestorPride)
+
+EventCheevo("Somewhere, Sometime [m]", "See Cliff thanking Nami for helping him out [GBA] *Nami is not married", 3, SomewhereSometime)
+EventCheevo("Popuri Problem [m]", "See Popuri discover Nami's hiding place [GBA] *Nami is not married*", 3, PopuriProblem)
+EventCheevo("Path to Musician [m]", "Learn about Gustafa's family of musicians *Nami and Gustafa are not married", 3, PathToMusician)
+EventCheevo("Original Cocktail Drink [m]", "Taste test some drinks and choose the best one at the bar *Married to Muffy*", 3, OriginalCocktailDrink)
+EventCheevo("Family [m]", "Watch Nami apologize to Ruby at the Inn *Nami and Gustafa are married*", 3, Family)
+EventCheevo("Fickleness Expert [m]", "Watch Rock and Lumina's altercation at the Bar *Lumina and Rock are married*", 3, FicklenessExpert)
+EventCheevo("Thankful Feelings [m]", "See Celia giving a present from herself and Marlin to Vesta *Celia and Marlin are married*", 3, ThankfulFeelings)
+
+
+EventCheevo("Cocktail Challenge [m]", "Tell Muffy and Griffin to work together in the creation of a new type of drink *Muffy and Griffin are married*", 3, CocktailChallenge)
+EventCheevo("Begging - Part 2 [m]", "See Murrey ask for the 'usual' at the bar for the second time *Muffy and Griffin are married*", 3, BeggingPart2)
+EventCheevo("Princess' Past [m]", "Learn about Keira's past *Married to Keira*", 3, PrincessPast)
+EventCheevo("Education Policy - Part 1 [m]", "Be asked about your child's future *Have a Child at Stage 1*", 3, EducationPolicyPart1)
+EventCheevo("Education Policy - Part 2 [m]", "Judge the race between Wally and Chris", 3, EducationPolicyPart2)
+
+
+//Friendship Cheevos
+DeltaToMemLessThan(AnnFP, 255, "Stressed Girl", "Become Ann's best friend [GBA]", 5)
+
+DeltaToMemLessThan(BarneyFP, 255, "Ringmaster", "Become Barney's best friend", 5)
+
+DeltaToMemLessThan(CarterFP, 255, "Archeologist", "Become Carter's best friend", 5)
+
+DeltaToMemLessThan(CeliaFP, 255, "Polite Farmer", "Become Celia's best friend", 5)
+
+DeltaToMemLessThan(ChrisFP, 255, "Sports Announcer", "Become Chris' best friend", 5)
+
+DeltaToMemLessThan(CliffFP, 255, "Shy Wanderer", "Become Cliff's best friend [GBA]", 5)
+
+DeltaToMemLessThan(CodyFP, 255, "Sculpture Artist", "Become Cody's best friend", 5)
+
+DeltaToMemLessThan(DaryllFP, 255, "Crazy Scientist", "Become Daryll's best friend", 5)
+
+DeltaToMemLessThan(ElliFP, 255, "Delicate Nurse", "Become Elli's best friend [GBA]", 5)
+
+DeltaToMemLessThan(FloraFP, 255, "Mine Researcher", "Become Flora's best friend", 5)
+
+DeltaToMemLessThan(GalenFP, 255, "Old Wanderer", "Become Galen's best friend", 5)
+
+DeltaToMemLessThan(GotzFP, 255, "Man of the Woods", "Become Gotz's best friend", 5)
+
+DeltaToMemLessThan(GrantFP, 255, "Salaryman", "Become Grant's best friend", 5)
+
+DeltaToMemLessThan(GrayFP, 255, "The Apprentice Blacksmith", "Become Gray's best friend [GBA]", 5)
+
+DeltaToMemLessThan(GriffinFP, 255, "Gentle Guitarist", "Become Griffin's best friend", 5)
+
+DeltaToMemLessThan(GustafaFP, 255, "Local Hippie", "Become Gustafa's best friend", 5)
+
+DeltaToMemLessThan(GoddessFP, 255, "Crop Deity", "Become Harvest Goddess' best friend", 5)
+
+DeltaToMemLessThan(HardyFP, 255, "Local Physician", "Become Hardy's best friend", 5)
+
+DeltaToMemLessThan(HughFP, 255, "Athletic Youngster", "Become Hugh's best friend", 5)
+
+DeltaToMemLessThan(KaiFP, 255, "Beach Boy", "Become Kai's best friend", 5)
+
+DeltaToMemLessThan(KarenFP, 255, "Cheerleader", "Become Karen's best friend [GBA]", 5)
+
+DeltaToMemLessThan(KasseyFP, 255, "Serious Brother", "Become Kassey's best friend", 5)
+
+DeltaToMemLessThan(KateFP, 255, "Bored Tomboy", "Become Kate's best friend", 5)
+
+DeltaToMemLessThan(KeiraFP, 255, "Sleeping Beauty", "Become Keira's best friend", 5)
+
+DeltaToMemLessThan(LeiaFP, 255, "Sea Mermaid", "Become Leia's best friend", 5)
+
+DeltaToMemLessThan(LuminaFP, 255, "Proper Pianist", "Become Lumina's best friend", 5)
+
+DeltaToMemLessThan(MarlinFP, 255, "Reserved Farmer", "Become Marlin's best friend", 5)
+
+DeltaToMemLessThan(MaryFP, 255, "Librarian", "Become Mary's best friend [GBA]", 5)
+
+DeltaToMemLessThan(MimiFP, 255, "Acrobat", "Become Mimi's best friend", 5)
+
+DeltaToMemLessThan(MukumukuFP, 255, "White Legend", "Become Mukumuku's best friend", 5)
+
+DeltaToMemLessThan(MurreyFP, 255, "Wild Rascal", "Become Murrey's best friend", 5)
+
+DeltaToMemLessThan(MuffyFP, 255, "Cheerful Bartender", "Become Muffy's best friend", 5)
+
+DeltaToMemLessThan(NamiFP, 255, "Independant Hiker", "Become Nami's best friend", 5)
+
+DeltaToMemLessThan(NinaFP, 255, "Retired Lady", "Become Nina's best friend", 5)
+
+DeltaToMemLessThan(PatrickFP, 255, "Friendly Brother", "Become Patrick's best friend", 5)
+
+DeltaToMemLessThan(PopuriFP, 255, "Floriculture", "Become Popuri's best friend [GBA]", 5)
+
+DeltaToMemLessThan(RickFP, 255, "Concerned Brother", "Become Rick's best friend [GBA]", 5)
+
+DeltaToMemLessThan(RockFP, 255, "Valley's Playboy", "Become Rock's best friend", 5)
+
+DeltaToMemLessThan(RomanaFP, 255, "Fancy Grandma", "Become Romana's best friend", 5)
+
+DeltaToMemLessThan(RubyFP, 255, "Landlord", "Become Ruby's best friend", 5)
+
+DeltaToMemLessThan(SebastianFP, 255, "Elderly Butler", "Become Sebastian's best friend", 5)
+
+DeltaToMemLessThan(TakakuraFP, 255, "Mellow Advisor", "Become Takakura's best friend", 5)
+
+DeltaToMemLessThan(ThomasFP, 255, "Mr. Mayor", "Become Thomas' best friend", 5)
+
+DeltaToMemLessThan(TrentFP, 255, "Doctor M.D.", "Become Trent's best friend [GBA]", 5)
+
+DeltaToMemLessThan(VanFP, 255, "Merchandiser", "Become Van's best friend", 5)
+
+DeltaToMemLessThan(VestaFP, 255, "Farm Owner", "Become Vesta's best friend", 5)
+
+DeltaToMemLessThan(WallyFP, 255, "Sports Dad", "Become Wally's best friend", 5)
+
+DeltaToMemLessThan(WitchFP, 255, "Royal Enchantress", "Become Witch Princess' best friend", 5)
+//Wedding Cheevos
+EventCheevo("Ancient Royal Wedding", "Celebrate Flora and Carter's wedding", 10, FloraCarterMarriage)
+EventCheevo("It Just Clicked", "Celebrate Muffy and Griffin's wedding", 10, MuffinGriffinMarriage)
+EventCheevo("You Feel Like Home", "Celebrate Nami and Gustafa's wedding", 10, NamiGustafaMarriage)
+EventCheevo("Farmer Couple", "Celebrate Celia and Marlin's wedding", 10, CeliaMarlinMarriage)
+EventCheevo("Childhood Friends", "Celebrate Lumina and Rock's wedding", 10, RockLuminaMarriage)
+
+//HeartEvents Cheevos
+EventCheevo("Ranch Connection", "See all 4 of Celia's heart events", 10, CeliaYellow)
+EventCheevo("Innocent Relationship", "See all 4 of Flora's heart events", 10, FloraYellow)
+EventCheevo("Movie Night", "See all 4 of Lumina's heart events", 10, LuminaYellow)
+EventCheevo("Pond Date", "See all 4 of Muffy's heart events", 10, MuffyYellow)
+EventCheevo("Beach Hangout", "See all 4 of Nami's heart events", 10, NamiYellow)
+EventCheevo("Demanding Wishes", "See all 4 of Ann's heart events [GBA]", 10, AnnYellow)
+EventCheevo("Elli Leaves", "See all 4 of Elli's heart events [GBA]", 10, ElliYellow)
+EventCheevo("Sobber Feelings", "See all 4 of Karen's heart events [GBA]", 10, KarenYellow)
+EventCheevo("Intimate Story", "See all 4 of Mary's heart events [GBA]", 10, MaryYellow)
+EventCheevo("Made With Love", "See all 4 of Popuri's heart events [GBA]", 10, PopuriYellow)
+//Marriage Cheevos
+EventCheevoGroup("You Won't Forget Her", "Get married to a Forget-Me-Not Valley Girl", 5, FMNMarriages)
+EventCheevoGroup("Wife of Mineral Town", "Get married to a Mineral Town Girl [GBA]", 5, MTMarriages)
+EventCheevo("Sea-Espoused", "Get married to Leia", 10, LeiaMarriage)
+EventCheevo("Keira Can't Communicate", "Get married to Keira", 10, KeiraMarriage)
+EventCheevo("Divine Intervention", "Get married to the Harvest Goddess", 25, HGoddessMarriage)
+EventCheevo("Lovus Pocus", "Get married to the Witch Princess", 25, WPrincessMarriage)
+
+SonCheevo("Mutual Offspring", "Have a child", 10)
+
+//Epic last cheevo
+InitialCutscene("Harvest Moon Dog Slaughter", "Beat the game in Spring 2 of the first year", 1)
