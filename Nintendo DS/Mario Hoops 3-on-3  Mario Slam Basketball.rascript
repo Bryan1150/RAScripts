@@ -547,3 +547,37 @@ for rank in RanksData{
         trigger = ReachValue(RankPoints, RanksData[rank]["value"]) && NotInTitleScreen
     )
 }
+
+
+//Leaderboards
+leaderboard(
+title = "Noble Dribble", 
+description = "Who can get the best time on Dribble Race (Time Trial) Peach's Castle?", 
+start = PeachCastleBestTime != prev(PeachCastleBestTime), 
+cancel = !NotInTitleScreen, 
+submit = 1==1, 
+value = PeachCastleBestTime / 0x1000,
+format="FRAMES", 
+lower_is_better = true, id=1)
+
+leaderboard(
+title = "Daylight Dribble", 
+description = "Who can get the best time on Dribble Race (Time Trial) Sunshine Road?", 
+start = SunshineRoadBestTime != prev(SunshineRoadBestTime), 
+cancel = !NotInTitleScreen, 
+submit = 1==1, 
+value = SunshineRoadBestTime,
+format="FRAMES", 
+lower_is_better = true, id=2)
+
+leaderboard(
+title = "Prismatic Dribble", 
+description = "Who can get the best time on Dribble Race (Time Trial) Rainbow Road?", 
+start = RainbowRoadBestTime != prev(RainbowRoadBestTime), 
+cancel = !NotInTitleScreen, 
+submit = 1==1, 
+value = RainbowRoadBestTime,
+format="FRAMES", 
+lower_is_better = true, id=3)
+
+//Rich Presence
