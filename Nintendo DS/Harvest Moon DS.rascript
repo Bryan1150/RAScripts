@@ -375,7 +375,8 @@ BlessedHammerBackup = bit1(0x3dddc4)
 MystrileTools = [MystrileAxe, MystrileFishingRod, MystrileSickle, MystrileHoe, MystrileHammer, MystrileWateringCan]
 CursedTools = [CursedAxe, CursedFishingRod, CursedSickle, CursedHoe, CursedHammer, CursedWateringCan]
 MythicTools = [MythicAxe, MythicFishingRod, MythicSickle, MythicHoe, MythicHammer, MythicWateringCan]
-BlessedTools = [BlessedAxe, BlessedSickle, BlessedHoe, BlessedFishingRod, BlessedWateringCan, BlessedHammer, BlessedHammerBackup]
+BlessedTools = [BlessedAxe, BlessedSickle, BlessedHoe, BlessedFishingRod, BlessedWateringCan, BlessedHammer]
+BlessedToolsBackup = [BlessedAxe, BlessedSickle, BlessedHoe, BlessedFishingRod, BlessedWateringCan, BlessedHammerBackup]
 
 //Item To UpgradeBlacksmith and Type Of Upgrade
 ToolToUpgrade = word(0x3ddece)
@@ -1310,7 +1311,7 @@ function InitialCutscene(title, description, points){
         title, description, points,
         trigger = once(SaveProtection() && InitialMayorCutscene == 1 && prev(InitialMayorCutscene) == 0) &&
             InCutscene && EndingCheck == 0x0c && prev(EndingCheck) == 0x0b && location == Farmland &&
-            never(!InCutscene && InCutscenePrev)            
+            never(!InCutscene && InCutscenePrev)          
     )
 }
 
@@ -1510,6 +1511,17 @@ function SonCheevo(title, description, points){
     )
 }
 
+function BlessedTools(Flags, Flags2, Sum, title, description, points){
+    achievement(
+        title, description, points,
+        trigger = 
+        SaveProtection() &&
+        ((SumFlags(Flags, Sum) && SumPreviousFlags(Flags, Sum - 1) ) ||
+        (SumFlags(Flags2, Sum) && SumPreviousFlags(Flags2, Sum - 1)))
+    )
+}
+
+
 //Tool Cheevos
 EventCheevo("Angler's Heritage", "Get the fishing rod", 1, RecieveFishingRod)
 BuyOrUpgradeCheevo("Kuroko no Basket", "Buy the Basket", 1, BoughtBasquet)
@@ -1523,7 +1535,9 @@ allToolsUpgraded(MystrileTools, Mystrile, "Extra Shiny!", "Upgrade all your tool
 AnyFlagTrue(CursedTools, "Don't Drop It!", "Find one cursed tool", 5)
 AllFlagsTrue(CursedTools, "Curse of the Farmer [m]", "Find all the cursed tools in the 3rd Mine", 10)
 AnyFlagTrue(BlessedTools, "Lone Exorcism [m]", "Bless your first cursed tool", 10)
-AllFlagsSum(BlessedTools, 6, "Utterly Hallowed [m]", "Bless all your cursed tools", 25)
+BlessedTools(BlessedTools, BlessedToolsBackup, 6, "Utterly Hallowed [m]", "Bless all your cursed tools", 25)
+
+
 MythicToolUpgradeCheevo(tool_Axe, "Stormbreaker [m]", "Upgrade your axe to the Mythic tier", 10)
 MythicToolUpgradeCheevo(tool_FishingRod, "Super Rod [m]", "Upgrade your fishing rod to the Mythic tier", 10)
 MythicToolUpgradeCheevo(tool_Hammer, "Obelisk's Mallet [m]", "Upgrade your hammer to the Mythic tier", 10)
