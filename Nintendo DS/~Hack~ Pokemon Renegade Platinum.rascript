@@ -159,7 +159,7 @@ function Event(flag, mapID){
 
 achievement(
     title = "Coal It a Day",
-    description = "Obtain the Coal Badge by defeating Roark",
+    description = "Get the Coal Badge by defeating Roark",
     points = 10,
     trigger = Event(FirstBadge, FirstGym)
 )
