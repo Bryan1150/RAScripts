@@ -28,10 +28,19 @@ function SimpleEvent(eventFlag){
     return logic
 }
 
+ToolEvents = {
+    "1": {"title": "Do You Like Fishing?", "description": "Get the fishing rod from Sabrina", "points": 1, "flags": FishingRodEvent},
+    "2": {"title": "You Better Work Hard!", "description": "Get the axe from Bianca", "points": 1, "flags": AxeEvent},
+    "3": {"title": "Cutting the Weeds", "description": "Get the sickle from Rosetta", "points": 2, "flags": SickleEvent},
+    "4": {"title": "Break Them Open", "description": "Get the hammer from Leo", "points": 3, "flags": HammerEvent},
+}
 
-achievement(
-    title= "Do You Like Fishing?",
-    description= "Get the fishing rod from Sabrina",
-    points= 1,
-    trigger = SimpleEvent(FishingRodEvent)       
-)
+
+for flags in ToolEvents{
+    achievement(
+        title = ToolEvents[flags]["title"],
+        description = ToolEvents[flags]["description"],
+        points = ToolEvents[flags]["points"],
+        trigger = SaveProtection() && SimpleEvent(ToolEvents[flags]["flags"])
+    )
+}
