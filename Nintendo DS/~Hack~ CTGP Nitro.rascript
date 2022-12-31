@@ -121,6 +121,8 @@ WiiUHyruleCircuit = 0x6b
 WiiCoconutMall = 0x6c
 GBASnowLand = 0x6d
 WiiMoonviewHighway = 0x6e
+
+ResultsScreen = 0x34
 //Target time is seconds
 TracksData = {
 "a": {"title": "Happy Llama Sad Llama", "trackID": LlamaCircuit, "trackName": "Llama Circuit", "targetTimeMinutes": 1, "targetTimeSeconds": 21},
@@ -380,13 +382,24 @@ leaderboard(
     title = CupsData[cup]["cupName"] + " Cup: 50CC", 
     description = "", 
     start = 
-        WonCup(CupsData[cup]["cup"], FiftyCC, MirrorNo),
+        WonCup(CupsData[cup]["cup"], FiftyCC, MirrorNo) && TrackID == ResultsScreen,
 
     cancel =    
         always_false(),       
 
     submit =
-        always_true(), 
+       ((FirstRaceMilliseconds / 10) +
+       (FirstRaceSeconds * 100) +
+       (FirstRaceMinutes * 6000) +
+       (SecondRaceMilliseconds / 10) +
+       (SecondRaceSeconds * 100) +
+       (SecondRaceMinutes * 6000) +
+       (ThirdRaceMilliseconds / 10) +
+       (ThirdRaceSeconds * 100) +
+       (ThirdRaceMinutes * 6000) +
+       (FourthRaceMilliseconds / 10) +
+       (FourthRaceSeconds * 100) +
+       (FourthRaceMinutes * 6000)) > 1000,
 
     value = 
        (FirstRaceMilliseconds / 10) +
@@ -409,13 +422,24 @@ leaderboard(
     title = CupsData[cup]["cupName"] + " Cup: 100CC", 
     description = "", 
     start = 
-        WonCup(CupsData[cup]["cup"], HundredCC, MirrorNo),
+        WonCup(CupsData[cup]["cup"], HundredCC, MirrorNo) && TrackID == ResultsScreen,
 
     cancel =    
         always_false(),       
 
     submit =
-        always_true(), 
+        ((FirstRaceMilliseconds / 10) +
+       (FirstRaceSeconds * 100) +
+       (FirstRaceMinutes * 6000) +
+       (SecondRaceMilliseconds / 10) +
+       (SecondRaceSeconds * 100) +
+       (SecondRaceMinutes * 6000) +
+       (ThirdRaceMilliseconds / 10) +
+       (ThirdRaceSeconds * 100) +
+       (ThirdRaceMinutes * 6000) +
+       (FourthRaceMilliseconds / 10) +
+       (FourthRaceSeconds * 100) +
+       (FourthRaceMinutes * 6000)) > 1000,
 
     value = 
        (FirstRaceMilliseconds / 10) +
@@ -438,13 +462,24 @@ leaderboard(
     title = CupsData[cup]["cupName"] + " Cup: 150CC", 
     description = "", 
     start = 
-        WonCup(CupsData[cup]["cup"], HundredFiftyCC, MirrorNo),
+        WonCup(CupsData[cup]["cup"], HundredFiftyCC, MirrorNo) && TrackID == ResultsScreen,
 
     cancel =    
         always_false(),       
 
     submit =
-        always_true(), 
+       ((FirstRaceMilliseconds / 10) +
+       (FirstRaceSeconds * 100) +
+       (FirstRaceMinutes * 6000) +
+       (SecondRaceMilliseconds / 10) +
+       (SecondRaceSeconds * 100) +
+       (SecondRaceMinutes * 6000) +
+       (ThirdRaceMilliseconds / 10) +
+       (ThirdRaceSeconds * 100) +
+       (ThirdRaceMinutes * 6000) +
+       (FourthRaceMilliseconds / 10) +
+       (FourthRaceSeconds * 100) +
+       (FourthRaceMinutes * 6000)) > 1000, 
 
     value = 
        (FirstRaceMilliseconds / 10) +
@@ -467,13 +502,24 @@ leaderboard(
     title = CupsData[cup]["cupName"] + " Cup: Mirror", 
     description = "", 
     start = 
-        WonCup(CupsData[cup]["cup"], HundredFiftyCC, MirrorYes),
+        WonCup(CupsData[cup]["cup"], HundredFiftyCC, MirrorYes) && TrackID == ResultsScreen,
 
     cancel =    
         always_false(),       
 
     submit =
-        always_true(), 
+       ((FirstRaceMilliseconds / 10) +
+       (FirstRaceSeconds * 100) +
+       (FirstRaceMinutes * 6000) +
+       (SecondRaceMilliseconds / 10) +
+       (SecondRaceSeconds * 100) +
+       (SecondRaceMinutes * 6000) +
+       (ThirdRaceMilliseconds / 10) +
+       (ThirdRaceSeconds * 100) +
+       (ThirdRaceMinutes * 6000) +
+       (FourthRaceMilliseconds / 10) +
+       (FourthRaceSeconds * 100) +
+       (FourthRaceMinutes * 6000)) > 1000, 
 
     value = 
        (FirstRaceMilliseconds / 10) +
