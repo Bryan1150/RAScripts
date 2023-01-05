@@ -697,7 +697,7 @@ function CheckShippedRangeAll(){
 
 function CheckLevel(level, target){
     logic = 
-    level >= target &&
+    measured(level >= target) &&
     prev(level) < target &&
     prev(level) > (target - 5)
     return logic 
@@ -813,6 +813,8 @@ for flags in ToolEvents{
     )
 }
 
+BlackSmithPlace = 0x1d
+
 //Level 2 tool
 achievement(
     title = "Ferrous Upgrade",
@@ -825,7 +827,7 @@ achievement(
     SimpleEvent(BambooRod) ||
     SimpleEvent(IronHammer) ||
     SimpleEvent(ChoppingAxe)  
-    || (prev(LeoLevelTwo) >= HoeLeo && prev(LeoLevelTwo) <= RodLeo) && LeoLevelTwo == 0 && DaysLeo == 0)
+    || (prev(LeoLevelTwo) >= HoeLeo && prev(LeoLevelTwo) <= RodLeo) && LeoLevelTwo == 0 && DaysLeo == 0 && MapID == BlackSmithPlace)
 )
 //Level 3 tool
 achievement(
@@ -839,7 +841,7 @@ achievement(
     SimpleEvent(WillowRod) ||
     SimpleEvent(SilverHammer) ||
     SimpleEvent(LumberAxe)  
-    || (prev(LeoLevelThree) >= HoeLeo && prev(LeoLevelThree) <= RodLeo) && LeoLevelThree == 0 && DaysLeo == 0)
+    || (prev(LeoLevelThree) >= HoeLeo && prev(LeoLevelThree) <= RodLeo) && LeoLevelThree == 0 && DaysLeo == 0 && MapID == BlackSmithPlace)
 )
 //Level 4 tool
 achievement(
@@ -981,7 +983,7 @@ for flags in MonsterCaves{
         title = MonsterCaves[flags]["title"],
         description = MonsterCaves[flags]["description"],
         points = MonsterCaves[flags]["points"],
-        trigger = SaveProtection() && CheckSpecificMonsters(MonsterCaves[flags]["flags"])
+        trigger = SaveProtection() && CheckSpecificMonsters(MonsterCaves[flags]["flags"]) && never(GameState == 0x00)
     )
 }
 
