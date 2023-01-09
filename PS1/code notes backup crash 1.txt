@@ -1,0 +1,1406 @@
+0x3aff0	
+Time trial time (editable) (EU)
+
+0x5c69d	
+Load game check
+
+0x5c7d0	
+N. Gin's battle stage (EU)
+
+0x6087c	
+Game Paused (8-bit)
+
+0x65f70	
+Current checkpoint (EU)
+
+0x66210	
+Current checkpoint (J)
+
+0x67a48	
+[24-bit] Pointer - Boss Data
++0xE4 | Dingodile Health [8-bit]
++0xE5 | Tiny Tiger Health [8-bit]
+
+0x68e98	
+[24-bit] Pointer (USA)
++0x60 = X Coordinates (32-bit)
++0x61 = Y Coordinates (32-bit)
++0x62 = Z Coordinates (32-bit)
++0xE8 = Animation ID? (8-bit)
++0x141 = Wumpa Fruit (8-bit)
++0x145 = Lives (8-bit)
++0x169 = Total Crates (8-bit)
+
+0x68ef9	
+[8-bit] Level ID (US)
+0x02 = Hub
+0x0b = Level 1 - Toad Village
+0x0e = Level 2 - Under Pressure
+0x0a = Level 3 - Orient Express
+0x0c = Level 4 - Bone Yard
+0x19 = Level 5 - Makin' Waves
+0x06 = Tiny Tiger - Boss 1
+0x0f = Level 6 - Gee Wiz
+0x16 = Level 7/27 - Hang Em' High
+0x15 = Level 8 - Hog Ride
+0x12 = Level 9 - Tomb Time
+0x11 = Level 10 - Midnight Run
+0x03 = Dingodile - Boss 2
+0x10 = Level 11 - Dino Might!
+0x1c = Level 12 - Deep Trouble
+0x1a = Level 13 - Low Time
+0x14 = Level 14 - Road Crash
+0x1d = Level 15 - Double Header
+0x04 = N Tropy - Boss 3
+0x1e = Level 16 - Sphynxinator
+0x13 = Level 17 - Bye Bye Blimps
+0x0d = Level 18 - Tell No Tales
+0x1b = Level 19/29 - Future Frenzy
+0x18 = Level 20 - Tomb Wader
+0x05 = N Gin - Boss 4
+0x23 = Level 21 - Gone Tomorrow
+0x20 = Level 22 - Orange Asphalt
+0x22 = Level 23 - Flaming Passion
+0x17 = Level 24 - Mad Bombers
+0x24 = Level 25 - Bug Lite
+0x07 = N Cortex - Boss 5
+0x21 = Level 26 - Ski Crazed
+0x25 = Level 28 - Area 51?
+0x1f = Level 30 - Rings Of Power
+0x27 = Level 31 - Hot Coco
+0x26 = Level 32 - Eggipus Rex
+
+0x68f0d	
+Death counter (current visit) (US)
+
+0x68f10	
+US Pointer HUD
+
++0x141 = Wumpa Fruit
+
+0x68f49	
+[8-bit] Image on save file (US)
+
+0x68f59	
+Lives hub world
+
+0x68f7c	
+Mono/stereo (US)
+
+0x68f80	
+FX volume (US)
+
+0x68f84	
+Music volume (US)
+
+0x68fb0	
+Gems collected bits
+Bit1 = Bone yard extra
+Bit2 = Tomb time extra
+Bit3 = Dino might extra
+Bit4 = Sphinxinator extra
+Bit5 = Future frenzy secret
+Bit6 = Gone tomorrow extra
+Bit7 = Bug lite extra
+
+0x68fb1	
+Gems collected bits (US)
+Bit0 = Area 51 1st place
+Bit1 = Rings of Power 1st place
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x68fb2	
+Gems collected bits
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x68fb3	
+Gems collected bits
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x68fb4	
+Gems collected bits
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x68fb7	
+Bit2 = Red gem
+Bit3 = Green gem
+Bit4 = Purple gem
+Bit5 = Blue gem
+Bit6 = Yellow gem
+
+0x69064	
+Screen adjustment (US)
+
+0x6909c	
+Demo check
+
+0x690a9	
+Scene ID (EU)
+
+0x690bd	
+Death counter (current visit) (EU)
+
+0x690f0	
+[24-bit] Pointer - Boss Data for Tiny?
+
+0x6912c	
+Mono/stereo (EU)
+
+0x6912d	
+Crystals collected bits
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6912e	
+Crystals collected bits
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Mad bomber
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Road crash
+
+0x6912f	
+Crystals collected bits
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+
+0x69130	
+Crystals collected bits (US)
+Bit0 = Orange asphalt
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+FX volume (EU)
+
+0x69134	
+Music volume (EU)
+
+0x69160	
+Gems saved (EU)
+Bit1 = Bone yard extra
+Bit2 = Tomb time extra
+Bit3 = Dino might extra
+Bit4 = Sphinxinator extra
+Bit5 = Future frenzy secret
+Bit6 = Gone tomorrow extra
+Bit7 = Bug lite extra
+
+0x69161	
+Gems saved (EU)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x69162	
+Gems saved (EU)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x69163	
+Gems saved (EU)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69164	
+Gems saved (EU)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x69167	
+Gems saved (EU)
+Bit2 = Red gem
+Bit3 = Green gem
+Bit4 = Purple gem
+Bit5 = Blue gem
+Bit6 = Yellow gem
+Bit 7 = All gold relics
+
+0x69168	
+Gems in reserve (EU)
+Bit1 = Bone yard extra
+Bit2 = Tomb time extra
+Bit3 = Dino might extra
+Bit4 = Sphinxinator extra
+Bit5 = Future frenzy secret
+Bit6 = Gone tomorrow extra
+Bit7 = Bug lite extra
+
+0x69169	
+Gems in reserve (EU)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6916a	
+Gems in reserve (EU)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x6916b	
+Gems in reserve (EU)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x6916c	
+Gems in reserve (EU)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x6916f	
+Gems in reserve (EU)
+
+Bit2 = Red gem
+Bit3 = Green gem
+Bit4 = Purple gem
+Bit5 = Blue gem
+Bit6 = Yellow gem
+
+0x69178	
+[8-bit] Powers Got
+Bit 0 = Super Charged Body Slam (Tiny)
+Bit 1 = Double Jump (Dingodile)
+Bit 2 = Death Tornado Spin (N tropy)
+Bit 3 = Fruit Bazooka (N gin)
+Bit 4 = Speed Shoes (N cortex)
+
+0x69189	
+Crystals in reserve (EU)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6918a	
+Crystals in reserve (EU)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Mad bomber
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Road crash
+
+0x6918b	
+Crystals in reserve (EU)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+
+0x6918c	
+Crystals in reserve (EU)
+Bit0 = Orange asphalt
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+
+0x691a1	
+Crates broken (Current visit) (EU)
+
+0x691b5	
+Relics unlocked Shappire
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee weez
+
+0x691b6	
+Relics unlocked Shappire
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x691b7	
+Relics unlocked Shappire
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x691b8	
+Relics unlocked Shappire
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Eggipus rex
+Bit7 = Hot coco
+
+0x691bd	
+Relics unlocked Gold
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee weez
+
+0x691be	
+Relics unlocked Gold
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x691bf	
+Relics unlocked Gold
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x691c0	
+Relics unlocked Gold (US)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Eggipus rex
+Bit7 = Hot coco
+Cutscenes (EU)
+
+0x691c5	
+Sapphire relics in reserve (US)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee weez
+
+0x691c6	
+Sapphire relics in reserve (US)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x691c7	
+Sapphire relics in reserve (US)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x691c8	
+Sapphire relics in reserve (US)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Eggipus rex
+Bit7 = Hot coco
+
+0x691cd	
+Gold relics in reserve (US)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee weez
+
+0x691ce	
+Gold relics in reserve (US)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x691cf	
+Gold relics in reserve (US)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x691d0	
+Gold relics in reserve (US)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Eggipus rex
+Bit7 = Hot coco
+
+0x691e4	
+[24-bit] Time Trial Pointer (Becomes 0 when you finish a time trial)
++0x178 = Frame Timer (24-bits)
++0x1A4 = Centiseconds
++0x1A8 = Seconds
++0x1AC = Minutes
+
+0x692dc	
+Unlocks
+
+0x692dd	
+Crystals saved (EU)
+Bit2 = Orient Express
+Bit3 = Toad village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x692de	
+Crystals saved (EU)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Mad bomber
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Road crash
+
+0x692df	
+Crystals saved (EU)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+
+0x692e0	
+Crystals saved (EU)
+Bit0 = Orange asphalt
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+
+0x69305	
+Language (EU)
+
+0x69328	
+Powers (EU)
+
+0x69349	
+Scene ID (J)
+
+0x6935d	
+Demo mode (J)
+
+0x69365	
+Sapphire relics saved (EU)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x69366	
+Sapphire relics saved (EU)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x69367	
+Sapphire relics saved (EU)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69368	
+Sapphire relics saved (EU)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x6936d	
+Gold relics saved (EU)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6936e	
+Gold relics saved (EU)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x6936f	
+Gold relics saved (EU)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69370	
+Gold relics saved (EU)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x69375	
+Sapphire relics in reserve (EU)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x69376	
+Sapphire relics in reserve (EU)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x69377	
+Sapphire relics in reserve (EU)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69378	
+Platinum relics in reserve (EU)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x6937d	
+Gold relics in reserve (EU)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6937e	
+Gold relics in reserve (EU)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x6937f	
+Gold relics in reserve (EU)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69380	
+Gold relics in reserve (EU)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x693cc	
+Mono/stereo (J)
+
+0x693d0	
+FX volume (J)
+
+0x693d4	
+Music volume (J)
+
+0x69400	
+Gems saved (J)
+Bit1 = Bone yard extra
+Bit2 = Tomb time extra
+Bit3 = Dino might extra
+Bit4 = Sphinxinator extra
+Bit5 = Future frenzy secret
+Bit6 = Gone tomorrow extra
+Bit7 = Bug lite extra
+
+0x69401	
+Gems saved (J)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x69402	
+Gems saved (J)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x69403	
+Gems saved (J)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69404	
+Gems saved (J)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x69407	
+Gems saved (J)
+Bit2 = Red gem
+Bit3 = Green gem
+Bit4 = Purple gem
+Bit5 = Blue gem
+Bit6 = Yellow gem
+
+0x69408	
+Gems in reserve (J)
+Bit1 = Bone yard extra
+Bit2 = Tomb time extra
+Bit3 = Dino might extra
+Bit4 = Sphinxinator extra
+Bit5 = Future frenzy secret
+Bit6 = Gone tomorrow extra
+Bit7 = Bug lite extra
+
+0x69409	
+Gems in reserve (J)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6940a	
+Gems in reserve (J)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x6940b	
+Gems in reserve (J)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x6940c	
+Gems in reserve (J)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Egiptius rex
+Bit7 = Hot coco
+
+0x6940f	
+Gems saved (J)
+Bit2 = Red gem
+Bit3 = Green gem
+Bit4 = Purple gem
+Bit5 = Blue gem
+Bit6 = Yellow gem
+
+0x69429	
+Crystals in reserve (J)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6942a	
+Crystals in reserve (J)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Mad bomber
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Road crash
+
+0x6942b	
+Crystals in reserve (J)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+
+0x6942c	
+Crystals in reserve (J)
+Bit0 = Orange asphalt
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+
+0x69441	
+Crates broken (current visit) (J)
+
+0x694b4	
+Screen adjustment (J)
+
+0x6957d	
+Crystals saved (J)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6957e	
+Crystals saved (J)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Mad bomber
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Road crash
+
+0x6957f	
+Crystals saved (J)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+
+0x69580	
+Crystals saved (J)
+Bit0 = Orange asphalt
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+
+0x695c8	
+Powers (J)
+
+0x69605	
+Sapphire relics saved (J)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee weez
+
+0x69606	
+Sapphire relics saved (J)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x69607	
+Sapphire relics saved (J)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69608	
+Sapphire relics saved (J)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Eggipus rex
+Bit7 = Hot coco
+
+0x6960d	
+Gold relics saved (J)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee weez
+
+0x6960e	
+Gold relics saved (J)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x6960f	
+Gold relics saved (J)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69610	
+Gold relics saved (J)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Eggipus rex
+Bit7 = Hot coco
+
+0x69615	
+Sapphire relics in reserve (J)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee weez
+
+0x69616	
+Sapphire relics in reserve (J)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x69617	
+Sapphire relics in reserve (J)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69618	
+Sapphire relics in reserve (J)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Eggipus rex
+Bit7 = Hot coco
+
+0x6961d	
+Gold relics in reserve (J)
+Bit2 = Orient express
+Bit3 = Toads village
+Bit4 = Bone yard
+Bit5 = Tell no tales
+Bit6 = Under pressure
+Bit7 = Gee wiz
+
+0x6961e	
+Gold relics in reserve (J)
+Bit0 = Dino might
+Bit1 = Midnight run
+Bit2 = Tomb time
+Bit3 = Bye bye blimps
+Bit4 = Road crash
+Bit5 = Hog ride
+Bit6 = Hang em high
+Bit7 = Mad bomber
+
+0x6961f	
+Gold relics in reserve (J)
+Bit0 = Tomb wader
+Bit1 = Making waves
+Bit2 = High time
+Bit3 = Future frenzy
+Bit4 = Deep trouble
+Bit5 = Double header
+Bit6 = Sphynxinator
+Bit7 = Rings of power
+
+0x69620	
+Gold relics in reserve (J)
+Bit0 = Orange asphalt
+Bit1 = Sky crazied
+Bit2 = Flamming passion
+Bit3 = Gone tomorrow
+Bit4 = Bug lite
+Bit5 = Area51
+Bit6 = Eggipus rex
+Bit7 = Hot coco
+
+0x6b274	
+[24-bit] Toad Village - Top 1 Time Trial Time (US)
+
+0x6b277	
+[3-byte] Toad Village - Top 1 Time Trial - Name ASCII
+
+0x6f764	
+Total number of dragons rescued (Spyro demo) (US)
+
+0x700f4	
+Total number of dragons rescued (Spyro demo) (EU)
+
+0x701b8	
+Total number of eggs (Spyro demo) (EU)
+
+0x701d4	
+Lives (Spyro demo) (EU)
+
+0x70208	
+Total number of gems (Spyro demo) (EU)
+
+0x70290	
+Ballls for extra life (Spyro demo) (EU)
+
+0x70294	
+Sunny Flight timer (Spyro demo) (EU)
+
+0x702a8	
+Sunny Flight countdown timer (Spyro demo) (EU)
+
+0x73540	
+Number of dragons rescued in Artisans home (Spyro demo) (US)
+
+0x73bed	
+Number of eggs collected in Town Square (Spyro demo) (EU)
+
+0x73ed0	
+Number of dragons rescued in Artisans home (Spyro demo) (EU)
+
+0x74018	
+Number of gems collected in Artisans home (Spyro demo) (EU)
+
+0x74024	
+Number of gems collected in Town Square (Spyro demo) (EU)
+
+0x7402c	
+Number of gems collected in Sunny Flight (Spyro demo) (EU)
+
+0x74bc0	
+Number of gems collected shown in screen (Spyro demo) (EU)
+
+0x74bc4	
+Number of dragons rescued shown in screen (Spyro demo) (EU)
+
+0x74bc8	
+Number of lives shown in screen (Spyro demo) (EU)
+
+0x74bcc	
+Number of eggs shown in screen (Spyro demo) (EU)
+
+0x74bd8	
+Ballls for extra life shown in screen (Spyro demo) (EU)
+
+0x75228	
+Sunny Flight barrels (Spyro demo) (EU)
+
+0x7522c	
+Sunny flight arches (Spyro demo) (EU)
+
+0x75230	
+Sunny Flight planes (Spyro demo) (EU)
+
+0x75234	
+Sunny Flight chests (Spyro demo) (EU)
+
+0x75650	
+Spyro's Z coordinate (Spyro demo) (EU)
+
+0x75654	
+Spyro's X coordinate (Spyro demo) (EU)
+
+0x75658	
+Spyro's Y coordinate (Spyro demo) (EU)
+
+0x757b4	
+Health (Spyro demo) (EU)
+
+0x9f919	
+N. Tropy's health (1st try) (US)
+
+0x9fd20	
+Cortex's health (1st try) (US)
+
+0xa045d	
+Aku Aku level (Toad Village) (J)
+
+0xa0495	
+Aku Aku level (Under pressure) (EU)
+
+0xa0f99	
+N. Tropy's health (EU)
+
+0xa18ec	
+Crash's race position (Area 51) (US)
+
+0xa1b7d	
+Aku Aku level (N. Tropy) (EU)
+
+0xa1f35	
+Aku Aku level (Toad Village, time trial) (EU)
+
+0xa2189	
+Cortex's health (EU)
+
+0xa52ac	
+Time trial time (EU)
+
+0xa57f9	
+Demo enabled
+
+0xaaec9	
+Aku Aku level (Warp room) (EU)
+
+0xacef9	
+Making waves Fruits
+
+0xacefd	
+Making waves Lives
+
+0xacf21	
+Making waves crates
+
+0xad239	
+Level 1 bonus fruits
+
+0xad241	
+Level 1 bonus crates
+
+0xad27d	
+Orient express fruits
+
+0xad295	
+Orient express crystal
+
+0xad299	
+Orient express gem
+
+0xad2a5	
+Orient express crates
+
+0xad3d9	
+Wumpa fruit (Toad Village) (EU)
+
+0xad3dd	
+Lives (Toad Village) (EU)
+
+0xad401	
+Crates broken (Toad Village) (EU)
+
+0xad435	
+Toads village crystal
+
+0xad439	
+Toads village gem
+
+0xad445	
+Toads village crates
+
+0xad449	
+Pharaoh level crates
+
+0xad44d	
+Jump chain (Toad Village) (EU)
+
+0xad4bd	
+Boneyard bonus crates
+
+0xad4c5	
+Boneyard gem
+
+0xad4d1	
+Boneyard crates
+
+0xad849	
+Wumpa fruit (Toad Village) (J)
+
+0xad84d	
+Lives (Toad Village) (J)
+
+0xad871	
+Crates broken (Toad Village) (J)
+
+0xaf6e5	
+N. Gin's health (1st try) (US)
+
+0xaf931	
+N. Gin's health (EU)
+
+0xaf935	
+Tiny's health (1st, 3rd and 4th try) (US)
+
+0xaf964	
+Dingodile's health (1st try) (US)
+
+0xb08d9	
+Tiny's health (7th try) (US)
+
+0xb0965	
+Dingodile's health (EU)
+
+0xb0b15	
+Tiny's health (8th try) (US)
+
+0xb11c9	
+Tiny's health (2nd and 5th try) (US)
+
+0xb18a1	
+Aku Aku level (Tiny Tiger) (EU)
+
+0xb1cf5	
+Tiny's health (6th try) (US)
+
+0xb2c05	
+Tiny's health (EU)
+
+0xb5ef5	
+Wumpa fruit (Warp Room) (EU)
+
+0xb5ef9	
+Lives (Warp Room) (EU)
+
+0xb5f1d	
+Crates broken (Warp Room) (EU)
+
+0xb5f69	
+Jump chain (Warp Room) (EU)
+
+0xbcba1	
+Lives (Tiny Tiger) (US)
+
+0xbcd29	
+Player life some levels
+
+0xbcf75	
+Coco's health (N. Gin) (EU)

@@ -239,9 +239,11 @@ Hoe = 0x0c
 
 
 GameState = byte(0x145c65)
+TitleScreen = 0x00
 Talking = 0x01
 Playing = 0x02
 Gifting = 0x05
+Death = 0x08
 //Shipping History
 CropStart = 0x1512cc
 CropEnd = 0x151388
@@ -299,6 +301,8 @@ AxeWeapons = [DemonAxe, Executioner, CrescentAxe]
 //Shield
 RuneShield = bit3(0x150c44)
 ChaosShield = bit7(0x150c44)
+
+
 Shields = [RuneShield, ChaosShield]
 
 //Books
@@ -669,14 +673,25 @@ function CheckSpecificMonsters(monsters){
     return measured(tally(length(monsters), comparisons)) && never(tally(length(monsters), comparisonsPrev))
 }
 
+//Exceptions
+RecoveryPotion = 0x1513b0
+HealingPotion = 0x1513b4
+MysteryPotion = 0x1513b8
+MonsterMedicine = 0x1519dc
+ArtOfAttack = 0x151940
+ArtOfDefense = 0x151944
+ArtOfMagic = 0x151948
+
 function CheckShippedRange(start, end){
     sum = 0
     sumDelta = 0
     count = 0
     for item in range(start, end, 4){
+        if(item != RecoveryPotion && item!= HealingPotion && item != MysteryPotion && item != MonsterMedicine  && item != ArtOfAttack  && item != ArtOfDefense && item != ArtOfMagic){
         sum = sum + (dword(item)/dword(item))
         sumDelta = sumDelta + (prev(dword(item)) / prev(dword(item)))
         count = count + 1
+        }
     }
     return measured(sum == count) && sumDelta <= (count - 1)
 }
@@ -687,9 +702,11 @@ function CheckShippedRangeAll(){
     count = 0
     for category in ShippedItems{
         for item in range(ShippedItems[category]["start"], ShippedItems[category]["end"], 4){
+            if(item != RecoveryPotion && item!= HealingPotion && item != MysteryPotion && item != MonsterMedicine && item != ArtOfAttack  && item != ArtOfDefense && item != ArtOfMagic){
             sum = sum + (dword(item)/dword(item))
             sumDelta = sumDelta + (prev(dword(item)) / prev(dword(item)))
             count = count + 1
+            }
         }
     }
     return measured(sum == count) && sumDelta <= (count - 1)
@@ -762,13 +779,9 @@ ShippedItems = {
     "6": {"title": "Uncategorized Goods", "description": "Ship every et cetera item [Exceptions on forum topic]", "start": ETCStart, "end": ETCEnd, "points": 25},
 }
 //And spells/books why not
+
 CraftedWeapons = {
-    "1": {"title": "One Handed Craft", "description": "Forge a Rune Blade, Chaos Blade, Sunspot and a Heaven Asunder", "flags": OneHandedWeapons, "points": 25},
-    "2": {"title": "Two Handed Technique", "description": "Forge an Atomic Buster, Punisher, Forth Element and a Volcannon", "flags": TwoHandedWeapons, "points": 25},
-    "3": {"title": "Spear Genius", "description": "Forge a Belvaros, Feather Lance, Brionac, Gungnir, Bjor and an Iseberk", "flags": PolearmWeapons, "points": 25},
-    "4": {"title": "Hammer Talent", "description": "Forge a Schnabel, Spiked Hammer and a Myurnil", "flags": HammerWeapons, "points": 25}, 
-    "5": {"title": "Axe Virtuosity", "description": "Forge a Demon Axe, Executioner, and a Crescent Axe", "flags": AxeWeapons, "points": 25},
-    "6": {"title": "Shield Mastery", "description": "Forge a Rune Shield and a Chaos Shield", "flags": Shields, "points": 25},
+    
     "7": {"title": "All the Knowledge", "description": "Buy every book from Kardia Library", "flags": Books, "points": 10},
     "8": {"title": "Ultimate Wizard", "description": "Have every magic spell", "flags": Spells, "points": 10},
 }
@@ -983,7 +996,8 @@ for flags in MonsterCaves{
         title = MonsterCaves[flags]["title"],
         description = MonsterCaves[flags]["description"],
         points = MonsterCaves[flags]["points"],
-        trigger = SaveProtection() && CheckSpecificMonsters(MonsterCaves[flags]["flags"]) && never(GameState == 0x00)
+        trigger = SaveProtection() && CheckSpecificMonsters(MonsterCaves[flags]["flags"]) && never(GameState == Death) &&
+    never(GameState == TitleScreen)
     )
 }
 
@@ -1020,8 +1034,58 @@ achievement(
         points = 50,
         trigger = SaveProtection() && CheckShippedRangeAll()
 )
+InventoryStart = 0x1a34b8
+InventoryEnd = 0x1a3568
+ShelfStart = 0x1a365c
+ShelfEnd = 0x1a3748
+ShieldSlot = 0x1a34a4
+
+function InventoryCheck(id){
+    logic = always_false()
+    for item in range(InventoryStart, InventoryEnd, 4){
+        logic = logic || (word(item) == id)
+    }
+    
+    for item in range(ShelfStart, ShelfEnd, 4){
+        logic = logic || (word(item) == id)
+    }
+    logic = logic || (word(ShieldSlot) == id)
+    
+    return logic  
+}
+
+function InventoryCheckDelta(id){
+    logic = always_false()
+    for item in range(InventoryStart, InventoryEnd, 4){
+        logic = logic || prev(word(item)) == id
+    }
+    
+    for item in range(ShelfStart, ShelfEnd, 4){
+        logic = logic || prev(word(item)) == id
+    }
+    logic = logic || prev(word(ShieldSlot)) == id
+    
+    return logic  
+}
+
 
 //Crafter Weapons
+//Crafter Weapons
+ChaosShieldID = 0x4173
+RuneShieldID = 0x416f
+
+achievement(
+    title = "Shield Mastery",
+    description = "Forge a Rune Shield and a Chaos Shield",
+    points = 25,
+    trigger = SaveProtection() &&
+    measured(tally(2, once(InventoryCheck(ChaosShieldID)),  once(InventoryCheck(RuneShieldID))                  )) &&
+    never(tally(2, once(InventoryCheckDelta(ChaosShieldID)),  once(InventoryCheckDelta(RuneShieldID))                  )) &&
+    never(GameState == Death) &&
+    never(GameState == TitleScreen)
+    
+)
+
 for flags in CraftedWeapons{
     achievement(
         title = CraftedWeapons[flags]["title"],
