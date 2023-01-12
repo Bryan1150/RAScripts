@@ -1,10 +1,9 @@
 // ~Hack~ Pokemon Renegade Platinum
 // #ID = 16196
-//0x101d40 Global Pointer
 GlobalPointer = tbyte(0x101d40) 
 
-//+0x1294
 MapID = word(GlobalPointer + 0x1294)
+//Map IDS
 YourHouseMain = 0x019e
 TrainerSchool = 0x001d
 Lab = 0x01a6
@@ -101,6 +100,7 @@ MusicID = word(0x1beb04)
 GymLeaderFight = 0x45d
 GymLeaderWin = 0x469
 OpponentTrainerID = dword(GlobalPointer + 0x476EC)
+//Gym leaders IDS
 Roark = 0x17d1ea59
 
 SetMode = bit6(GlobalPointer + 0x78)
@@ -112,6 +112,7 @@ TurnCounter = word(GlobalPointer + 0x449C8)
 XCoordinate = word(0x1c5cce)
 YCoordinate = word(0x1c5cd2)
 ZCoordinate = word(0x1c5cd6)
+LastItemUsedCurrent = word(GlobalPointer + 0x449a0)
 
 //Temporal Items Quantity on battle ranges [offsets]
 MedicineStart = 0x442BE
@@ -154,72 +155,81 @@ function Event(flag, mapID){
     flag == 1
     return logic
 }
+MasterBall = 0x01
+CherishBall = 0x10
+BlueFlute = 0x41
+RedFlute = 0x43
 
+//Remember, trainer ID is usable for pokemon league big cheevo, its 0 when not in battle
 
-
-achievement(
-    title = "Coal It a Day",
-    description = "Get the Coal Badge by defeating Roark",
-    points = 10,
-    trigger = Event(FirstBadge, FirstGym)
-)
-
-achievement(
-    title = "The Strongest Ore [m]",
-    description = "Defeat Roark on Set Mode without using items in battle [Level Cap <= 16]",
-    points = 10,
-    //Initial check for battle start [In set mode]
-    trigger = once(prev(OpponentTrainerID) != Roark && (MusicID == GymLeaderFight && OpponentTrainerID == Roark && SetMode == 1 && MapID == FirstGym)) &&
-    //Reset if pokemon isnt the level cap
-    never(IDCurrentPokemon <= 493 && LevelCurrentPokemon > 16 && LevelCurrentPokemon <= 100) &&
+function GymChallenge(LevelCap, TrainerID, IDMap){
+    return 
+    //Initial hit check for battle start [In set mode]
+    once(
+    MapID == IDMap &&
+    MusicID == GymLeaderFight &&
+    SetMode == 1 &&
+    prev(OpponentTrainerID) != TrainerID && OpponentTrainerID == TrainerID
+    ) &&
+    //Reset if pokemon isnt the level cap, also check for ID
+    never(IDCurrentPokemon <= 493 && LevelCurrentPokemon > LevelCap && LevelCurrentPokemon <= 100) &&
     //Reset if map id changes
     never(MapID != prev(MapID)) &&
     //Trigger when music is win
-    trigger_when(MusicID == GymLeaderWin) &&
+    trigger_when(prev(MusicID) != GymLeaderWin && MusicID == GymLeaderWin ) &&
     //Reset if used item
-    never(NoItemUsedCheck())
-    
-)
+    never(NoItemUsedCheck()) &&
+    never(prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= MasterBall && LastItemUsedCurrent <= CherishBall) &&
+    never(prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= BlueFlute && LastItemUsedCurrent <= RedFlute)
+}
 
-achievement(
-    title = "RGB Palette",
-    description = "Obtain all three Kanto starters",
-    points = 2,
-    trigger = Event(KantoStarters, PokemonCenterJubilife)
-)
+//Progression aka Medals
+GymMedals = {
+    1: {"title": "Coal It a Day", "description": "Obtain the Coal Badge by defeating Roark", "medal": FirstBadge, "mapID": FirstGym}
+}
 
-achievement(
-    title = "Back to your Roots",
-    description = "Obtain all three Hoenn starters",
-    points = 2,
-    trigger = Event(HoennStarters, PokemonCenterOreburgh)
-)
+for Gym in GymMedals{
+    achievement(
+        title = GymMedals[Gym]["title"],
+        description = GymMedals[Gym]["description"],
+        points = 10,
+        trigger = Event(GymMedals[Gym]["medal"], GymMedals[Gym]["mapID"])
+    )
+}
 
-achievement(
-    title = "New Sprouts",
-    description = "Obtain all three Sinnoh starters",
-    points = 1,
-    trigger = Event(SinnohStarters, Lab)
-)
+//Challenges for each gym
+GymChallenges = {
+    1: {"title": "The Strongest Ore [m]", "description": "Roark", "LevelCap": 16, "TrainerID": Roark,"mapID": FirstGym}
+}
 
-achievement(
-    title = "Uneven Genes",
-    description = "Obtain an Eevee from your Mother",
-    points = 1,
-    trigger = Event(EeveeEvent, YourHouseMain)
-)
+for Gym in GymChallenges{
+    achievement(
+    title = GymChallenges[Gym]["title"],
+    description = "Defeat " + GymChallenges[Gym]["description"] + " on Set Mode without using items in battle [Level Cap <= " + GymChallenges[Gym]["LevelCap"] + "]",
+    points = 10,
 
-achievement(
-    title = "This Is Were Babies Come From",
-    description = "Obtain an egg in Jubilife City",
-    points = 1,
-    trigger = Event(EggGift, TrainerSchool)
-)
+    trigger = GymChallenge(GymChallenges[Gym]["LevelCap"], GymChallenges[Gym]["TrainerID"], GymChallenges[Gym]["mapID"])
+    )
+}
 
-achievement(
-    title = "Champion's Favorite",
-    description = "Obtain a Beldum from Steven",
-    points = 1,
-    trigger = Event(BeldumGift, StevenHouse)
-)
+//Misc event flags cheevos
+Events = {
+    1: {"title": "RGB Palette", "description": "Obtain all three Kanto starters", "points": 2, "flag": KantoStarters, "mapID": PokemonCenterJubilife},
+    2: {"title": "Back to your Roots", "description": "Obtain all three Hoenn starters", "points": 2, "flag": HoennStarters, "mapID": PokemonCenterOreburgh},
+    3: {"title": "New Sprouts", "description": "Obtain all three Sinnoh starters", "points": 1, "flag": SinnohStarters, "mapID": Lab},
+    4: {"title": "Uneven Genes", "description": "Obtain an Eevee from your Mother", "points": 1, "flag": EeveeEvent, "mapID": YourHouseMain},
+    5: {"title": "This Is Were Babies Come From", "description": "Obtain an egg in Jubilife City", "points": 1, "flag": EggGift, "mapID": TrainerSchool},
+    6: {"title": "Champion's Favorite", "description": "Obtain a Beldum from Steven", "points": 1, "flag": BeldumGift, "mapID": StevenHouse},
+}
+
+for Event in Events{
+    achievement(
+    title = Events[Event]["title"],
+    description = Events[Event]["description"],
+    points = Events[Event]["points"],
+
+    trigger = Event(Events[Event]["flag"], Events[Event]["mapID"])
+    )
+}
+
 
