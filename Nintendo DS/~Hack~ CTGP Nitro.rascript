@@ -548,7 +548,7 @@ for track in TracksData
 achievement(
     title = TracksData[track]["title"],
     description = "Complete " + TracksData[track]["trackName"] + " in less than " + TracksData[track]["targetTimeMinutes"] + "m " + TracksData[track]["targetTimeSeconds"] + "s in Time Trial",
-    points = 10,
+    points = 5,
     trigger = 
     TimeTrialPointer != 0 &&
     CurrentMode == TimeTrial &&
