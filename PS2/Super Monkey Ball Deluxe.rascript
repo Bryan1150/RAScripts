@@ -715,17 +715,17 @@ function SpeedrunLeaderboard(ID, name){
         LevelID == ID &&
         InGame &&
         Timer < prev(Timer) &&
-        TimeStopped == false &&
-        prev(TimeStopped) == true &&
-        Replay == false &&
+        TimeStopped == 0 &&
+        prev(TimeStopped) == 1 &&
+        Replay == 0 &&
         NumberOfPlayers == 0,       
         cancel = 
         LevelID != prev(LevelID) ||
         Timer == 0 ||
-        (TimeStopped == true && CompletedStage == false),
+        (TimeStopped == 1 && CompletedStage == 0),
         
-        submit = CompletedStage == true &&
-        prev(CompletedStage) == false,
+        submit = CompletedStage == 1 &&
+        prev(CompletedStage) == 0,
         value = Timer,
         format = "FRAMES",
         lower_is_better=false
@@ -740,19 +740,19 @@ function ChallengeSpeedrun(IDStart, IDEnd, name, mode){
         LevelID == IDStart &&
         InGame &&
         Timer < prev(Timer) &&
-        TimeStopped == false &&
-        prev(TimeStopped) == true &&
-        Replay == false &&
+        TimeStopped == 0 &&
+        prev(TimeStopped) == 1 &&
+        Replay == 0 &&
         NumberOfPlayers == 0 &&
         MainMode == MainGame &&
         MainGameSelect == ChallengeMode &&
         ChallengeModeSelect == mode,       
         cancel = 
         (!InGame),
-        submit = CompletedStage == true &&
-        prev(CompletedStage) == false &&
+        submit = CompletedStage == 1 &&
+        prev(CompletedStage) == 0 &&
         LevelID == IDEnd,
-        value = tally(0,0==0) &&
+        value = tally(0,always_true()) &&
         unless(Paused),
         format = "FRAMES",
         lower_is_better=true
@@ -803,7 +803,7 @@ function WorldLeaderboards(world, name){
        
         submit = 
         logic,
-        value = tally(0,0==0) &&
+        value = tally(0,always_true()) &&
         unless(Paused),
         format = "FRAMES",
         lower_is_better=true

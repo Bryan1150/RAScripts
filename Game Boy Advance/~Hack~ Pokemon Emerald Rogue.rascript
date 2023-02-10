@@ -231,7 +231,9 @@ function CatchedPokemon(startOffset, start, finish){
             AddBitFlags = 1
          }
     }
-    return measured(sum_of(BitFlags, f => f) == finish-start) && sum_of(BitFlags, f => prev(f)) == finish-start-1
+    return 
+    measured( sum_of(BitFlags, f => f) == finish-start)
+    && tally(20, sum_of(BitFlags, f => prev(f)) == finish-start-1)
    
      
     
@@ -269,6 +271,7 @@ for pokedex in Pokedex{
         title = Pokedex[pokedex]["title"],
         description = Pokedex[pokedex]["description"],
         points = Pokedex[pokedex]["points"],
-        trigger = SaveProtection() && NoSeeds() && CatchedPokemon(CaughtOffset, Pokedex[pokedex]["start"], Pokedex[pokedex]["end"])
+        trigger = SaveProtection() && NoSeeds() && GlobalPointer == prev(GlobalPointer) && FullBank == prev(FullBank) && CatchedPokemon(CaughtOffset, Pokedex[pokedex]["start"], Pokedex[pokedex]["end"])
+        && never(GlobalPointer != prev(GlobalPointer))
     )
 }
