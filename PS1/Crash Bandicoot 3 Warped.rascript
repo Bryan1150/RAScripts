@@ -62,6 +62,11 @@ Dingodile = 0x03
 NTropy = 0x04
 NGin = 0x05
 NCortex = 0x07
+VortexBoss = 0x3a
+Hub = 0x02
+IncompleteEnding = 0x29
+HundredEnding = 0x2a
+Titles = 0x3c
 
 BossDataPointer = tbyte(0x067a48)
 TinyTigerHealth = byte(BossDataPointer + 0xE5)
@@ -73,1358 +78,969 @@ DeathTornado = bit2(0x069178)
 FruitBazooka = bit3(0x069178)
 SpeedShoes = bit4(0x069178)
 
+GameState = byte(0x068f3d)
+NormalGameplay = 0x01
+CompleteStage = 0x03
 function PointerPrecaution(pointer){
     return (pointer != 0 && prev(pointer) == pointer)
 }
 
+function MainProgression(levelID, PowerUp){
+    return
+    (prior(LevelID) == VortexBoss || prior(LevelID) == Hub) &&
+    LevelID == levelID && 
+    PowerUp == 1 &&
+    prev(PowerUp) == 0
+}
+
+
 achievement(
     title = "Gladiator Tiger", points = 5,
     description = "Defeat Tiny Tiger and get the Super Charged Body Slam",
-    id = 88298, badge = "110119", published = "15/11/2019 01:49:21", modified = "22/8/2020 09:26:56",
+    id = 88298, published = "15/11/2019 01:49:21", modified = "22/8/2020 09:26:56",
     trigger = 
-    LevelID == TinyTiger &&
-    BodySlam == 1 &&
-    prev(BodySlam) == 0
+    MainProgression(TinyTiger, BodySlam)
 )
 
 achievement(
     title = "Flamethrower Age", points = 5,
     description = "Defeat Dingodile and get the Double Jump",
-    id = 88311, badge = "110131", published = "15/11/2019 01:49:57", modified = "16/8/2020 18:27:24",
+    id = 88311, published = "15/11/2019 01:49:57", modified = "16/8/2020 18:27:24",
     trigger = 
-    LevelID == Dingodile &&
-    DoubleJump == 1 &&
-    prev(DoubleJump) == 0
+    MainProgression(Dingodile, DoubleJump)
 )
 
 achievement(
     title = "Time Machinator", points = 5,
     description = "Defeat N. Tropy and get the Death Tornado Spin",
-    id = 88324, badge = "110143", published = "15/11/2019 01:50:32", modified = "31/5/2020 02:49:59",
+    id = 88324, published = "15/11/2019 01:50:32", modified = "31/5/2020 02:49:59",
     trigger = 
-    LevelID == NTropy &&
-    DeathTornado == 1 &&
-    prev(DeathTornado) == 0
+    MainProgression(NTropy, DeathTornado)
 )
 
 achievement(
     title = "Advanced Mech", points = 5,
     description = "Defeat N. Gin and get the Fruit Bazooka",
-    id = 88337, badge = "110155", published = "15/11/2019 01:51:08", modified = "31/5/2020 02:50:14",
+    id = 88337, published = "15/11/2019 01:51:08", modified = "31/5/2020 02:50:14",
     trigger = 
-    LevelID == NGin &&
-    FruitBazooka == 1 &&
-    prev(FruitBazooka) == 0
+    MainProgression(NGin, FruitBazooka)
 )
 
 achievement(
     title = "N. Disposed", points = 10,
     description = "Defeat Neo Cortex and get the Speed Shoes",
-    id = 88350, badge = "110167", published = "15/11/2019 01:51:42", modified = "8/9/2021 10:12:57",
+    id = 88350, published = "15/11/2019 01:51:42", modified = "8/9/2021 10:12:57",
     trigger = 
-    LevelID == NCortex &&
-    SpeedShoes == 1 &&
-    prev(SpeedShoes) == 0
+    MainProgression(NCortex, SpeedShoes) || (prev(LevelID) == NCortex && (LevelID == IncompleteEnding || LevelID == HundredEnding))
+)
+//Bit2 = Red gem
+//Bit3 = Green gem
+//Bit4 = Purple gem
+//Bit5 = Blue gem
+//Bit6 = Yellow gem
+RedGem = bit2(0x068fb7)
+GreenGem = bit3(0x068fb7)
+PurpleGem = bit4(0x068fb7)
+BlueGem = bit5(0x068fb7)
+YellowGem = bit6(0x068fb7)
+
+
+
+function ColoredGem(flag, stage){
+return
+    prior(LevelID) == stage &&
+    LevelID == Hub &&
+    prev(flag) == 0 &&
+    flag == 1
+}
+
+achievement(
+    title = "High Yellow", points = 5,
+    description = "Obtain the Topaz in Hang'em High",
+    id = 88590, published = "16/11/2019 18:54:27", modified = "16/5/2020 11:04:16",
+    trigger = ColoredGem(YellowGem, Level7)
 )
 
 achievement(
-    title = "Yellow Gem", points = 5,
-    description = "Get the yellow colored gem.",
-    id = 88590, badge = "110182", published = "16/11/2019 18:54:27", modified = "16/5/2020 11:04:16",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) == 22 && byte(0x068EF9) == 2 && prev(bit6(0x068FB7)) == 0 && bit6(0x068FB7) == 1 && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) == 22 && byte(0x0690A9) == 2 && prev(bit6(0x069167)) == 0 && bit6(0x069167) == 1 && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) == 22 && byte(0x069349) == 2 && prev(bit6(0x069407)) == 0 && bit6(0x069407) == 1 && 
-                unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && 
-                unless(dword(0x069D34) > 256)))
+    title = "Deep Red", points = 5,
+    description = "Obtain the Ruby in Deep Trouble",
+    id = 88589, published = "16/11/2019 18:54:24", modified = "17/5/2020 23:06:47",
+    trigger = ColoredGem(RedGem, Level12)
 )
 
 achievement(
-    title = "Red Gem", points = 5,
-    description = "Get the red colored gem.",
-    id = 88589, badge = "110181", published = "16/11/2019 18:54:24", modified = "17/5/2020 23:06:47",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) == 28 && byte(0x068EF9) == 2 && prev(bit2(0x068FB7)) == 0 && bit2(0x068FB7) == 1 && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) == 28 && byte(0x0690A9) == 2 && prev(bit2(0x069167)) == 0 && bit2(0x069167) == 1 && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) == 28 && byte(0x069349) == 2 && prev(bit2(0x069407)) == 0 && bit2(0x069407) == 1 && 
-                unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && 
-                unless(dword(0x069D34) > 256)))
+    title = "Purple Time", points = 5,
+    description = "Obtain the Amethyst in High Time",
+    id = 88592, published = "16/11/2019 18:54:33", modified = "16/5/2020 10:49:31",
+    trigger = ColoredGem(PurpleGem, Level13)
 )
 
 achievement(
-    title = "Purple Gem", points = 5,
-    description = "Get the purple colored gem.",
-    id = 88592, badge = "110184", published = "16/11/2019 18:54:33", modified = "16/5/2020 10:49:31",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) == 26 && byte(0x068EF9) == 2 && prev(bit4(0x068FB7)) == 0 && bit4(0x068FB7) == 1 && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) == 26 && byte(0x0690A9) == 2 && prev(bit4(0x069167)) == 0 && bit4(0x069167) == 1 && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) == 26 && byte(0x069349) == 2 && prev(bit4(0x069407)) == 0 && bit4(0x069407) == 1 && 
-                unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && 
-                unless(dword(0x069D34) > 256)))
+    title = "Blue Wader", points = 5,
+    description = "Obtain the Sapphire in Tomb Wader",
+    id = 88588, published = "16/11/2019 18:54:22", modified = "16/5/2020 11:11:31",
+    trigger = ColoredGem(BlueGem, Level20)
 )
 
 achievement(
-    title = "Blue Gem", points = 5,
-    description = "Get the blue colored gem.",
-    id = 88588, badge = "110180", published = "16/11/2019 18:54:22", modified = "16/5/2020 11:11:31",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) == 24 && byte(0x068EF9) == 2 && prev(bit5(0x068FB7)) == 0 && bit5(0x068FB7) == 1 && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) == 24 && byte(0x0690A9) == 2 && prev(bit5(0x069167)) == 0 && bit5(0x069167) == 1 && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) == 24 && byte(0x069349) == 2 && prev(bit5(0x069407)) == 0 && bit5(0x069407) == 1 && 
-                unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && 
-                unless(dword(0x069D34) > 256)))
+    title = "Green Passion", points = 5,
+    description = "Obtain the Emerald in Flaming Passion",
+    id = 88591, published = "16/11/2019 18:54:30", modified = "16/5/2020 10:56:08",
+    trigger = ColoredGem(GreenGem, Level23)
+)
+
+ExtraGems1 = [
+    bit1(0x068fb0),
+    bit2(0x068fb0),
+    bit3(0x068fb0)
+]
+
+ExtraGems2 = [
+    bit4(0x068fb0),
+    bit5(0x068fb0),
+    bit6(0x068fb0),
+    bit7(0x068fb0)
+]
+
+World1Gems = [
+    bit3(0x068fb1),
+    bit6(0x068fb1),
+    bit2(0x068fb1),
+    bit4(0x068fb1),
+    bit1(0x068fb3)
+]
+
+World2Gems = [
+    bit7(0x068fb1),
+    bit6(0x068fb2),
+    bit5(0x068fb2),
+    bit2(0x068fb2),
+    bit1(0x068fb2)
+]
+
+World3Gems = [
+    bit0(0x068fb2),
+    bit4(0x068fb3),
+    bit2(0x068fb3),
+    bit4(0x068fb2),
+    bit5(0x068fb3)
+]
+
+World4Gems = [
+    bit6(0x068fb3),
+    bit3(0x068fb2),
+    bit5(0x068fb1),
+    bit3(0x068fb3),
+    bit0(0x068fb3)
+]
+
+World5Gems = [
+    bit3(0x068fb4),
+    bit0(0x068fb4),
+    bit2(0x068fb4),
+    bit7(0x068fb2),
+    bit4(0x068fb4)
+]
+
+WorldSecretGems = [
+    bit1(0x068fb4),
+    bit5(0x068fb4),
+    bit7(0x068fb3),
+    bit0(0x068fb1),
+    bit1(0x068fb1)
+]
+
+HotCocoGem = bit7(0x068fb4)
+EggipusRexGem = bit6(0x068fb4)
+
+function GemsLogic(flags){
+return
+    prior(LevelID) != Titles &&
+    LevelID == Hub &&
+    measured(sum_of(flags, gem => gem) == length(flags)) &&
+    sum_of(flags, gem => prev(gem)) == length(flags) - 1
+}
+
+function SingleGemLogic(flag, level){
+return
+    prior(LevelID) == level &&
+    LevelID == Hub &&
+    prev(flag) == 0 &&
+    flag == 1  
+}
+
+achievement(
+    title = "Secret Goods", points = 5,
+    description = "Obtain every extra gem from the First, Second and Third Areas",
+    id = 88587, published = "16/11/2019 18:54:19", modified = "16/5/2020 11:19:50",
+    trigger = GemsLogic(ExtraGems1)
 )
 
 achievement(
-    title = "Green Gem", points = 5,
-    description = "Get the green colored gem.",
-    id = 88591, badge = "110183", published = "16/11/2019 18:54:30", modified = "16/5/2020 10:56:08",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) == 34 && byte(0x068EF9) == 2 && prev(bit3(0x068FB7)) == 0 && bit3(0x068FB7) == 1 && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) == 34 && byte(0x0690A9) == 2 && prev(bit3(0x069167)) == 0 && bit3(0x069167) == 1 && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) == 34 && byte(0x069349) == 2 && prev(bit3(0x069407)) == 0 && bit3(0x069407) == 1 && 
-                unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && 
-                unless(dword(0x069D34) > 256)))
+    title = "Hidden Extras", points = 5,
+    description = "Obtain every extra gem from the Fourth and Fifth Areas",
+    id = 88593, published = "16/11/2019 18:54:36", modified = "16/5/2020 10:21:07",
+    trigger = GemsLogic(ExtraGems2)
 )
 
 achievement(
-    title = "Extra Gems 1", points = 5,
-    description = "Get world 1 to 3 extra gems.",
-    id = 88587, badge = "110179", published = "16/11/2019 18:54:19", modified = "16/5/2020 11:19:50",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) != 60 && byte(0x068EF9) == 2 && (prev(bit1(0x068FB0)) + prev(bit2(0x068FB0)) +
-                 prev(bit3(0x068FB0))) == 2 && measured((bit1(0x068FB0) + bit2(0x068FB0) + bit3(0x068FB0)) == 3) && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) != 60 && byte(0x0690A9) == 2 && (prev(bit1(0x069160)) + prev(bit2(0x069160)) +
-                 prev(bit3(0x069160))) == 2 && measured((bit1(0x069160) + bit2(0x069160) + bit3(0x069160)) == 3) && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) != 60 && byte(0x069349) == 2 && (prev(bit1(0x069400)) + prev(bit2(0x069400)) +
-                 prev(bit3(0x069400))) == 2 && measured((prev(bit1(0x069400)) + prev(bit2(0x069400)) +
-                 prev(bit3(0x069400))) == 3) && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+    title = "Hot Cocoa", points = 5,
+    description = "Obtain the gem from Hot Coco",
+    id = 89275, published = "26/11/2019 00:55:04", modified = "16/5/2020 10:44:36",
+    trigger = SingleGemLogic(HotCocoGem, Level31)
 )
 
 achievement(
-    title = "Extra Gems 2", points = 5,
-    description = "Get world 4 to 5 extra gems.",
-    id = 88593, badge = "110185", published = "16/11/2019 18:54:36", modified = "16/5/2020 10:21:07",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) != 60 && byte(0x068EF9) == 2 && (prev(bit4(0x068FB0)) + prev(bit5(0x068FB0)) +
-                 prev(bit6(0x068FB0)) + prev(bit7(0x068FB0))) == 3 && measured((bit4(0x068FB0) + bit5(0x068FB0) +
-                 bit6(0x068FB0) + bit7(0x068FB0)) == 4) && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) != 60 && byte(0x0690A9) == 2 && (prev(bit4(0x069160)) + prev(bit5(0x069160)) +
-                 prev(bit6(0x069160)) + prev(bit7(0x069160))) == 3 && measured((bit4(0x069160) + bit5(0x069160) +
-                 bit6(0x069160) + bit7(0x069160)) == 4) && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) != 60 && byte(0x069349) == 2 && (prev(bit4(0x069400)) + prev(bit5(0x069400)) +
-                 prev(bit6(0x069400)) + prev(bit7(0x069400))) == 3 && measured((bit4(0x069400) + bit5(0x069400) +
-                 bit6(0x069400) + bit7(0x069400)) == 4) && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+    title = "Gem-ipus Rex", points = 5,
+    description = "Obtain the gem from Eggipus Rex",
+    id = 89276, published = "26/11/2019 00:55:09", modified = "16/5/2020 10:40:08",
+    trigger = SingleGemLogic(EggipusRexGem, Level32)
 )
 
 achievement(
-    title = "Hot Coco Gem", points = 5,
-    description = "Get Hot Coco level gem.",
-    id = 89275, badge = "110192", published = "26/11/2019 00:55:04", modified = "16/5/2020 10:44:36",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) == 39 && byte(0x068EF9) == 2 && prev(bit7(0x068FB4)) == 0 && bit7(0x068FB4) == 1 && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) == 39 && byte(0x0690A9) == 2 && prev(bit7(0x069164)) == 0 && bit7(0x069164) == 1 && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) == 39 && byte(0x069349) == 2 && prev(bit7(0x069404)) == 0 && bit7(0x069404) == 1 && 
-                unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && 
-                unless(dword(0x069D34) > 256)))
+    title = "Medieval Camelot", points = 5,
+    description = "Obtain every box gem in the First Area",
+    id = 88297, published = "15/11/2019 01:49:18", modified = "13/2/2021 22:13:34",
+    trigger = GemsLogic(World1Gems)
 )
 
 achievement(
-    title = "Eggipus Rex Gem", points = 5,
-    description = "Get Eggipus Rex gem.",
-    id = 89276, badge = "110193", published = "26/11/2019 00:55:09", modified = "16/5/2020 10:40:08",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) == 38 && byte(0x068EF9) == 2 && prev(bit6(0x068FB4)) == 0 && bit6(0x068FB4) == 1 && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) == 38 && byte(0x0690A9) == 2 && prev(bit6(0x069164)) == 0 && bit6(0x069164) == 1 && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) == 38 && byte(0x069349) == 2 && prev(bit6(0x069404)) == 0 && bit6(0x069404) == 1 && 
-                unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && 
-                unless(dword(0x069D34) > 256)))
+    title = "Sands of Time", points = 5,
+    description = "Obtain every box gem in the Second Area",
+    id = 88310, published = "15/11/2019 01:49:54", modified = "16/5/2020 11:56:10",
+    trigger = GemsLogic(World2Gems)
 )
 
 achievement(
-    title = "World 1 Gems", points = 5,
-    description = "Get all box gems in world 1.",
-    id = 88297, badge = "110118", published = "15/11/2019 01:49:18", modified = "13/2/2021 22:13:34",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) != 60 && byte(0x068EF9) == 2 && (prev(bit3(0x068FB1)) + prev(bit6(0x068FB1)) +
-                 prev(bit2(0x068FB1)) + prev(bit4(0x068FB1)) + prev(bit1(0x068FB3))) == 4 && measured((bit3(0x068FB1) +
-                 bit6(0x068FB1) + bit2(0x068FB1) + bit4(0x068FB1) + bit1(0x068FB3)) == 5) && unless(byte(0x068EF9) < 2) && 
-                unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 2 && (prev(bit3(0x069161)) + prev(bit6(0x069161)) + prev(bit2(0x069161)) +
-                 prev(bit4(0x069161)) + prev(bit1(0x069163))) == 4 && measured((bit3(0x069161) + bit6(0x069161) +
-                 bit2(0x069161) + bit4(0x069161) + bit1(0x069163)) == 5) && unless(byte(0x0690A9) < 2) && 
-                unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) != 60 && byte(0x069349) == 2 && (prev(bit3(0x069401)) + prev(bit6(0x069401)) +
-                 prev(bit2(0x069401)) + prev(bit4(0x069401)) + prev(bit1(0x069403))) == 4 && measured((bit3(0x069401) +
-                 bit6(0x069401) + bit2(0x069401) + bit4(0x069401) + bit1(0x069403)) == 5) && unless(byte(0x069349) < 2) && 
-                unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+    title = "Oriental Warrior", points = 5,
+    description = "Obtain every box gem in the Third Area",
+    id = 88323, published = "15/11/2019 01:50:29", modified = "20/5/2020 21:55:53",
+    trigger = GemsLogic(World3Gems)
 )
 
 achievement(
-    title = "World 2 Gems", points = 5,
-    description = "Get all box gems in world 2.",
-    id = 88310, badge = "110130", published = "15/11/2019 01:49:54", modified = "16/5/2020 11:56:10",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) != 60 && byte(0x068EF9) == 2 && (prev(bit7(0x068FB1)) + prev(bit6(0x068FB2)) +
-                 prev(bit5(0x068FB2)) + prev(bit2(0x068FB2)) + prev(bit1(0x068FB2))) == 4 && measured((bit7(0x068FB1) +
-                 bit6(0x068FB2) + bit5(0x068FB2) + bit2(0x068FB2) + bit1(0x068FB2)) == 5) && unless(byte(0x068EF9) < 2) && 
-                unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) != 60 && byte(0x0690A9) == 2 && (prev(bit7(0x069161)) + prev(bit6(0x069162)) +
-                 prev(bit5(0x069162)) + prev(bit2(0x069162)) + prev(bit1(0x069162))) == 4 && measured((bit7(0x069161) +
-                 bit6(0x069162) + bit5(0x069162) + bit2(0x069162) + bit1(0x069162)) == 5) && unless(byte(0x0690A9) < 2) && 
-                unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) != 60 && byte(0x0690A9) == 2 && (prev(bit7(0x069401)) + prev(bit6(0x069402)) +
-                 prev(bit5(0x069402)) + prev(bit2(0x069402)) + prev(bit1(0x069402))) == 4 && measured((bit7(0x069401) +
-                 bit6(0x069402) + bit5(0x069402) + bit2(0x069402) + bit1(0x069402)) == 5) && unless(byte(0x069349) < 2) && 
-                unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+    title = "Tomb Raider", points = 5,
+    description = "Obtain every box gem in the Fourth Area",
+    id = 88336, published = "15/11/2019 01:51:06", modified = "16/2/2021 16:50:32",
+    trigger = GemsLogic(World4Gems)
 )
 
 achievement(
-    title = "World 3 Gems", points = 5,
-    description = "Get all box gems in world 3.",
-    id = 88323, badge = "110142", published = "15/11/2019 01:50:29", modified = "20/5/2020 21:55:53",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) != 60 && byte(0x068EF9) == 2 && (prev(bit0(0x068FB2)) + prev(bit4(0x068FB3)) +
-                 prev(bit2(0x068FB3)) + prev(bit4(0x068FB2)) + prev(bit5(0x068FB3))) == 4 && measured((bit0(0x068FB2) +
-                 bit4(0x068FB3) + bit2(0x068FB3) + bit4(0x068FB2) + bit5(0x068FB3)) == 5) && unless(byte(0x068EF9) < 2) && 
-                unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) != 60 && byte(0x0690A9) == 2 && (prev(bit0(0x069162)) + prev(bit4(0x069163)) +
-                 prev(bit2(0x069163)) + prev(bit4(0x069162)) + prev(bit5(0x069163))) == 4 && measured((bit0(0x069162) +
-                 bit4(0x069163) + bit2(0x069163) + bit4(0x069162) + bit5(0x069163)) == 5) && unless(byte(0x0690A9) < 2) && 
-                unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x0690A9)) != 60 && byte(0x069349) == 2 && (prev(bit0(0x069402)) + prev(bit4(0x069403)) +
-                 prev(bit2(0x069403)) + prev(bit4(0x069402)) + prev(bit5(0x069403))) == 4 && measured((bit0(0x069402) +
-                 bit4(0x069403) + bit2(0x069403) + bit4(0x069402) + bit5(0x069403)) == 5) && unless(byte(0x069349) < 2) && 
-                unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+    title = "Back to the Future", points = 5,
+    description = "Obtain every box gem in the Fifth Area",
+    id = 88349, published = "15/11/2019 01:51:39", modified = "16/5/2021 21:41:18",
+    trigger = GemsLogic(World5Gems)
 )
 
 achievement(
-    title = "World 4 Gems", points = 5,
-    description = "Get all box gems in world 4.",
-    id = 88336, badge = "110154", published = "15/11/2019 01:51:06", modified = "16/2/2021 16:50:32",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) != 60 && byte(0x068EF9) == 2 && (prev(bit6(0x068FB3)) + prev(bit3(0x068FB2)) +
-                 prev(bit5(0x068FB1)) + prev(bit3(0x068FB3)) + prev(bit0(0x068FB3))) == 4 && measured((bit6(0x068FB3) +
-                 bit3(0x068FB2) + bit5(0x068FB1) + bit3(0x068FB3) + bit0(0x068FB3)) == 5) && unless(byte(0x068EF9) < 2) && 
-                unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) != 60 && byte(0x0690A9) == 2 && (prev(bit6(0x069163)) + prev(bit3(0x069162)) +
-                 prev(bit5(0x069161)) + prev(bit3(0x069163)) + prev(bit0(0x069163))) == 4 && measured((bit6(0x069163) +
-                 bit3(0x069162) + bit5(0x069161) + bit3(0x069163) + bit0(0x069163)) == 5) && unless(byte(0x0690A9) < 2) && 
-                unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) != 60 && byte(0x069349) == 2 && (prev(bit6(0x069403)) + prev(bit3(0x069402)) +
-                 prev(bit5(0x069401)) + prev(bit3(0x069403)) + prev(bit0(0x069403))) == 4 && measured((bit6(0x069403) +
-                 bit3(0x069402) + bit5(0x069401) + bit3(0x069403) + bit0(0x069403)) == 5) && unless(byte(0x069349) < 2) && 
-                unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+    title = "I’ll Be Back", points = 5,
+    description = "Obtain every clear gem in the Secret Area",
+    id = 88586, published = "16/11/2019 18:54:16", modified = "16/5/2020 11:52:14",
+    trigger = 
+    prior(LevelID) != Titles &&
+    LevelID == Hub &&
+    measured(sum_of(WorldSecretGems, gem => gem) == length(WorldSecretGems)) &&
+    sum_of(WorldSecretGems, gem => prev(gem)) <= length(WorldSecretGems) - 1 &&
+    sum_of(WorldSecretGems, gem => prev(gem)) >= length(WorldSecretGems) - 2
 )
+//This one is easier by hand lmao
+function PlatinumRelicLogic(){
+    
+}
 
 achievement(
-    title = "World 5 Gems", points = 5,
-    description = "Get all box gems in world 5.",
-    id = 88349, badge = "110166", published = "15/11/2019 01:51:39", modified = "16/5/2021 21:41:18",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) != 60 && byte(0x068EF9) == 2 && (prev(bit3(0x068FB4)) + prev(bit0(0x068FB4)) +
-                 prev(bit2(0x068FB4)) + prev(bit7(0x068FB2)) + prev(bit4(0x068FB4))) == 4 && measured((bit3(0x068FB4) +
-                 bit0(0x068FB4) + bit2(0x068FB4) + bit7(0x068FB2) + bit4(0x068FB4)) == 5) && unless(byte(0x068EF9) < 2) && 
-                unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) != 60 && byte(0x0690A9) == 2 && (prev(bit3(0x069164)) + prev(bit0(0x069164)) +
-                 prev(bit2(0x069164)) + prev(bit7(0x069162)) + prev(bit4(0x069164))) == 4 && measured((bit3(0x069164) +
-                 bit0(0x069164) + bit2(0x069164) + bit7(0x069162) + bit4(0x069164)) == 5) && unless(byte(0x0690A9) < 2) && 
-                unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) != 60 && byte(0x069349) == 2 && (prev(bit3(0x069404)) + prev(bit0(0x069404)) +
-                 prev(bit2(0x069404)) + prev(bit7(0x069402)) + prev(bit4(0x069404))) == 4 && measured((bit3(0x069404) +
-                 bit0(0x069404) + bit2(0x069404) + bit7(0x069402) + bit4(0x069404)) == 5) && unless(byte(0x069349) < 2) && 
-                unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Secret World Gems", points = 5,
-    description = "Get all gems in secret world.",
-    id = 88586, badge = "110178", published = "16/11/2019 18:54:16", modified = "16/5/2020 11:52:14",
-    trigger = always_true() &&
-              ((prior(byte(0x068EF9)) != 60 && byte(0x068EF9) == 2 && (prev(bit1(0x068FB4)) + prev(bit5(0x068FB4)) +
-                 prev(bit7(0x068FB3)) + prev(bit0(0x068FB1)) + prev(bit1(0x068FB1))) < 5 && (prev(bit1(0x068FB4)) +
-                 prev(bit5(0x068FB4)) + prev(bit7(0x068FB3)) + prev(bit0(0x068FB1)) + prev(bit1(0x068FB1))) >= 3 && 
-                measured((bit1(0x068FB4) + bit5(0x068FB4) + bit7(0x068FB3) + bit0(0x068FB1) + bit1(0x068FB1)) == 5) && 
-                unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && unless(dword(0x068F80) > 256) && 
-                unless(dword(0x068F84) > 256)) ||
-               (prior(byte(0x0690A9)) != 60 && byte(0x0690A9) == 2 && (prev(bit1(0x069164)) + prev(bit5(0x069164)) +
-                 prev(bit7(0x069163)) + prev(bit0(0x069161)) + prev(bit1(0x069161))) < 5 && (prev(bit1(0x069164)) +
-                 prev(bit5(0x069164)) + prev(bit7(0x069163)) + prev(bit0(0x069161)) + prev(bit1(0x069161))) >= 3 && 
-                measured((bit1(0x069164) + bit5(0x069164) + bit7(0x069163) + bit0(0x069161) + bit1(0x069161)) == 5) && 
-                unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && unless(dword(0x069130) > 256) && 
-                unless(dword(0x069134) > 256)) ||
-               (prior(byte(0x069349)) != 60 && byte(0x069349) == 2 && (prev(bit1(0x069404)) + prev(bit5(0x069404)) +
-                 prev(bit7(0x069403)) + prev(bit0(0x069401)) + prev(bit1(0x069401))) < 5 && (prev(bit1(0x069404)) +
-                 prev(bit5(0x069404)) + prev(bit7(0x069403)) + prev(bit0(0x069401)) + prev(bit1(0x069401))) >= 3 && 
-                measured((bit1(0x069404) + bit5(0x069404) + bit7(0x069403) + bit0(0x069401) + bit1(0x069401)) == 5) && 
-                unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && unless(dword(0x0693D0) > 256) && 
-                unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Toad Village Relic", points = 5,
-    description = "Get any relic in Toad Village.",
-    id = 88299, badge = "110120", published = "15/11/2019 01:49:23", modified = "15/5/2020 22:43:20",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 11 && prev(bit3(0x0691C5)) == 0 && prev(bit3(0x0691CD)) == 0 && (bit3(0x0691C5) +
-                 bit3(0x0691CD)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 11 && prev(bit3(0x069375)) == 0 && prev(bit3(0x06937D)) == 0 && (bit3(0x069375) +
-                 bit3(0x06937D)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 11 && prev(bit3(0x069615)) == 0 && prev(bit3(0x06961D)) == 0 && (bit3(0x069615) +
-                 bit3(0x06961D)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Under Pressure Relic", points = 5,
-    description = "Get any relic in Under Pressure.",
-    id = 88301, badge = "110122", published = "15/11/2019 01:49:28", modified = "15/5/2020 22:35:59",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 14 && prev(bit6(0x0691C5)) == 0 && prev(bit6(0x0691CD)) == 0 && (bit6(0x0691C5) +
-                 bit6(0x0691CD)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 14 && prev(bit6(0x069375)) == 0 && prev(bit6(0x06937D)) == 0 && (bit6(0x069375) +
-                 bit6(0x06937D)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 14 && prev(bit6(0x069615)) == 0 && prev(bit6(0x06961D)) == 0 && (bit6(0x069615) +
-                 bit6(0x06961D)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Orient Express Relic", points = 5,
-    description = "Get any relic in Orient Express.",
-    id = 88303, badge = "110124", published = "15/11/2019 01:49:34", modified = "15/5/2020 22:34:34",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 10 && prev(bit2(0x0691C5)) == 0 && prev(bit2(0x0691CD)) == 0 && (bit2(0x0691C5) +
-                 bit2(0x0691CD)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 10 && prev(bit2(0x069375)) == 0 && prev(bit2(0x06937D)) == 0 && (bit2(0x069375) +
-                 bit2(0x06937D)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 10 && prev(bit2(0x069615)) == 0 && prev(bit2(0x06961D)) == 0 && (bit2(0x069615) +
-                 bit2(0x06961D)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Bone Yard Relic", points = 5,
-    description = "Get any relic in Bone Yard.",
-    id = 88305, badge = "110128", published = "15/11/2019 01:49:40", modified = "15/5/2020 22:26:23",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 12 && prev(bit4(0x0691C5)) == 0 && prev(bit4(0x0691CD)) == 0 && (bit4(0x0691C5) +
-                 bit4(0x0691CD)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 12 && prev(bit4(0x069375)) == 0 && prev(bit4(0x06937D)) == 0 && (bit4(0x069375) +
-                 bit4(0x06937D)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 12 && prev(bit4(0x069615)) == 0 && prev(bit4(0x06961D)) == 0 && (bit4(0x069615) +
-                 bit4(0x06961D)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Making Waves Relic", points = 5,
-    description = "Get any relic in Making Waves.",
-    id = 88307, badge = "110126", published = "15/11/2019 01:49:46", modified = "15/5/2020 22:33:18",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 25 && prev(bit1(0x0691C7)) == 0 && prev(bit1(0x0691CF)) == 0 && (bit1(0x0691C7) +
-                 bit1(0x0691CF)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 25 && prev(bit1(0x069377)) == 0 && prev(bit1(0x06937F)) == 0 && (bit1(0x069377) +
-                 bit1(0x06937F)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 25 && prev(bit1(0x069617)) == 0 && prev(bit1(0x06961F)) == 0 && (bit1(0x069617) +
-                 bit1(0x06961F)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Gee Wiz Relic", points = 5,
-    description = "Get any relic in Gee Wiz.",
-    id = 88312, badge = "110132", published = "15/11/2019 01:49:59", modified = "13/2/2021 22:20:40",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 15 && prev(bit7(0x0691C5)) == 0 && prev(bit7(0x0691CD)) == 0 && (bit7(0x0691C5) +
-                 bit7(0x0691CD)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 15 && prev(bit7(0x069375)) == 0 && prev(bit7(0x06937D)) == 0 && (bit7(0x069375) +
-                 bit7(0x06937D)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 15 && prev(bit7(0x069615)) == 0 && prev(bit7(0x06961D)) == 0 && (bit7(0x069615) +
-                 bit7(0x06961D)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Hangem High Relic", points = 5,
-    description = "Get any relic in Hangem High.",
-    id = 88314, badge = "110134", published = "15/11/2019 01:50:05", modified = "15/5/2020 22:29:49",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 22 && prev(bit6(0x0691C6)) == 0 && prev(bit6(0x0691CE)) == 0 && (bit6(0x0691C6) +
-                 bit6(0x0691CE)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 22 && prev(bit6(0x069376)) == 0 && prev(bit6(0x06937E)) == 0 && (bit6(0x069376) +
-                 bit6(0x06937E)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 22 && prev(bit6(0x069616)) == 0 && prev(bit6(0x06961E)) == 0 && (bit6(0x069616) +
-                 bit6(0x06961E)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Hog Ride Relic", points = 5,
-    description = "Get any relic in Hog Ride.",
-    id = 88316, badge = "110136", published = "15/11/2019 01:50:11", modified = "15/2/2021 20:22:14",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 21 && prev(bit5(0x0691C6)) == 0 && prev(bit5(0x0691CE)) == 0 && (bit5(0x0691C6) +
-                 bit5(0x0691CE)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 21 && prev(bit5(0x069376)) == 0 && prev(bit5(0x06937E)) == 0 && (bit5(0x069376) +
-                 bit5(0x06937E)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 21 && prev(bit5(0x069616)) == 0 && prev(bit5(0x06961E)) == 0 && (bit5(0x069616) +
-                 bit5(0x06961E)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Tomb Time Relic", points = 5,
-    description = "Get any relic in Tomb Time.",
-    id = 88318, badge = "110138", published = "15/11/2019 01:50:16", modified = "14/2/2021 20:55:51",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 18 && prev(bit2(0x0691C6)) == 0 && prev(bit2(0x0691CE)) == 0 && (bit2(0x0691C6) +
-                 bit2(0x0691CE)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 18 && prev(bit2(0x069376)) == 0 && prev(bit2(0x06937E)) == 0 && (bit2(0x069376) +
-                 bit2(0x06937E)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 18 && prev(bit2(0x069616)) == 0 && prev(bit2(0x06961E)) == 0 && (bit2(0x069616) +
-                 bit2(0x06961E)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Midnight Run Relic", points = 5,
-    description = "Get any relic in Midnight Run.",
-    id = 88320, badge = "110140", published = "15/11/2019 01:50:21", modified = "14/2/2021 23:09:15",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 17 && prev(bit1(0x0691C6)) == 0 && prev(bit1(0x0691CE)) == 0 && (bit1(0x0691C6) +
-                 bit1(0x0691CE)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 17 && prev(bit1(0x069376)) == 0 && prev(bit1(0x06937E)) == 0 && (bit1(0x069376) +
-                 bit1(0x06937E)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 17 && prev(bit1(0x069616)) == 0 && prev(bit1(0x06961E)) == 0 && (bit1(0x069616) +
-                 bit1(0x06961E)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Dino Might Relic", points = 5,
-    description = "Get any relic in Dino Might.",
-    id = 88325, badge = "110144", published = "15/11/2019 01:50:36", modified = "15/5/2020 22:53:46",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 16 && prev(bit0(0x0691C6)) == 0 && prev(bit0(0x0691CE)) == 0 && (bit0(0x0691C6) +
-                 bit0(0x0691CE)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 16 && prev(bit0(0x069376)) == 0 && prev(bit0(0x06937E)) == 0 && (bit0(0x069376) +
-                 bit0(0x06937E)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 16 && prev(bit0(0x069616)) == 0 && prev(bit0(0x06961E)) == 0 && (bit0(0x069616) +
-                 bit0(0x06961E)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Deep Trouble Relic", points = 5,
-    description = "Get any relic in Deep Trouble.",
-    id = 88327, badge = "110146", published = "15/11/2019 01:50:41", modified = "15/2/2021 15:23:08",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 28 && prev(bit4(0x0691C7)) == 0 && prev(bit4(0x0691CF)) == 0 && (bit4(0x0691C7) +
-                 bit4(0x0691CF)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 28 && prev(bit4(0x069377)) == 0 && prev(bit4(0x06937F)) == 0 && (bit4(0x069377) +
-                 bit4(0x06937F)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 28 && prev(bit4(0x069617)) == 0 && prev(bit4(0x06961F)) == 0 && (bit4(0x069617) +
-                 bit4(0x06961F)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "High Time Relic", points = 5,
-    description = "Get any relic in High Time.",
-    id = 88329, badge = "110148", published = "15/11/2019 01:50:46", modified = "17/5/2020 23:19:54",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 26 && prev(bit2(0x0691C7)) == 0 && prev(bit2(0x0691CF)) == 0 && (bit2(0x0691C7) +
-                 bit2(0x0691CF)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 26 && prev(bit2(0x069377)) == 0 && prev(bit2(0x06937F)) == 0 && (bit2(0x069377) +
-                 bit2(0x06937F)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 26 && prev(bit2(0x069617)) == 0 && prev(bit2(0x06961F)) == 0 && (bit2(0x069617) +
-                 bit2(0x06961F)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Road Crash Relic", points = 5,
-    description = "Get any relic in Road Crash.",
-    id = 88331, badge = "110150", published = "15/11/2019 01:50:51", modified = "15/2/2021 20:17:43",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 20 && prev(bit4(0x0691C6)) == 0 && prev(bit4(0x0691CE)) == 0 && (bit4(0x0691C6) +
-                 bit4(0x0691CE)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 20 && prev(bit4(0x069376)) == 0 && prev(bit4(0x06937E)) == 0 && (bit4(0x069376) +
-                 bit4(0x06937E)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 20 && prev(bit4(0x069616)) == 0 && prev(bit4(0x06961E)) == 0 && (bit4(0x069616) +
-                 bit4(0x06961E)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Double Header Relic", points = 5,
-    description = "Get any relic in Double Header.",
-    id = 88333, badge = "110152", published = "15/11/2019 01:50:57", modified = "15/5/2020 22:47:43",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 29 && prev(bit5(0x0691C7)) == 0 && prev(bit5(0x0691CF)) == 0 && (bit5(0x0691C7) +
-                 bit5(0x0691CF)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 29 && prev(bit5(0x069377)) == 0 && prev(bit5(0x06937F)) == 0 && (bit5(0x069377) +
-                 bit5(0x06937F)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 29 && prev(bit5(0x069617)) == 0 && prev(bit5(0x06961F)) == 0 && (bit5(0x069617) +
-                 bit5(0x06961F)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Sphynxinator Relic", points = 5,
-    description = "Get any relic in Sphynxinator.",
-    id = 88338, badge = "110156", published = "15/11/2019 01:51:11", modified = "15/5/2020 22:17:28",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 30 && prev(bit6(0x0691C7)) == 0 && prev(bit6(0x0691CF)) == 0 && (bit6(0x0691C7) +
-                 bit6(0x0691CF)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 30 && prev(bit6(0x069377)) == 0 && prev(bit6(0x06937F)) == 0 && (bit6(0x069377) +
-                 bit6(0x06937F)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 30 && prev(bit6(0x069617)) == 0 && prev(bit6(0x06961F)) == 0 && (bit6(0x069617) +
-                 bit6(0x06961F)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Bye Blimps Relic", points = 5,
-    description = "Get any relic in Bye Blimps.",
-    id = 88340, badge = "110158", published = "15/11/2019 01:51:16", modified = "15/5/2020 22:13:58",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 19 && prev(bit3(0x0691C6)) == 0 && prev(bit3(0x0691CE)) == 0 && (bit3(0x0691C6) +
-                 bit3(0x0691CE)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 19 && prev(bit3(0x069376)) == 0 && prev(bit3(0x06937E)) == 0 && (bit3(0x069376) +
-                 bit3(0x06937E)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 19 && prev(bit3(0x069616)) == 0 && prev(bit3(0x06961E)) == 0 && (bit3(0x069616) +
-                 bit3(0x06961E)) > 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Tell No Tales Relic", points = 5,
-    description = "Get any relic in Tell No Tales.",
-    id = 88342, badge = "110160", published = "15/11/2019 01:51:21", modified = "15/5/2020 22:11:32",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 13 && prev(bit5(0x0691C5)) == 0 && prev(bit5(0x0691CD)) == 0 && (bit5(0x0691C5) +
-                 bit5(0x0691CD)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 13 && prev(bit5(0x069375)) == 0 && prev(bit5(0x06937D)) == 0 && (bit5(0x069375) +
-                 bit5(0x06937D)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 13 && prev(bit5(0x069615)) == 0 && prev(bit5(0x06961D)) == 0 && (bit5(0x069615) +
-                 bit5(0x06961D)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Future Frenzy Relic", points = 5,
-    description = "Get any relic in Future Frenzy.",
-    id = 88344, badge = "110162", published = "15/11/2019 01:51:26", modified = "15/5/2020 22:09:03",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 27 && prev(bit3(0x0691C7)) == 0 && prev(bit3(0x0691CF)) == 0 && (bit3(0x0691C7) +
-                 bit3(0x0691CF)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 27 && prev(bit3(0x069377)) == 0 && prev(bit3(0x06937F)) == 0 && (bit3(0x069377) +
-                 bit3(0x06937F)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 27 && prev(bit3(0x069617)) == 0 && prev(bit3(0x06961F)) == 0 && (bit3(0x069617) +
-                 bit3(0x06961F)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Tomb Wader Relic", points = 5,
-    description = "Get any relic in Tomb Wader.",
-    id = 88346, badge = "110164", published = "15/11/2019 01:51:31", modified = "15/5/2020 18:00:08",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 24 && prev(bit0(0x0691C7)) == 0 && prev(bit0(0x0691CF)) == 0 && (bit0(0x0691C7) +
-                 bit0(0x0691CF)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 24 && prev(bit0(0x069377)) == 0 && prev(bit0(0x06937F)) == 0 && (bit0(0x069377) +
-                 bit0(0x06937F)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 24 && prev(bit0(0x069617)) == 0 && prev(bit0(0x06961F)) == 0 && (bit0(0x069617) +
-                 bit0(0x06961F)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Gone Tomorrow Relic ", points = 5,
-    description = "Get any relic in Gone Tomorrow.",
-    id = 88576, badge = "110168", published = "16/11/2019 18:53:48", modified = "15/5/2020 18:11:39",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 35 && prev(bit3(0x0691C8)) == 0 && prev(bit3(0x0691D0)) == 0 && (bit3(0x0691C8) +
-                 bit3(0x0691D0)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 35 && prev(bit3(0x069378)) == 0 && prev(bit3(0x069380)) == 0 && (bit3(0x069378) +
-                 bit3(0x069380)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 35 && prev(bit3(0x069618)) == 0 && prev(bit3(0x069620)) == 0 && (bit3(0x069618) +
-                 bit3(0x069620)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Orange Asphault Relic", points = 5,
-    description = "Get any relic in Orange Asphault.",
-    id = 88578, badge = "110170", published = "16/11/2019 18:53:53", modified = "15/5/2020 18:08:46",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 32 && prev(bit0(0x0691C8)) == 0 && prev(bit0(0x0691D0)) == 0 && (bit0(0x0691C8) +
-                 bit0(0x0691D0)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 32 && prev(bit0(0x069378)) == 0 && prev(bit0(0x069380)) == 0 && (bit0(0x069378) +
-                 bit0(0x069380)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 32 && prev(bit0(0x069618)) == 0 && prev(bit0(0x069620)) == 0 && (bit0(0x069618) +
-                 bit0(0x069620)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Flaming Passion Relic ", points = 5,
-    description = "Get any relic in Flaming Passion.",
-    id = 88580, badge = "110172", published = "16/11/2019 18:53:59", modified = "15/5/2020 18:05:32",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 34 && prev(bit2(0x0691C8)) == 0 && prev(bit2(0x0691D0)) == 0 && (bit2(0x0691C8) +
-                 bit2(0x0691D0)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 34 && prev(bit2(0x069378)) == 0 && prev(bit2(0x069380)) == 0 && (bit2(0x069378) +
-                 bit2(0x069380)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 34 && prev(bit2(0x069618)) == 0 && prev(bit2(0x069620)) == 0 && (bit2(0x069618) +
-                 bit2(0x069620)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Mad Bombers Relic", points = 5,
-    description = "Get any relic in Mad Bombers.",
-    id = 88582, badge = "110174", published = "16/11/2019 18:54:05", modified = "15/5/2020 18:03:22",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 23 && prev(bit7(0x0691C6)) == 0 && prev(bit7(0x0691CE)) == 0 && (bit7(0x0691C6) +
-                 bit7(0x0691CE)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 23 && prev(bit7(0x069376)) == 0 && prev(bit7(0x06937E)) == 0 && (bit7(0x069376) +
-                 bit7(0x06937E)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 23 && prev(bit7(0x069616)) == 0 && prev(bit7(0x06961E)) == 0 && (bit7(0x069616) +
-                 bit7(0x06961E)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Bug Lite Relic", points = 5,
-    description = "Get any relic in Bug Lite.",
-    id = 88584, badge = "110176", published = "16/11/2019 18:54:11", modified = "15/5/2020 22:24:48",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 36 && prev(bit4(0x0691C8)) == 0 && prev(bit4(0x0691D0)) == 0 && (bit4(0x0691C8) +
-                 bit4(0x0691D0)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 36 && prev(bit4(0x069378)) == 0 && prev(bit4(0x069380)) == 0 && (bit4(0x069378) +
-                 bit4(0x069380)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 36 && prev(bit4(0x069618)) == 0 && prev(bit4(0x069620)) == 0 && (bit4(0x069618) +
-                 bit4(0x069620)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Ski Crazed Relic", points = 5,
-    description = "Get any relic in Ski Crazed.",
-    id = 88594, badge = "110186", published = "16/11/2019 18:54:39", modified = "15/5/2020 22:22:13",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 33 && prev(bit1(0x0691C8)) == 0 && prev(bit1(0x0691D0)) == 0 && (bit1(0x0691C8) +
-                 bit1(0x0691D0)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 33 && prev(bit1(0x069378)) == 0 && prev(bit1(0x069380)) == 0 && (bit1(0x069378) +
-                 bit1(0x069380)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 33 && prev(bit1(0x069618)) == 0 && prev(bit1(0x069620)) == 0 && (bit1(0x069618) +
-                 bit1(0x069620)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Area 51 Relic", points = 5,
-    description = "Get any relic in Area 51.",
-    id = 88596, badge = "110188", published = "16/11/2019 18:54:44", modified = "15/5/2020 22:20:48",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 37 && prev(bit5(0x0691C8)) == 0 && prev(bit5(0x0691D0)) == 0 && (bit5(0x0691C8) +
-                 bit5(0x0691D0)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 37 && prev(bit5(0x069378)) == 0 && prev(bit5(0x069380)) == 0 && (bit5(0x069378) +
-                 bit5(0x069380)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 37 && prev(bit5(0x069618)) == 0 && prev(bit5(0x069620)) == 0 && (bit5(0x069618) +
-                 bit5(0x069620)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Rings of Power Relic", points = 5,
-    description = "Get any relic in Rings of Power.",
-    id = 88598, badge = "110190", published = "16/11/2019 18:54:49", modified = "15/5/2020 22:19:15",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 31 && prev(bit7(0x0691C7)) == 0 && prev(bit7(0x0691CF)) == 0 && (bit7(0x0691C7) +
-                 bit7(0x0691CF)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 31 && prev(bit7(0x069377)) == 0 && prev(bit7(0x06937F)) == 0 && (bit7(0x069377) +
-                 bit7(0x06937F)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 31 && prev(bit7(0x069617)) == 0 && prev(bit7(0x06961F)) == 0 && (bit7(0x069617) +
-                 bit7(0x06961F)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Hot Coco Relic", points = 5,
-    description = "Get any relic in Hot Coco.",
-    id = 89277, badge = "110194", published = "26/11/2019 00:55:12", modified = "15/5/2020 22:56:34",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 39 && prev(bit7(0x0691C8)) == 0 && prev(bit7(0x0691D0)) == 0 && (bit7(0x0691C8) +
-                 bit7(0x0691D0)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 39 && prev(bit7(0x069378)) == 0 && prev(bit7(0x069380)) == 0 && (bit7(0x069378) +
-                 bit7(0x069380)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 39 && prev(bit7(0x069618)) == 0 && prev(bit7(0x069620)) == 0 && (bit7(0x069618) +
-                 bit7(0x069620)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Eggipus Rex Relic", points = 5,
-    description = "Get any relic in Eggipus Rex.",
-    id = 89278, badge = "110196", published = "26/11/2019 00:55:14", modified = "30/5/2020 01:14:04",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 38 && prev(bit6(0x0691C8)) == 0 && prev(bit6(0x0691D0)) == 0 && (bit6(0x0691C8) +
-                 bit6(0x0691D0)) >= 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 38 && prev(bit6(0x069378)) == 0 && prev(bit6(0x069380)) == 0 && (bit6(0x069378) +
-                 bit6(0x069380)) >= 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 38 && prev(bit6(0x069618)) == 0 && prev(bit6(0x069620)) == 0 && (bit6(0x069618) +
-                 bit6(0x069620)) >= 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
-)
-
-achievement(
-    title = "Toad Village Platinum", points = 10,
-    description = "Get platinum relic in Toad Village.",
-    id = 88300, badge = "110121", published = "15/11/2019 01:49:26", modified = "15/5/2020 17:18:24",
+    title = "Toad Jumping", points = 10,
+    description = "Obtain the platinum relic in Toad Village",
+    id = 88300, published = "15/11/2019 01:49:26", modified = "15/5/2020 17:18:24",
     trigger = always_true() &&
               ((byte(0x068EF9) == 11 && prev(bit3(0x0691C5)) == 0 && prev(bit3(0x0691CD)) == 0 && bit3(0x0691C5) == 1 && 
-                bit3(0x0691CD) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 11 && prev(bit3(0x069375)) == 0 && prev(bit3(0x06937D)) == 0 && bit3(0x069375) == 1 && 
-                bit3(0x06937D) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 11 && prev(bit3(0x069615)) == 0 && prev(bit3(0x06961D)) == 0 && bit3(0x069615) == 1 && 
-                bit3(0x06961D) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit3(0x0691CD) == 1)) 
 )
 
 achievement(
-    title = "Under Pressure Platinum", points = 10,
-    description = "Get platinum relic in Under Pressure",
-    id = 88302, badge = "110123", published = "15/11/2019 01:49:31", modified = "15/5/2020 17:15:39",
+    title = "You Were Under Pressure", points = 10,
+    description = "Obtain the platinum relic in Under Pressure",
+    id = 88302, published = "15/11/2019 01:49:31", modified = "15/5/2020 17:15:39",
     trigger = always_true() &&
               ((byte(0x068EF9) == 14 && prev(bit6(0x0691C5)) == 0 && prev(bit6(0x0691CD)) == 0 && bit6(0x0691C5) == 1 && 
-                bit6(0x0691CD) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 14 && prev(bit6(0x069375)) == 0 && prev(bit6(0x06937D)) == 0 && bit6(0x069375) == 1 && 
-                bit6(0x06937D) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 14 && prev(bit6(0x069615)) == 0 && prev(bit6(0x06961D)) == 0 && bit6(0x069615) == 1 && 
-                bit6(0x06961D) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit6(0x0691CD) == 1))
 )
 
 achievement(
-    title = "Orient Express Platinum", points = 10,
-    description = "Get platinum relic in Orient Express.",
-    id = 88304, badge = "110125", published = "15/11/2019 01:49:38", modified = "15/5/2020 17:13:00",
+    title = "Literally Express", points = 10,
+    description = "Obtain the platinum relic in Orient Express",
+    id = 88304, published = "15/11/2019 01:49:38", modified = "15/5/2020 17:13:00",
     trigger = always_true() &&
               ((byte(0x068EF9) == 10 && prev(bit2(0x0691C5)) == 0 && prev(bit2(0x0691CD)) == 0 && bit2(0x0691C5) == 1 && 
-                bit2(0x0691CD) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 10 && prev(bit2(0x069375)) == 0 && prev(bit2(0x06937D)) == 0 && bit2(0x069375) == 1 && 
-                bit2(0x06937D) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 10 && prev(bit2(0x069615)) == 0 && prev(bit2(0x06961D)) == 0 && bit2(0x069615) == 1 && 
-                bit2(0x06961D) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit2(0x0691CD) == 1))
 )
 
 achievement(
-    title = "Bone Yard Platinum", points = 10,
-    description = "Get platinum relic in Bone Yard.",
-    id = 88306, badge = "110129", published = "15/11/2019 01:49:44", modified = "15/5/2020 16:29:35",
+    title = "Bone Rush", points = 10,
+    description = "Obtain the platinum relic in Bone Yard",
+    id = 88306, published = "15/11/2019 01:49:44", modified = "15/5/2020 16:29:35",
     trigger = always_true() &&
               ((byte(0x068EF9) == 12 && prev(bit4(0x0691C5)) == 0 && prev(bit4(0x0691CD)) == 0 && bit4(0x0691C5) == 1 && 
-                bit4(0x0691CD) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 12 && prev(bit4(0x069375)) == 0 && prev(bit4(0x06937D)) == 0 && bit4(0x069375) == 1 && 
-                bit4(0x06937D) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 12 && prev(bit4(0x069615)) == 0 && prev(bit4(0x06961D)) == 0 && bit4(0x069615) == 1 && 
-                bit4(0x06961D) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit4(0x0691CD) == 1))
 )
 
 achievement(
-    title = "Making Waves Platinum", points = 10,
-    description = "Get platinum relic in Making Waves.",
-    id = 88308, badge = "110127", published = "15/11/2019 01:49:49", modified = "15/5/2020 17:10:15",
+    title = "Makin' Times", points = 10,
+    description = "Obtain the platinum relic in Makin' Waves",
+    id = 88308, published = "15/11/2019 01:49:49", modified = "15/5/2020 17:10:15",
     trigger = always_true() &&
               ((byte(0x068EF9) == 25 && prev(bit1(0x0691C7)) == 0 && prev(bit1(0x0691CF)) == 0 && bit1(0x0691C7) == 1 && 
-                bit1(0x0691CF) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 25 && prev(bit1(0x069377)) == 0 && prev(bit1(0x06937F)) == 0 && bit1(0x069377) == 1 && 
-                bit1(0x06937F) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 25 && prev(bit1(0x069617)) == 0 && prev(bit1(0x06961F)) == 0 && bit1(0x069617) == 1 && 
-                bit1(0x06961F) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit1(0x0691CF) == 1))
 )
 
 achievement(
-    title = "Gee Wiz Platinum", points = 10,
-    description = "Get platinum relic in Gee Wiz.",
-    id = 88313, badge = "110133", published = "15/11/2019 01:50:02", modified = "15/2/2021 10:22:27",
+    title = "Gee Whoosh", points = 10,
+    description = "Obtain the platinum relic in Gee Wiz",
+    id = 88313, published = "15/11/2019 01:50:02", modified = "15/2/2021 10:22:27",
     trigger = always_true() &&
               ((byte(0x068EF9) == 15 && prev(bit7(0x0691C5)) == 0 && prev(bit7(0x0691CD)) == 0 && bit7(0x0691C5) == 1 && 
-                bit7(0x0691CD) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 15 && prev(bit7(0x069375)) == 0 && prev(bit7(0x06937D)) == 0 && bit7(0x069375) == 1 && 
-                bit7(0x06937D) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 15 && prev(bit7(0x069615)) == 0 && prev(bit7(0x06961D)) == 0 && bit7(0x069615) == 1 && 
-                bit7(0x06961D) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit7(0x0691CD) == 1 ))
 )
 
 achievement(
-    title = "Hangem High Platinum", points = 10,
-    description = "Get platinum relic in Hangem High.",
-    id = 88315, badge = "110135", published = "15/11/2019 01:50:08", modified = "15/5/2020 17:02:04",
+    title = "Ran'em Fast", points = 10,
+    description = "Obtain the platinum relic in Hang'em High",
+    id = 88315, published = "15/11/2019 01:50:08", modified = "15/5/2020 17:02:04",
     trigger = always_true() &&
               ((byte(0x068EF9) == 22 && prev(bit6(0x0691C6)) == 0 && prev(bit6(0x0691CE)) == 0 && bit6(0x0691C6) == 1 && 
-                bit6(0x0691CE) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 22 && prev(bit6(0x069376)) == 0 && prev(bit6(0x06937E)) == 0 && bit6(0x069376) == 1 && 
-                bit6(0x06937E) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 22 && prev(bit6(0x069616)) == 0 && prev(bit6(0x06961E)) == 0 && bit6(0x069616) == 1 && 
-                bit6(0x06961E) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit6(0x0691CE) == 1))
 )
 
 achievement(
-    title = "Hog Ride Platinum", points = 10,
-    description = "Get platinum relic in Hog Ride.",
-    id = 88317, badge = "110137", published = "15/11/2019 01:50:13", modified = "15/2/2021 20:22:28",
+    title = "Hog Race", points = 10,
+    description = "Obtain the platinum relic in Hog Ride",
+    id = 88317, published = "15/11/2019 01:50:13", modified = "15/2/2021 20:22:28",
     trigger = always_true() &&
               ((byte(0x068EF9) == 21 && prev(bit5(0x0691C6)) == 0 && prev(bit5(0x0691CE)) == 0 && bit5(0x0691C6) == 1 && 
-                bit5(0x0691CE) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 21 && prev(bit5(0x069376)) == 0 && prev(bit5(0x06937E)) == 0 && bit5(0x069376) == 1 && 
-                bit5(0x06937E) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 21 && prev(bit5(0x069616)) == 0 && prev(bit5(0x06961E)) == 0 && bit5(0x069616) == 1 && 
-                bit5(0x06961E) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit5(0x0691CE) == 1))
 )
 
 achievement(
-    title = "Tomb Time Platinum", points = 10,
-    description = "Get platinum relic in Tomb Time.",
-    id = 88319, badge = "110139", published = "15/11/2019 01:50:19", modified = "13/4/2021 03:32:50",
+    title = "The Tomb Time", points = 10,
+    description = "Obtain the platinum relic in Tomb Time",
+    id = 88319, published = "15/11/2019 01:50:19", modified = "13/4/2021 03:32:50",
     trigger = always_true() &&
               ((byte(0x068EF9) == 18 && prev(bit2(0x0691C6)) == 0 && prev(bit2(0x0691CE)) == 0 && bit2(0x0691C6) == 1 && 
-                bit2(0x0691CE) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 18 && prev(bit2(0x069376)) == 0 && prev(bit2(0x06937E)) == 0 && bit2(0x069376) == 1 && 
-                bit2(0x06937E) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 18 && prev(bit2(0x069616)) == 0 && prev(bit2(0x06961E)) == 0 && bit2(0x069616) == 1 && 
-                bit2(0x06961E) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit2(0x0691CE) == 1))
 )
 
 achievement(
-    title = "Midnight Run Platinum", points = 10,
-    description = "Get platinum relic in Midnight Run.",
-    id = 88321, badge = "110141", published = "15/11/2019 01:50:23", modified = "14/2/2021 23:08:58",
+    title = "Midnight Sprint", points = 10,
+    description = "Obtain the platinum relic in Midnight Run",
+    id = 88321, published = "15/11/2019 01:50:23", modified = "14/2/2021 23:08:58",
     trigger = always_true() &&
               ((byte(0x068EF9) == 17 && prev(bit1(0x0691C6)) == 0 && prev(bit1(0x0691CE)) == 0 && bit1(0x0691C6) == 1 && 
-                bit1(0x0691CE) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 17 && prev(bit1(0x069376)) == 0 && prev(bit1(0x06937E)) == 0 && bit1(0x069376) == 1 && 
-                bit1(0x06937E) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 17 && prev(bit1(0x069616)) == 0 && prev(bit1(0x06961E)) == 0 && bit1(0x069616) == 1 && 
-                bit1(0x06961E) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit1(0x0691CE) == 1))
 )
 
 achievement(
-    title = "Dino Might Platinum", points = 10,
-    description = "Get platinum relic in Dino Might.",
-    id = 88326, badge = "110145", published = "15/11/2019 01:50:38", modified = "15/5/2020 22:53:21",
+    title = "Dino Boost!", points = 10,
+    description = "Obtain the platinum relic in Dino Might",
+    id = 88326, published = "15/11/2019 01:50:38", modified = "15/5/2020 22:53:21",
     trigger = always_true() &&
               ((byte(0x068EF9) == 16 && prev(bit0(0x0691C6)) == 0 && prev(bit0(0x0691CE)) == 0 && bit0(0x0691C6) == 1 && 
-                bit0(0x0691CE) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 16 && prev(bit0(0x069376)) == 0 && prev(bit0(0x06937E)) == 0 && bit0(0x069376) == 1 && 
-                bit0(0x06937E) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 16 && prev(bit0(0x069616)) == 0 && prev(bit0(0x06961E)) == 0 && bit0(0x069616) == 1 && 
-                bit0(0x06961E) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit0(0x0691CE) == 1))
 )
 
 achievement(
-    title = "Deep Trouble Platinum", points = 10,
-    description = "Get platinum relic in Deep Trouble.",
-    id = 88328, badge = "110147", published = "15/11/2019 01:50:43", modified = "13/4/2021 03:31:57",
+    title = "No Trouble", points = 10,
+    description = "Obtain the platinum relic in Deep Trouble",
+    id = 88328, published = "15/11/2019 01:50:43", modified = "13/4/2021 03:31:57",
     trigger = always_true() &&
               ((byte(0x068EF9) == 28 && prev(bit4(0x0691C7)) == 0 && prev(bit4(0x0691CF)) == 0 && bit4(0x0691C7) == 1 && 
-                bit4(0x0691CF) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 28 && prev(bit4(0x069377)) == 0 && prev(bit4(0x06937F)) == 0 && bit4(0x069377) == 1 && 
-                bit4(0x06937F) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 28 && prev(bit4(0x069617)) == 0 && prev(bit4(0x06961F)) == 0 && bit4(0x069617) == 1 && 
-                bit4(0x06961F) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit4(0x0691CF) == 1))
 )
 
 achievement(
-    title = "High Time Platinum", points = 10,
-    description = "Get platinum relic in High Time.",
-    id = 88330, badge = "110149", published = "15/11/2019 01:50:48", modified = "15/2/2021 20:24:22",
+    title = "Low Time", points = 10,
+    description = "Obtain the platinum relic in High Time",
+    id = 88330, published = "15/11/2019 01:50:48", modified = "15/2/2021 20:24:22",
     trigger = always_true() &&
               ((byte(0x068EF9) == 26 && prev(bit2(0x0691C7)) == 0 && prev(bit2(0x0691CF)) == 0 && bit2(0x0691C7) == 1 && 
-                bit2(0x0691CF) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 26 && prev(bit2(0x069377)) == 0 && prev(bit2(0x06937F)) == 0 && bit2(0x069377) == 1 && 
-                bit2(0x06937F) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 26 && prev(bit2(0x069617)) == 0 && prev(bit2(0x06961F)) == 0 && bit2(0x069617) == 1 && 
-                bit2(0x06961F) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit2(0x0691CF) == 1))
 )
 
 achievement(
-    title = "Road Crash Platinum", points = 10,
-    description = "Get platinum relic in Road Crash.",
-    id = 88332, badge = "110151", published = "15/11/2019 01:50:54", modified = "15/2/2021 20:17:40",
+    title = "Dash Crash", points = 10,
+    description = "Obtain the platinum relic in Road Crash",
+    id = 88332, published = "15/11/2019 01:50:54", modified = "15/2/2021 20:17:40",
     trigger = always_true() &&
               ((byte(0x068EF9) == 20 && prev(bit4(0x0691C6)) == 0 && prev(bit4(0x0691CE)) == 0 && bit4(0x0691C6) == 1 && 
-                bit4(0x0691CE) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 20 && prev(bit4(0x069376)) == 0 && prev(bit4(0x06937E)) == 0 && bit4(0x069376) == 1 && 
-                bit4(0x06937E) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 20 && prev(bit4(0x069616)) == 0 && prev(bit4(0x06961E)) == 0 && bit4(0x069616) == 1 && 
-                bit4(0x06961E) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit4(0x0691CE) == 1))
 )
 
 achievement(
-    title = "Double Header Platinum", points = 10,
-    description = "Get platinum relic in Double Header.",
-    id = 88334, badge = "110153", published = "15/11/2019 01:51:00", modified = "15/5/2020 17:27:45",
+    title = "Double Tempo", points = 10,
+    description = "Obtain the platinum relic in Double Header",
+    id = 88334, published = "15/11/2019 01:51:00", modified = "15/5/2020 17:27:45",
     trigger = always_true() &&
               ((byte(0x068EF9) == 29 && prev(bit5(0x0691C7)) == 0 && prev(bit5(0x0691CF)) == 0 && bit5(0x0691C7) == 1 && 
-                bit5(0x0691CF) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 29 && prev(bit5(0x069377)) == 0 && prev(bit5(0x06937F)) == 0 && bit5(0x069377) == 1 && 
-                bit5(0x06937F) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 29 && prev(bit5(0x069617)) == 0 && prev(bit5(0x06961F)) == 0 && bit5(0x069617) == 1 && 
-                bit5(0x06961F) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit5(0x0691CF) == 1))
 )
 
 achievement(
-    title = "Sphynxinator Platinum", points = 10,
-    description = "Get platinum relic in Sphynxinator.",
-    id = 88339, badge = "110157", published = "15/11/2019 01:51:13", modified = "15/5/2020 16:03:41",
+    title = "Speedxinator", points = 10,
+    description = "Obtain the platinum relic in Sphynxinator",
+    id = 88339, published = "15/11/2019 01:51:13", modified = "15/5/2020 16:03:41",
     trigger = always_true() &&
               ((byte(0x068EF9) == 30 && prev(bit6(0x0691C7)) == 0 && prev(bit6(0x0691CF)) == 0 && bit6(0x0691C7) == 1 && 
-                bit6(0x0691CF) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 30 && prev(bit6(0x069377)) == 0 && prev(bit6(0x06937F)) == 0 && bit6(0x069377) == 1 && 
-                bit6(0x06937F) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 30 && prev(bit6(0x069617)) == 0 && prev(bit6(0x06961F)) == 0 && bit6(0x069617) == 1 && 
-                bit6(0x06961F) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit6(0x0691CF) == 1))
 )
 
 achievement(
-    title = "Bye Bye Blimps Platinum ", points = 10,
-    description = "Get platinum relic in Bye Bye Blimps.",
-    id = 88341, badge = "110159", published = "15/11/2019 01:51:18", modified = "15/5/2020 16:01:39",
+    title = "Hello Hello Record", points = 10,
+    description = "Obtain the platinum relic in Bye Bye Blimps",
+    id = 88341, published = "15/11/2019 01:51:18", modified = "15/5/2020 16:01:39",
     trigger = always_true() &&
               ((byte(0x068EF9) == 19 && prev(bit3(0x0691C6)) == 0 && prev(bit3(0x0691CE)) == 0 && bit3(0x0691C6) == 1 && 
-                bit3(0x0691CE) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 19 && prev(bit3(0x069376)) == 0 && prev(bit3(0x06937E)) == 0 && bit3(0x069376) == 1 && 
-                bit3(0x06937E) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 19 && prev(bit3(0x069616)) == 0 && prev(bit3(0x06961E)) == 0 && bit3(0x069616) == 1 && 
-                bit3(0x06961E) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit3(0x0691CE) == 1))
 )
 
 achievement(
-    title = "Tell No Tales Platinum ", points = 10,
-    description = "Get platinum relic in Tell No Tales.",
-    id = 88343, badge = "110161", published = "15/11/2019 01:51:23", modified = "15/5/2020 16:00:07",
+    title = "Tell No Strats", points = 10,
+    description = "Obtain the platinum relic in Tell No Tales",
+    id = 88343, published = "15/11/2019 01:51:23", modified = "15/5/2020 16:00:07",
     trigger = always_true() &&
               ((byte(0x068EF9) == 13 && prev(bit5(0x0691C5)) == 0 && prev(bit5(0x0691CD)) == 0 && bit5(0x0691C5) == 1 && 
-                bit5(0x0691CD) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 13 && prev(bit5(0x069375)) == 0 && prev(bit5(0x06937D)) == 0 && bit5(0x069375) == 1 && 
-                bit5(0x06937D) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 13 && prev(bit5(0x069615)) == 0 && prev(bit5(0x06961D)) == 0 && bit5(0x069615) == 1 && 
-                bit5(0x06961D) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit5(0x0691CD) == 1))
 )
 
 achievement(
-    title = "Future Frenzy Platinum", points = 10,
-    description = "Get platinum relic in Future Frenzy.",
-    id = 88345, badge = "110163", published = "15/11/2019 01:51:29", modified = "15/5/2020 22:05:09",
+    title = "Future Switftness", points = 10,
+    description = "Obtain the platinum relic in Future Frenzy",
+    id = 88345, published = "15/11/2019 01:51:29", modified = "15/5/2020 22:05:09",
     trigger = always_true() &&
               ((byte(0x068EF9) == 27 && prev(bit3(0x0691C7)) == 0 && prev(bit3(0x0691CF)) == 0 && bit3(0x0691C7) == 1 && 
-                bit3(0x0691CF) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 27 && prev(bit3(0x069377)) == 0 && prev(bit3(0x06937F)) == 0 && bit3(0x069377) == 1 && 
-                bit3(0x06937F) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 27 && prev(bit3(0x069617)) == 0 && prev(bit3(0x06961F)) == 0 && bit3(0x069617) == 1 && 
-                bit3(0x06961F) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit3(0x0691CF) == 1))
 )
 
 achievement(
-    title = "Tomb Wader Platinum", points = 10,
-    description = "Get platinum relic in Tomb Wader.",
-    id = 88347, badge = "110165", published = "15/11/2019 01:51:34", modified = "15/5/2020 14:28:34",
+    title = "Tomb Fleetness", points = 10,
+    description = "Obtain the platinum relic in Tomb Wader",
+    id = 88347, published = "15/11/2019 01:51:34", modified = "15/5/2020 14:28:34",
     trigger = always_true() &&
               ((byte(0x068EF9) == 24 && (prev(bit0(0x0691C7)) + prev(bit0(0x0691CF))) < 2 && bit0(0x0691C7) == 1 && 
-                bit0(0x0691CF) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 24 && (prev(bit0(0x069377)) + prev(bit0(0x06937F))) < 2 && bit0(0x069377) == 1 && 
-                bit0(0x06937F) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 24 && (prev(bit0(0x069617)) + prev(bit0(0x06961F))) < 2 && bit0(0x069617) == 1 && 
-                bit0(0x06961F) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit0(0x0691CF) == 1))
 )
 
 achievement(
-    title = "Gone Tomorrow Platinum", points = 10,
-    description = "Get platinum relic in Gone Tomorrow.",
-    id = 88577, badge = "110169", published = "16/11/2019 18:53:50", modified = "15/5/2020 15:20:34",
+    title = "Came Yesterday", points = 10,
+    description = "Obtain the platinum relic in Gone Tomorrow",
+    id = 88577, published = "16/11/2019 18:53:50", modified = "15/5/2020 15:20:34",
     trigger = always_true() &&
               ((byte(0x068EF9) == 35 && (prev(bit3(0x0691C8)) + prev(bit3(0x0691D0))) < 2 && bit3(0x0691C8) == 1 && 
-                bit3(0x0691D0) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 35 && (prev(bit3(0x069378)) + prev(bit3(0x069380))) < 2 && bit3(0x069378) == 1 && 
-                bit3(0x069380) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 35 && (prev(bit3(0x069618)) + prev(bit3(0x069620))) < 2 && bit3(0x069618) == 1 && 
-                bit3(0x069620) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit3(0x0691D0) == 1))
 )
 
 achievement(
-    title = "Orange Asphalt Platinum ", points = 10,
-    description = "Get platinum relic in Orange Asphalt.",
-    id = 88579, badge = "110171", published = "16/11/2019 18:53:56", modified = "15/5/2020 18:06:40",
+    title = "Orange Celerity", points = 10,
+    description = "Obtain the platinum relic in Orange Asphalt",
+    id = 88579, published = "16/11/2019 18:53:56", modified = "15/5/2020 18:06:40",
     trigger = always_true() &&
               ((byte(0x068EF9) == 32 && prev(bit0(0x0691C8)) == 0 && prev(bit0(0x0691D0)) == 0 && bit0(0x0691C8) == 1 && 
-                bit0(0x0691D0) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 32 && prev(bit0(0x069378)) == 0 && prev(bit0(0x069380)) == 0 && bit0(0x069378) == 1 && 
-                bit0(0x069380) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 32 && prev(bit0(0x069618)) == 0 && prev(bit0(0x069620)) == 0 && bit0(0x069618) == 1 && 
-                bit0(0x069620) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit0(0x0691D0) == 1))
 )
 
 achievement(
-    title = "Flaming Passion Platinum ", points = 10,
-    description = "Get platinum relic in Flaming Passion.",
-    id = 88581, badge = "110173", published = "16/11/2019 18:54:01", modified = "15/5/2020 14:36:05",
+    title = "Flamming Bolt", points = 10,
+    description = "Obtain the platinum relic in Flaming Passion",
+    id = 88581, published = "16/11/2019 18:54:01", modified = "15/5/2020 14:36:05",
     trigger = always_true() &&
               ((byte(0x068EF9) == 34 && (prev(bit2(0x0691C8)) + prev(bit2(0x0691D0))) < 2 && bit2(0x0691C8) == 1 && 
-                bit2(0x0691D0) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 34 && (prev(bit2(0x069378)) + prev(bit2(0x069380))) < 2 && bit2(0x069378) == 1 && 
-                bit2(0x069380) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 34 && (prev(bit2(0x069618)) + prev(bit2(0x069620))) < 2 && bit2(0x069618) == 1 && 
-                bit2(0x069620) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit2(0x0691D0) == 1))
 )
 
 achievement(
-    title = "Mad Bombers Platinum", points = 10,
-    description = "Get platinum relic in Mad Bombers.",
-    id = 88583, badge = "110175", published = "16/11/2019 18:54:08", modified = "15/5/2020 15:26:13",
+    title = "Mad Flash", points = 10,
+    description = "Obtain the platinum relic in Mad Bombers",
+    id = 88583, published = "16/11/2019 18:54:08", modified = "15/5/2020 15:26:13",
     trigger = always_true() &&
               ((byte(0x068EF9) == 23 && (prev(bit7(0x0691C6)) + prev(bit7(0x0691CE))) < 2 && bit7(0x0691C6) == 1 && 
-                bit7(0x0691CE) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 23 && (prev(bit7(0x069376)) + prev(bit7(0x06937E))) < 2 && bit7(0x069376) == 1 && 
-                bit7(0x06937E) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 23 && (prev(bit7(0x069616)) + prev(bit7(0x06961E))) < 2 && bit7(0x069616) == 1 && 
-                bit7(0x06961E) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit7(0x0691CE) == 1))
 )
 
 achievement(
-    title = "Bug Lite Platinum", points = 10,
-    description = "Get platinum relic in Bug Lite.",
-    id = 88585, badge = "110177", published = "16/11/2019 18:54:13", modified = "15/5/2020 16:23:25",
+    title = "Bug Zoom", points = 10,
+    description = "Obtain the platinum relic in Bug Lite",
+    id = 88585, published = "16/11/2019 18:54:13", modified = "15/5/2020 16:23:25",
     trigger = always_true() &&
               ((byte(0x068EF9) == 36 && prev(bit4(0x0691C8)) == 0 && prev(bit4(0x0691D0)) == 0 && bit4(0x0691C8) == 1 && 
-                bit4(0x0691D0) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 36 && prev(bit4(0x069378)) == 0 && prev(bit4(0x069380)) == 0 && bit4(0x069378) == 1 && 
-                bit4(0x069380) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 36 && prev(bit4(0x069618)) == 0 && prev(bit4(0x069620)) == 0 && bit4(0x069618) == 1 && 
-                bit4(0x069620) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit4(0x0691D0) == 1))
 )
 
 achievement(
-    title = "Ski Crazed Platinum", points = 10,
-    description = "Get platinum relic in Ski Crazed.",
-    id = 88595, badge = "110187", published = "16/11/2019 18:54:41", modified = "15/5/2020 16:19:27",
+    title = "Hurry Crazed", points = 10,
+    description = "Obtain the platinum relic in Ski Crazed",
+    id = 88595, published = "16/11/2019 18:54:41", modified = "15/5/2020 16:19:27",
     trigger = always_true() &&
               ((byte(0x068EF9) == 33 && prev(bit1(0x0691C8)) == 0 && prev(bit1(0x0691D0)) == 0 && bit1(0x0691C8) == 1 && 
-                bit1(0x0691D0) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 33 && prev(bit1(0x069378)) == 0 && prev(bit1(0x069380)) == 0 && bit1(0x069378) == 1 && 
-                bit1(0x069380) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 33 && prev(bit1(0x069618)) == 0 && prev(bit1(0x069620)) == 0 && bit1(0x069618) == 1 && 
-                bit1(0x069620) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit1(0x0691D0) == 1))
 )
 
 achievement(
-    title = "Area 51 Platinum", points = 10,
-    description = "Get platinum relic in Area 51.",
-    id = 88597, badge = "110189", published = "16/11/2019 18:54:47", modified = "15/5/2020 16:13:02",
+    title = "Area 51 MPH", points = 10,
+    description = "Obtain the platinum relic in Area 51?",
+    id = 88597, published = "16/11/2019 18:54:47", modified = "15/5/2020 16:13:02",
     trigger = always_true() &&
               ((byte(0x068EF9) == 37 && prev(bit5(0x0691C8)) == 0 && prev(bit5(0x0691D0)) == 0 && bit5(0x0691C8) == 1 && 
-                bit5(0x0691D0) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 37 && prev(bit5(0x069378)) == 0 && prev(bit5(0x069380)) == 0 && bit5(0x069378) == 1 && 
-                bit5(0x069380) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 37 && prev(bit5(0x069618)) == 0 && prev(bit5(0x069620)) == 0 && bit5(0x069618) == 1 && 
-                bit5(0x069620) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit5(0x0691D0) == 1))
 )
 
 achievement(
-    title = "Rings of Power Platinum", points = 10,
-    description = "Get platinum relic in Rings of Power.",
-    id = 88599, badge = "110191", published = "16/11/2019 18:54:52", modified = "15/5/2020 16:09:51",
+    title = "Rings of Haste", points = 10,
+    description = "Obtain the platinum relic in Rings of Power",
+    id = 88599, published = "16/11/2019 18:54:52", modified = "15/5/2020 16:09:51",
     trigger = always_true() &&
               ((byte(0x068EF9) == 31 && prev(bit7(0x0691C7)) == 0 && prev(bit7(0x0691CF)) == 0 && bit7(0x0691C7) == 1 && 
-                bit7(0x0691CF) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 31 && prev(bit7(0x069377)) == 0 && prev(bit7(0x06937F)) == 0 && bit7(0x069377) == 1 && 
-                bit7(0x06937F) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 31 && prev(bit7(0x069617)) == 0 && prev(bit7(0x06961F)) == 0 && bit7(0x069617) == 1 && 
-                bit7(0x06961F) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+                bit7(0x0691CF) == 1))
+)
+
+
+
+NormalDeathlessGems ={
+1:{"title":"Battletoads", "description":"Break every box in Toad Village without losing a life", "points":5, "stageID":Level1, "BoxCount":42},
+2:{"title":"Pushing Down on Me", "description":"Break every box in Under Pressure without losing a life", "points":5, "stageID":Level2, "BoxCount":92},
+3:{"title":"Deathless Express", "description":"Break every box in Orient Express without losing a life", "points":5, "stageID":Level3, "BoxCount":51},
+4:{"title":"Strong Bones", "description":"Break every box in Bone Yard without losing a life", "points":5, "stageID":Level4, "BoxCount":66},
+5:{"title":"Makin' Health", "description":"Break every box in Makin' Waves without losing a life", "points":5, "stageID":Level5, "BoxCount":37},
+6:{"title":"Gem Wiz", "description":"Break every box in Gee Wiz without losing a life", "points":5, "stageID":Level6, "BoxCount":100},
+7:{"title":"High Stakes", "description":"Break every box in Hang'em High without losing a life", "points":5, "stageID":Level7, "BoxCount":96},
+9:{"title":"Time to (Not) Die", "description":"Break every box in Tomb Time without losing a life", "points":5, "stageID":Level9, "BoxCount":95},
+10:{"title":"Midnight Walk", "description":"Break every box in Midnight Run without losing a life", "points":5, "stageID":Level10, "BoxCount":35},
+11:{"title":"Death Might!", "description":"Break every box in Dino Might! without losing a life", "points":5, "stageID":Level11, "BoxCount":112},
+12:{"title":"Keep Calm", "description":"Break every box in Deep Trouble without losing a life", "points":5, "stageID":Level12, "BoxCount":83},
+13:{"title":"Time to (Not) Die Again", "description":"Break every box in High Time without losing a life", "points":5, "stageID":Level13, "BoxCount":85},
+15:{"title":"Head Straight", "description":"Break every box in Double Header without losing a life", "points":5, "stageID":Level15, "BoxCount":91},
+16:{"title":"Gemxinator", "description":"Break every box in Sphynxinator without losing a life", "points":5, "stageID":Level16, "BoxCount":105},
+18:{"title":"Tell the Tale", "description":"Break every box in Tell No Tales without losing a life", "points":5, "stageID":Level18, "BoxCount":61},
+19:{"title":"Future is Bright", "description":"Break every box in Future Frenzy without losing a life", "points":5, "stageID":Level19, "BoxCount":133},
+20:{"title":"This Isn't My Tomb", "description":"Break every box in Tomb Wader without losing a life", "points":5, "stageID":Level20, "BoxCount":88},
+21:{"title":"Living Tomorrow", "description":"Break every box in Gone Tomorrow without losing a life", "points":5, "stageID":Level21, "BoxCount":87},
+22:{"title":"Life Passion", "description":"Break every box in Flaming Passion without losing a life", "points":5, "stageID":Level23, "BoxCount":75},
+23:{"title":"Lite Life", "description":"Break every box in Bug Lite without losing a life", "points":5, "stageID":Level25, "BoxCount":120},
+24:{"title":"Crazy Sky", "description":"Break every box in Ski Crazed without losing a life", "points":5, "stageID":Level26, "BoxCount":100},
+25:{"title":"Cold Coco", "description":"Break every box in Hot Coco without losing a life", "points":5, "stageID":Level31, "BoxCount":70},
+}
+CrashDataPointer = tbyte(0x068e98)
+TotalCrates = byte(CrashDataPointer + 0x169)
+DeathCounter = word(0x068f0d)
+
+function NormalDeathlessGemLogic(stage, BoxCount){
+    return
+    LevelID == stage &&
+    DeathCounter == 0 &&
+    GameState == NormalGameplay &&
+    trigger_when(TotalCrates == BoxCount) &&
+    prev(TotalCrates) < BoxCount &&
+    trigger_when(prev(TotalCrates) != 0)
+}
+
+for cheevo in NormalDeathlessGems{
+    achievement(
+        title = NormalDeathlessGems[cheevo]["title"],
+        description = NormalDeathlessGems[cheevo]["description"],
+        points = NormalDeathlessGems[cheevo]["points"],
+        trigger = NormalDeathlessGemLogic(NormalDeathlessGems[cheevo]["stageID"], NormalDeathlessGems[cheevo]["BoxCount"])
+    )
+}
+
+World1Sapphires = [
+    bit3(0x0691b5),
+    bit6(0x0691b5),
+    bit2(0x0691b5),
+    bit4(0x0691b5),
+    bit1(0x0691b7)
+]
+
+World2Sapphires = [
+    bit7(0x0691b5),
+    bit6(0x0691b6),
+    bit5(0x0691b6),
+    bit2(0x0691b6),
+    bit1(0x0691b6),
+]
+
+World3Sapphires = [
+    bit0(0x0691b6),
+    bit4(0x0691b7),
+    bit2(0x0691b7),
+    bit4(0x0691b6),
+    bit5(0x0691b7),
+]
+World4Sapphires = [
+    bit6(0x0691b7),
+    bit3(0x0691b6),
+    bit5(0x0691b5),
+    bit3(0x0691b7),
+    bit0(0x0691b7)
+]
+
+World5Sapphires = [
+    bit3(0x0691b8),
+    bit0(0x0691b8),
+    bit2(0x0691b8),
+    bit7(0x0691b6),
+    bit4(0x0691b8),
+]
+
+WorldSecretSapphires = [
+    bit1(0x0691b8),
+    bit5(0x0691b8),
+    bit7(0x0691b7)
+]
+
+World1Golds = [
+    bit3(0x0691bd),
+    bit6(0x0691bd),
+    bit2(0x0691bd),
+    bit4(0x0691bd),
+    bit1(0x0691bf)
+]
+
+World2Golds = [
+     bit7(0x0691bd),
+    bit6(0x0691be),
+    bit5(0x0691be),
+    bit2(0x0691be),
+    bit1(0x0691be),
+]
+
+World3Golds = [
+     bit0(0x0691be),
+    bit4(0x0691bf),
+    bit2(0x0691bf),
+    bit4(0x0691be),
+    bit5(0x0691bf),
+]
+
+World4Golds = [
+    bit6(0x0691bf),
+    bit3(0x0691be),
+    bit5(0x0691bd),
+    bit3(0x0691bf),
+    bit0(0x0691bf)
+]
+
+World5Golds = [
+      bit3(0x0691c0),
+    bit0(0x0691c0),
+    bit2(0x0691c0),
+    bit7(0x0691be),
+    bit4(0x0691c0),
+]
+
+WorldSecretGolds = [
+    bit1(0x0691c0),
+    bit5(0x0691c0),
+    bit7(0x0691bf)
+]
+
+function SapphireLogic(flagsSapphire, flagsGold){
+    sum = 0
+    for flag in range(0,length(flagsSapphire)-1){
+        sum = sum + (flagsSapphire[flag] + flagsGold[flag] - (flagsSapphire[flag] * flagsGold[flag]) )
+    }
+    return LevelID == Hub && measured(sum == length(flagsSapphire)) && prev(sum) == (length(flagsSapphire) - 1)
+}
+
+function GoldLogic(flagsGold){
+    sum = 0
+    for flag in range(0,length(flagsGold)-1){
+        sum = sum +  flagsGold[flag]
+    }
+    return LevelID == Hub && measured(sum == length(flagsGold)) && prev(sum) == (length(flagsGold) - 1)
+}
+
+achievement(
+    title = "Azure Fragments",
+    description = "Obtain all the Sapphire (or better) relics in the First Area",
+    points = 5, 
+    trigger = SapphireLogic(World1Sapphires, World1Golds)
 )
 
 achievement(
-    title = "Hot Coco Platinum", points = 5,
-    description = "Get platinum relic in Hot Coco.",
-    id = 89279, badge = "110195", published = "26/11/2019 00:55:17", modified = "15/5/2020 17:54:45",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 39 && prev(bit7(0x0691C8)) == 0 && prev(bit7(0x0691D0)) == 0 && bit7(0x0691C8) == 1 && 
-                bit7(0x0691D0) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 39 && prev(bit7(0x069378)) == 0 && prev(bit7(0x069380)) == 0 && bit7(0x069378) == 1 && 
-                bit7(0x069380) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 39 && prev(bit7(0x069618)) == 0 && prev(bit7(0x069620)) == 0 && bit7(0x069618) == 1 && 
-                bit7(0x069620) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+    title = "Cerulian Keepsakes",
+    description = "Obtain all the Sapphire (or better) relics in the Second Area",
+    points = 5, 
+    trigger = SapphireLogic(World2Sapphires, World2Golds)
 )
 
 achievement(
-    title = "Eggipus Rex Platinum", points = 5,
-    description = "Get platinum relic in Eggipus Rex.",
-    id = 89280, badge = "110197", published = "26/11/2019 00:55:20", modified = "15/5/2020 17:55:40",
-    trigger = always_true() &&
-              ((byte(0x068EF9) == 38 && prev(bit6(0x0691C8)) == 0 && prev(bit6(0x0691D0)) == 0 && bit6(0x0691C8) == 1 && 
-                bit6(0x0691D0) == 1 && unless(byte(0x068EF9) < 2) && unless(dword(0x068F7C) > 1) && 
-                unless(dword(0x068F80) > 256) && unless(dword(0x068F84) > 256)) ||
-               (byte(0x0690A9) == 38 && prev(bit6(0x069378)) == 0 && prev(bit6(0x069380)) == 0 && bit6(0x069378) == 1 && 
-                bit6(0x069380) == 1 && unless(byte(0x0690A9) < 2) && unless(dword(0x06912C) > 1) && 
-                unless(dword(0x069130) > 256) && unless(dword(0x069134) > 256)) ||
-               (byte(0x069349) == 38 && prev(bit6(0x069618)) == 0 && prev(bit6(0x069620)) == 0 && bit6(0x069618) == 1 && 
-                bit6(0x069620) == 1 && unless(byte(0x069349) < 2) && unless(dword(0x0693CC) > 1) && 
-                unless(dword(0x0693D0) > 256) && unless(dword(0x069D34) > 256)))
+    title = "Lazuline Artifacts",
+    description = "Obtain all the Sapphire (or better) relics in the Third Area",
+    points = 5, 
+    trigger = SapphireLogic(World3Sapphires, World3Golds)
 )
 
 achievement(
-    title = "World 3 Crystals", points = 5,
-    description = "Get all crystals in world 3.",
-    id = 88322, badge = "96362", published = "15/11/2019 01:50:26", modified = "15/11/2019 01:50:26",
-    trigger = bit0(0x06912E) == 1 && bit4(0x06912F) == 1 && bit2(0x06912F) == 1 && bit7(0x06912E) == 1 && bit5(0x06912F)
-               == 1 && never(byte(0x068EF9) != 2) &&
-              ((prior(byte(0x068EF9)) == 16 && prev(bit0(0x06912E)) == 0) ||
-               (prior(byte(0x068EF9)) == 28 && prev(bit4(0x06912F)) == 0) ||
-               (prior(byte(0x068EF9)) == 26 && prev(bit2(0x06912F)) == 0) ||
-               (prior(byte(0x068EF9)) == 20 && prev(bit7(0x06912E)) == 0) ||
-               (prior(byte(0x068EF9)) == 29 && prev(bit5(0x06912F)) == 0))
+    title = "Sky-blue Antiquities",
+    description = "Obtain all the Sapphire (or better) relics in the Fourth Area",
+    points = 5, 
+    trigger = SapphireLogic(World4Sapphires, World4Golds)
 )
 
 achievement(
-    title = "World 4 Crystals", points = 5,
-    description = "Get all crystals in world 4.",
-    id = 88335, badge = "96431", published = "15/11/2019 01:51:03", modified = "15/11/2019 01:51:03",
-    trigger = bit6(0x06912F) == 1 && bit3(0x06912E) == 1 && bit5(0x06912D) == 1 && bit3(0x06912F) == 1 && bit0(0x06912F)
-               == 1 && never(byte(0x068EF9) != 2) &&
-              ((prior(byte(0x068EF9)) == 30 && prev(bit6(0x06912F)) == 0) ||
-               (prior(byte(0x068EF9)) == 19 && prev(bit3(0x06912E)) == 0) ||
-               (prior(byte(0x068EF9)) == 13 && prev(bit5(0x06912D)) == 0) ||
-               (prior(byte(0x068EF9)) == 27 && prev(bit3(0x06912F)) == 0) ||
-               (prior(byte(0x068EF9)) == 24 && prev(bit0(0x06912F)) == 0))
+    title = "Cobalt Souveniers",
+    description = "Obtain all the Sapphire (or better) relics in the Fifth Area",
+    points = 5, 
+    trigger = SapphireLogic(World5Sapphires, World5Golds)
 )
 
 achievement(
-    title = "World 1 Crystals", points = 5,
-    description = "Get all crystals in world 1.",
-    id = 88296, badge = "96152", published = "15/11/2019 01:49:13", modified = "15/11/2019 01:49:13",
-    trigger = bit3(0x06912D) == 1 && bit6(0x06912D) == 1 && bit2(0x06912D) == 1 && bit4(0x06912D) == 1 && bit1(0x06912F)
-               == 1 && never(byte(0x068EF9) != 2) &&
-              ((prior(byte(0x068EF9)) == 11 && prev(bit3(0x06912D)) == 0) ||
-               (prior(byte(0x068EF9)) == 14 && prev(bit6(0x06912D)) == 0) ||
-               (prior(byte(0x068EF9)) == 10 && prev(bit2(0x06912D)) == 0) ||
-               (prior(byte(0x068EF9)) == 12 && prev(bit4(0x06912D)) == 0) ||
-               (prior(byte(0x068EF9)) == 25 && prev(bit1(0x06912F)) == 0))
+    title = "Indigo Mementos",
+    description = "Obtain all the Sapphire (or better) relics in the Secret Area",
+    points = 5, 
+    trigger = SapphireLogic(WorldSecretSapphires, WorldSecretGolds)
 )
 
 achievement(
-    title = "World 2 Crystals", points = 5,
-    description = "Get all crystals in world 2.",
-    id = 88309, badge = "96356", published = "15/11/2019 01:49:52", modified = "15/11/2019 01:49:52",
-    trigger = bit7(0x06912D) == 1 && bit6(0x06912E) == 1 && bit5(0x06912E) == 1 && bit2(0x06912E) == 1 && bit1(0x06912E)
-               == 1 && never(byte(0x068EF9) != 2) &&
-              ((prior(byte(0x068EF9)) == 15 && prev(bit7(0x06912D)) == 0) ||
-               (prior(byte(0x068EF9)) == 22 && prev(bit6(0x06912E)) == 0) ||
-               (prior(byte(0x068EF9)) == 21 && prev(bit5(0x06912E)) == 0) ||
-               (prior(byte(0x068EF9)) == 18 && prev(bit2(0x06912E)) == 0) ||
-               (prior(byte(0x068EF9)) == 17 && prev(bit1(0x06912E)) == 0))
+    title = "Yellow Vestiges",
+    description = "Obtain all the Gold (or better) relics in the First Area",
+    points = 10, 
+    trigger = GoldLogic(World1Golds)
 )
 
 achievement(
-    title = "Lives Collection", points = 10,
-    description = "Get 50 lives total.",
-    id = 88600, badge = "96547", published = "16/11/2019 18:54:54", modified = "26/11/2019 00:56:02",
-    trigger = byte(0x068F59) == 80 && never(byte(0x068EF9) != 2) && never(byte(0x0A57F9) != 0)
+    title = "Bright Remembrances",
+    description = "Obtain all the Gold (or better) relics in the Second Area",
+    points = 10, 
+    trigger = GoldLogic(World2Golds)
+)
+achievement(
+    title = "Resplendent Remnants",
+    description = "Obtain all the Gold (or better) relics in the Third Area",
+    points = 10, 
+    trigger = GoldLogic(World3Golds)
+)
+achievement(
+    title = "Brilliant Tokens",
+    description = "Obtain all the Gold (or better) relics in the Fourth Area",
+    points = 10, 
+    trigger = GoldLogic(World4Golds)
+)
+achievement(
+    title = "Shining Trophies",
+    description = "Obtain all the Gold (or better) relics in the Fifth Area",
+    points = 10, 
+    trigger = GoldLogic(World5Golds)
+)
+achievement(
+    title = "Gleaming Shards",
+    description = "Obtain all the Gold (or better) relics in the Secret Area",
+    points = 10, 
+    trigger = GoldLogic(WorldSecretGolds)
+)
+
+BoxLessCheevos = {
+ 1:{"title":"Toad Skipping", "description":"Beat Toad Village without breaking any boxes", "points":5, "stageID":Level1, "BoxCount":0},
+2:{"title":"Expensive Boxes", "description":"Beat Orient Express without breaking any boxes", "points":5, "stageID":Level3, "BoxCount":0},
+3:{"title":"24 Yards", "description":"Beat Bone Yard without breaking more than 24 boxes", "points":5, "stageID":Level4, "BoxCount":24},
+4:{"title":"No Break' Waves", "description":"Beat Makin' Waves without breaking any boxes", "points":5, "stageID":Level5, "BoxCount":0},
+5:{"title":"Gee Witch", "description":"Beat Gee Wiz without breaking any boxes", "points":5, "stageID":Level6, "BoxCount":0},
+6:{"title":"Careful Timing", "description":"Beat Tomb Time without breaking any boxes", "points":5, "stageID":Level9, "BoxCount":0},
+7:{"title":"Midnight Crawl", "description":"Beat Midnight Run without breaking any boxes", "points":5, "stageID":Level10, "BoxCount":0},
+8:{"title":"Dino Won't", "description":"Beat Dino Might! without breaking more than 12 boxes", "points":5, "stageID":Level11, "BoxCount":12},
+9:{"title":"Four Time", "description":"Beat High Time without breaking more than 4 boxes", "points":5, "stageID":Level13, "BoxCount":4},
+10:{"title":"No Header", "description":"Beat Double Header without breaking any boxes", "points":5, "stageID":Level15, "BoxCount":0},
+11:{"title":"Shatterxinator", "description":"Beat Sphynxinator without breaking more than 5 boxes", "points":5, "stageID":Level16, "BoxCount":5},
+12:{"title":"Tell No Breaks", "description":"Beat Tell No Tales without braking any boxes", "points":5, "stageID":Level18, "BoxCount":0},
+13:{"title":"No Frenzy", "description":"Beat Future Frenzy without breaking any boxes", "points":5, "stageID":Level19, "BoxCount":0},
+14:{"title":"Tomb Sneaking", "description":"Beat Tomb Wader without breaking any boxes", "points":5, "stageID":Level20, "BoxCount":0},
+15:{"title":"Leave It for Tomorrow", "description":"Beat Gone Tomorrow without breaking any boxes", "points":5, "stageID":Level21, "BoxCount":0},
+16:{"title":"Frozen Passion", "description":"Beat Flamming Passion without breaking any boxes", "points":5, "stageID":Level23, "BoxCount":0},
+}
+
+
+
+function CratelessLogic(stage, BoxCount){
+    return
+    LevelID == stage &&
+    (TotalCrates <= BoxCount) &&
+    prev(GameState) == NormalGameplay &&
+    trigger_when(GameState == CompleteStage)
+}
+
+for cheevo in BoxLessCheevos{
+    achievement(
+        title = BoxLessCheevos[cheevo]["title"],
+        description = BoxLessCheevos[cheevo]["description"],
+        points = BoxLessCheevos[cheevo]["points"],
+        trigger = CratelessLogic(BoxLessCheevos[cheevo]["stageID"], BoxLessCheevos[cheevo]["BoxCount"])
+    )
+}
+
+LevelId = byte(0x068EF9)
+Level1 = 0x0b
+Level2 = 0x0e
+Level3 = 0x0a
+Level4 = 0x0c
+Level5 = 0x19
+//0x0f = Level 6 - Gee Wiz 
+//0x16 = Level 7/27 - Hang Em' High 
+//0x15 = Level 8 - Hog Ride
+//0x12 = Level 9 - Tomb Time
+//0x11 = Level 10 - Midnight Run
+Level6 = 0x0f
+Level7 = 0x16
+Level8 = 0x15
+Level9 = 0x12
+Level10 = 0x11
+//0x10 = Level 11 - Dino Might!
+//0x1c = Level 12 - Deep Trouble
+//0x1a = Level 13 - Low Time
+//0x14 = Level 14 - Road Crash
+//0x1d = Level 15 - Double Header
+Level11 = 0x10
+Level12 = 0x1c
+Level13 = 0x1a
+Level14 = 0x14
+Level15 = 0x1d
+//0x1e = Level 16 - Sphynxinator
+//0x13 = Level 17 - Bye Bye Blimps
+//0x0d = Level 18 - Tell No Tales
+//0x1b = Level 19/29 - Future Frenzy
+//0x18 = Level 20 - Tomb Wader
+Level16 = 0x1e
+Level17 = 0x13
+Level18 = 0x0d
+Level19 = 0x1b
+Level20 = 0x18
+//0x23 = Level 21 - Gone Tomorrow
+//0x20 = Level 22 - Orange Asphalt
+//0x22 = Level 23 - Flaming Passion
+//0x17 = Level 24 - Mad Bombers
+//0x24 = Level 25 - Bug Lite
+Level21 = 0x23
+Level22 = 0x20
+Level23 = 0x22
+Level24 = 0x17
+Level25 = 0x24
+//0x21 = Level 26 - Ski Crazed
+//0x25 = Level 28 - Area 51?
+//0x1f = Level 30 - Rings Of Power
+//0x27 = Level 31 - Hot Coco
+//0x26 = Level 32 - Eggipus Rex
+Level26 = 0x21
+Level28 = 0x25
+Level30 = 0x1f
+Level31 = 0x27
+Level32 = 0x26
+
+
+// $0691AC: [32-bit] Starting frames for time trial
+StartingFrames = dword(0x0691AC)
+
+// $0691E4: [24-bit] Time Trial Pointer (Becomes 0 when you finish a time trial)
+//          +0x00 = Indicator for time trial (8-bits)
+//          +0x178 = Frame Timer (24-bits)
+//          +0x1A4 = Centiseconds
+//          +0x1A8 = Seconds
+//          +0x1AC = Minutes
+TimeTrialPointer = tbyte(0x0691E4)
+FrameTimer = tbyte(TimeTrialPointer + 0x178)
+TimeTrialIndicator = prev(byte(TimeTrialPointer + 0x0)) == 1
+
+function timeTrialLogic(level, frames){
+    logic = 
+    //Time Trial Start Indicator
+    TimeTrialIndicator &&
+    
+    //Starting frames becomes 0
+    prev(StartingFrames) != 0 &&
+    trigger_when(StartingFrames == 0)  &&
+    
+    //Pointer becomes 0 at the same time as the starting frames.
+    prev(TimeTrialPointer) != 0 &&
+    trigger_when(TimeTrialPointer == 0) &&
+    
+    //Less than required time, correct level ID
+    prev(FrameTimer) < frames &&
+    LevelId == level
+    return logic
+}
+
+LevelData = {
+    "a": {"title": "Toad Jumping", "description": "Beat Andrew Woodworth's time of 0:39:93 in Toad Village", "points": 25, "level": Level1, "frames": 0x0004ae, "title2": "Toad Village"},
+    "b": {"title": "You Were Under Pressure", "description": "Beat Shawn Dobbins' time of 0:57:83 in Under Pressure", "points": 10, "level": Level2, "frames": 0x6c7, "title2": "Under Pressure"},
+    "c": {"title": "Literally Express", "description": "Beat Justin Monast's time of 0:16:96 in Orient Express", "points": 25, "level": Level3, "frames": 0x1fd, "title2": "Orient Express"},
+    "d": {"title": "Bone Rush", "description": "Beat Donovan Soto's time of 1:15:36 in Bone Yard", "points": 25, "level": Level4, "frames": 0x8d5, "title2": "Bone Yard"},
+    "e": {"title": "Makin' Times", "description": "Beat Andrew Woodworth's time of 0:50:66 in Makin' Waves", "points": 50, "level": Level5, "frames": 0x5f0, "title2": "Makin' Waves"},
+    
+    "f": {"title": "Gee Whoosh", "description": "Beat Andrew Woodworth's time of 0:58:66 in Gee Wiz", "points": 25, "level": Level6, "frames": 0x6e0, "title2": "Gee Wiz"},
+    "g": {"title": "Ran'em Fast", "description": "Beat Donovan Soto's time of 0:34:36 in Hang'em High", "points": 50, "level": Level7, "frames": 0x407, "title2": "Hang'em High"},
+    "h": {"title": "Hog Race", "description": "Beat Evan Wells' time of 0:33:96 in Hog Ride", "points": 50, "level": Level8, "frames": 0x3fb, "title2": "Hog Ride"},
+    "i": {"title": "The Tomb Time", "description": "Beat Corey Strock's time of 0:50:63 in Tomb Time", "points": 25, "level": Level9, "frames": 0x5ef, "title2": "Tomb Time"},
+    "j": {"title": "Midnight Sprint", "description": "Beat Evan Wells' time of 0:13:20 in Midnight Run", "points": 25, "level": Level10, "frames": 0x18c, "title2": "Midnight Run"},
+    
+    "k": {"title": "Dino Boost!", "description": "Beat Donovan Soto's time of 0:55:00 in Dino Might!", "points": 25, "level": Level11, "frames": 0x672, "title2": "Dino Might!"},
+    "l": {"title": "No Trouble", "description": "Beat Shawn Dobbins' time of 1:00:46 in Deep Trouble", "points": 10, "level": Level12, "frames": 0x716, "title2": "Deep Trouble"},
+    "m": {"title": "Low Time", "description": "Beat Corey Strock's time of 0:45:10 in High Time", "points": 25, "level": Level13, "frames": 0x549, "title2": " High Time"},
+    "n": {"title": "Dash Crash", "description": "Beat Shawn Dobbins' time of 1:15:53 in Road Crash", "points": 50, "level": Level14, "frames": 0x8da, "title2": "Road Crash"},
+    "o": {"title": "Double Tempo", "description": "Beat Andrew Woodworth's time of 0:56:00 in Double Header", "points": 25, "level": Level15, "frames": 0x690, "title2": "Double Header"},
+    
+    "p": {"title": "Speedxinator", "description": "Beat Evan Wells' time of 0:50:63 in Sphynxinator", "points": 25, "level": Level16, "frames": 0x5ef, "title2": "Sphynxinator"},
+    "q": {"title": "Hello Hello Record", "description": "Beat Jason Rubin's time of 0:38:63 in Bye Bye Blimps", "points": 25, "level": Level17, "frames": 0x487, "title2": "Bye Bye Blimps"},
+    "r": {"title": "Tell No Strats", "description": "Beat Shawn Dobbins' time of 1:01:70 in Tell No Tales", "points": 25, "level": Level18, "frames": 0x73b, "title2": "Tell No Tales"},
+    "s": {"title": "Future Switftness", "description": "Beat Shawn Dobbins' time of 1:07:47 in Future Frenzy", "points": 25, "level": Level19, "frames": 0x7e8, "title2": "Future Frenzy"},
+    "t": {"title": "Tomb Fleetness", "description": "Beat Corey Strock's time of 1:11:16 in Tomb Wader", "points": 25, "level": Level20, "frames": 0x857, "title2": "Tomb Wader"},
+    
+    "u": {"title": "Came Yesterday", "description": "Beat Andrew Woodworth's time of 0:55:46 in Gone Tomorrow", "points": 25, "level": Level21, "frames": 0x680, "title2": "Gone Tomorrow"},
+    "v": {"title": "Orange Celerity", "description": "Beat Shawn Dobbins' time of 1:16:70 in Orange Asphalt", "points": 50, "level": Level22, "frames": 0x8fd, "title2": "Orange Asphalt"},
+    "w": {"title": "Flamming Bolt", "description": "Beat Andrew Woodworth's time of 0:51:10 in Flamming Passion", "points": 25, "level": Level23, "frames": 0x5fd, "title2": "Flamming Passion"},
+    "x": {"title": "Mad Flash", "description": "Beat Sam Thompson's time of 1:24:10 in Mad Bombers", "points": 25, "level": Level24, "frames": 0x9db, "title2": "Mad Bombers"},
+    "y": {"title": "Bug Zoom", "description": "Beat Evan Wells' time of 1:08:00 in Bug Lite", "points": 25, "level": Level25, "frames": 0x7f8, "title2": "Bug Lite"},
+    
+    "z": {"title": "Hurry Crazed", "description": "Beat Dan Arey's time of 0:28:63 in Ski Crazed", "points": 25, "level": Level26, "frames": 0x35b, "title2": "Ski Crazed"},
+    "za": {"title": "Area 510 MPH", "description": "Beat Shawn Dobbins' time of 1:38:96 in Area 51?", "points": 25, "level": Level28, "frames": 0xb99, "title2": "Area 51?"},
+    "zb": {"title": "Rings of Haste", "description": "Beat Evan Wells' time of 0:47:93 in Rings of Power", "points": 50, "level": Level30, "frames": 0x59e, "title2": "Rings of Power"},
+    "zc": {"title": "Hot Pace", "description": "Beat Andrew Woodworth's time of 0:14:60 in Hot Coco", "points": 10, "level": Level31, "frames": 0x1b6, "title2": "Hot Coco"},
+    "zd": {"title": "Acceleration Rex", "description": "Beat Andrew Woodworth's time of 0:41:10 in Eggipus Rex", "points": 25, "level": Level32, "frames": 0x4d1, "title2": "Eggipus Rex"},
+}
+
+for level in LevelData{
+    
+    leaderboard(
+    title = LevelData[level]["title2"], 
+    description = "Best Time", 
+    start =  
+    byte(TimeTrialPointer + 0x0) == 1 &&
+    prev(StartingFrames) == 0 &&
+    (StartingFrames != 0) &&
+    LevelId == LevelData[level]["level"],
+    
+    
+    cancel = (LevelId != prev(LevelId)), 
+    submit =  
+    TimeTrialIndicator &&
+    
+    //Starting frames becomes 0
+    prev(StartingFrames) != 0 &&
+    (StartingFrames == 0)  &&
+    
+    //Pointer becomes 0 at the same time as the starting frames.
+    prev(TimeTrialPointer) != 0 &&
+    (TimeTrialPointer == 0),
+    value = (prev(FrameTimer)*2),
+    format="FRAMES",
+    lower_is_better=true
+    )
+}
+
+achievement(
+    title = "Hot Pace", points = 5,
+    description = "Obtain the 'true' platinum relic in Hot Coco by getting a time of 00:19:93",
+    id = 89279, published = "26/11/2019 00:55:17", modified = "15/5/2020 17:54:45",
+    trigger = timeTrialLogic(Level31, 0x47a)
 )
 
 achievement(
-    title = "World 5 Crystals", points = 5,
-    description = "Get all crystals in world 5.",
-    id = 88348, badge = "96440", published = "15/11/2019 01:51:36", modified = "15/11/2019 01:51:36",
-    trigger = bit3(0x069130) == 1 && bit0(0x069130) == 1 && bit2(0x069130) == 1 && bit4(0x06912E) == 1 && bit4(0x069130)
-               == 1 && never(byte(0x068EF9) != 2) &&
-              ((prior(byte(0x068EF9)) == 35 && prev(bit3(0x069130)) == 0) ||
-               (prior(byte(0x068EF9)) == 32 && prev(bit0(0x069130)) == 0) ||
-               (prior(byte(0x068EF9)) == 34 && prev(bit2(0x069130)) == 0) ||
-               (prior(byte(0x068EF9)) == 23 && prev(bit4(0x06912E)) == 0) ||
-               (prior(byte(0x068EF9)) == 36 && prev(bit4(0x069130)) == 0))
+    title = "Acceleration Rex", points = 5,
+    description = "Obtain the 'true' platinum relic in Eggipus Rex by getting a time of 00:44:80",
+    id = 89280, published = "26/11/2019 00:55:20", modified = "15/5/2020 17:55:40",
+    trigger = timeTrialLogic(Level32, 0xa55)
 )

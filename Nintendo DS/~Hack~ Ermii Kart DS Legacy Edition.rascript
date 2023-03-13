@@ -30,7 +30,7 @@ TracksData = {
 26:{"title":"Native Desert", "trackName":"(GBA) Sunset Wilds", "points":5, "trackID":0x24, "targetTimeMinutes":2, "targetTimeSeconds":18},
 27:{"title":"Night City", "trackName":"(3DS) Koopa City", "points":5, "trackID":0x25, "targetTimeMinutes":2, "targetTimeSeconds":4},
 28:{"title":"Lava Castle... Again", "trackName":"(SNES) Bowser Castle 1", "points":5, "trackID":0x26, "targetTimeMinutes":1, "targetTimeSeconds":49},
-29:{"title":"Multicolored Path", "trackName":"(SNES) Rainbow Road", "points":5, "trackID":0x27 , "targetTimeMinutes":1, "targetTimeSeconds":23},
+29:{"title":"Multicolored Path", "trackName":"(SNES) Rainbow Road", "points":5, "trackID":0x27 , "targetTimeMinutes":1, "targetTimeSeconds":35},
 30:{"title":"Kaleidoscopic Track", "trackName":"(N64) Rainbow Road", "points":5, "trackID":0x17, "targetTimeMinutes":2, "targetTimeSeconds":41},
 31:{"title":"Holographic Trail", "trackName":"(Wii) Rainbow Road", "points":5, "trackID":0x28, "targetTimeMinutes":3, "targetTimeSeconds":34},
 32:{"title":"Multihued Ride", "trackName":"(3DS) Rainbow Road", "points":5, "trackID":0x01, "targetTimeMinutes":2, "targetTimeSeconds":6},
@@ -52,6 +52,8 @@ TimeTrial = 0x01
 
 TrackID = dword(0x3cdf98)
 
+SanicMode = byte(0x1dca1d)
+
 for track in TracksData
 {
 
@@ -60,6 +62,7 @@ achievement(
     description = "Complete " + TracksData[track]["trackName"] + " in less than " + TracksData[track]["targetTimeMinutes"] + "m " + TracksData[track]["targetTimeSeconds"] + "s in Time Trial",
     points = 5,
     trigger = 
+    SanicMode == 0 &&
     TimeTrialPointer != 0 &&
     CurrentMode == TimeTrial &&
     TrackID == TracksData[track]["trackID"] &&
@@ -72,6 +75,7 @@ achievement(
     (TracksData[track]["targetTimeMinutes"] * 6000 +
     TracksData[track]["targetTimeSeconds"] * 100)
     ||
+    SanicMode == 0 &&
     TimeTrialPointer != 0 &&
     CurrentMode == TimeTrial &&    
     TrackID == TracksData[track]["trackID"] &&
@@ -87,6 +91,7 @@ leaderboard(
     title = "Time Trial: " + TracksData[track]["trackName"], 
     description = "", 
     start = 
+        SanicMode == 0 &&
         TimeTrialPointer != 0 &&
         CurrentMode == TimeTrial &&
         TrackID == TracksData[track]["trackID"] &&
@@ -171,6 +176,7 @@ CupsData = {
 
 function WonCup(cup, cc, mirror){
     logic =
+    SanicMode == 0 &&
     CurrentMode == GrandPrix &&
     cup &&
     CurrentCC == cc &&

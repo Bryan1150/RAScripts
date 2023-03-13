@@ -29,6 +29,15 @@ LogQuantity =
     
 ]
 
+function SRanks(start, finish){
+    sum = 0
+    count = 0
+    
+    for rank in range(start, finish){
+        sum = sum + (byte(rank) / byte(rank))
+    }
+    return sum == 50
+}
 
 function LogCheevo(quantity, start, objective){
     sum = 0
@@ -43,6 +52,14 @@ function LogCheevo(quantity, start, objective){
     }
     return measured(sum >= quantity) && prev(sum) < quantity && prev(sum) != 0
 }
+
+
+achievement(
+    title = "all s ranks",
+    description = "all ranks",
+    points = 3,
+    trigger = SRanks(0x007547ac, 0x007547f0)
+)
 
 achievement(
     title = "10% of logs",

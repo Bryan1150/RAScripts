@@ -157,7 +157,7 @@ LevelData = {
 
 for level in LevelData{
     achievement(
-        title = LevelData[level]["title"],
+        title = LevelData[level]["title"] + " EX",
         description = LevelData[level]["description"],
         points = LevelData[level]["points"],
         trigger = timeTrialLogic(LevelData[level]["level"], LevelData[level]["frames"])

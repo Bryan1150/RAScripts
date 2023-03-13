@@ -15,6 +15,8 @@ Difficulty = dword(0x00ce2190)
 Expert = 0x04
 Challenge = 0x03
 Normal = 0x02
+Easy = 0x01
+
 ResultsRank = dword(0x00ce1f9c)
 Bad = 0x04
 Well = 0x03
@@ -33,36 +35,36 @@ CostumeID = dword(0x00ce2184)
 PointerTitles = dword(0x01b99e30) & 0x1ffffff
 
 SongsData = {
-1:{"title":"It Is Raining", "description":"Get Excellent or better in 雨が降って。 (Ame ga Futte.)", "points":10, "songID":0x02, "Stars":6},
-2:{"title":"Rosetta", "description":"Get Excellent or better in ロゼッタ (Rosetta)", "points":10, "songID":0x04, "Stars":5},
-3:{"title":"Love is Surely Soaring", "description":"Get Excellent or better in 恋はきっと急上昇☆ (Koi wa Kitto Kyuujoushou☆)", "points":10, "songID":0x05, "Stars":6},
-4:{"title":"Forever Like This", "description":"Get Excellent or better in ずっとこのまま (Zutto Kono Mama)", "points":10, "songID":0x01, "Stars":6},
-5:{"title":"Blue Bird", "description":"Get Excellent or better in blue bird", "points":10, "songID":0x10, "Stars":6},
-6:{"title":"Cutoff Line", "description":"Get Excellent or better in キリトリセン (Kiritorisen)", "points":50, "songID":0x15, "Stars":9},
-7:{"title":"VERSUS", "description":"Get Excellent or better in VERSUS", "points":25, "songID":0x0b, "Stars":8},
-8:{"title":"Carnival", "description":"Get Excellent or better in カーニバル (Carnival)", "points":10, "songID":0x0f, "Stars":7},
-9:{"title":"Ten-Faced", "description":"Get Excellent or better in 十面相 (Juu-Mensou)", "points":25, "songID":0x0c, "Stars":8},
-10:{"title":"Mozaik Role", "description":"Get Excellent or better in モザイクロール (Mozaik Role)", "points":10, "songID":0x14, "Stars":6},
-11:{"title":"Life Reset Button", "description":"Get Excellent or better in 人生リセットボタン (Jinsei Reset Button)", "points":25, "songID":0x06, "Stars":8},
-12:{"title":"Electric Star", "description":"Get Excellent or better in エレクトリック・スター (Electric Star)", "points":10, "songID":0x1e, "Stars":7},
-13:{"title":"The Color of the Next Blossom", "description":"Get Excellent or better in 次咲く花の色は (Tsugi Saku Hana no Iro wa)", "points":25, "songID":0x08, "Stars":8},
-14:{"title":"Sky-Colored Eyes", "description":"Get Excellent or better in 大空色のHi-To-Mi (Oozora Iro no Hi-To-Mi)", "points":10, "songID":0x0e, "Stars":6},
-15:{"title":"EAT ME", "description":"Get Excellent or better in EAT ME", "points":25, "songID":0x19, "Stars":8},
-16:{"title":"Requiem", "description":"Get Excellent or better in レクイヱム (Requiem)", "points":10, "songID":0x07, "Stars":7},
-17:{"title":"Festival Music", "description":"Get Excellent or better in 祭囃子 (Matsuri Hayashi)", "points":25, "songID":0x13, "Stars":8},
-18:{"title":"Kappas are Boiling Slugs in my Kitchen", "description":"Get Excellent or better in キッチンでカッパがタニシ茹でてる (Kitchen de Kappa ga Tanishi Yude Teru)", "points":25, "songID":0x0a, "Stars":8},
-19:{"title":"The Trumpet-Playing Boy", "description":"Get Excellent or better in ラッパ吹きの少年 (Rappa Fuki no Shounen)", "points":25, "songID":0x09, "Stars":8},
-20:{"title":"Raid of Glass", "description":"Get Excellent or better in raid of glass", "points":10, "songID":0x03, "Stars":6},
-21:{"title":"Dystopia Zipangu", "description":"Get Excellent or better in ディストピア・ジパング (Dystopia Zipangu)", "points":25, "songID":0x17, "Stars":8},
-22:{"title":"Cattleya", "description":"Get Excellent or better in カトレア (Katorea)", "points":10, "songID":0x18, "Stars":7},
-23:{"title":"Sleep Sky Walk", "description":"Get Excellent or better in スリープ・スカイ・ウォーク (Sleep Sky Walk)", "points":10, "songID":0x1d, "Stars":7},
-24:{"title":"I Want to Meet You", "description":"Get Excellent or better in 会いたい (Aitai)", "points":10, "songID":0x0d, "Stars":7},
-25:{"title":"Happy × Shiny", "description":"Get Excellent or better in Happy × Shiny", "points":50, "songID":0x1a, "Stars":9},
-26:{"title":"Megu Megu☆Fire Endless Night", "description":"Get Excellent or better in メグメグ☆ファイアーエンドレスナイト (Megu Megu☆Fire Endless Night)", "points":50, "songID":0x1c, "Stars":9},
-27:{"title":"Holography", "description":"Get Excellent or better in Holography", "points":50, "songID":0x12, "Stars":9},
-28:{"title":"KiLLER LADY", "description":"Get Excellent or better in KiLLER LADY", "points":25, "songID":0x11, "Stars":8},
-29:{"title":"A Born Coward", "description":"Get Excellent or better in 天ノ弱 (Amanojaku)", "points":10, "songID":0x16, "Stars":7},
-30:{"title":"The Cavaliere's Swan Song", "description":"Get Excellent or better in 絶唱のカヴァリエーレ (Zesshou no Cavaliere)", "points":25, "songID":0x1b, "Stars":8},
+1:{"title":"It Is Raining", "description":"Get Excellent or better in 雨が降って。 (Ame ga Futte.)", "points":10, "songID":0x02, "Stars":6, "songName":"雨が降って。 (Ame ga Futte.)"},
+2:{"title":"Rosetta", "description":"Get Excellent or better in ロゼッタ (Rosetta)", "points":10, "songID":0x04, "Stars":5, "songName":"ロゼッタ (Rosetta)"},
+3:{"title":"Love is Surely Soaring", "description":"Get Excellent or better in 恋はきっと急上昇☆ (Koi wa Kitto Kyuujoushou☆)", "points":10, "songID":0x05, "Stars":6, "songName":"恋はきっと急上昇☆ (Koi wa Kitto Kyuujoushou☆)"},
+4:{"title":"Forever Like This", "description":"Get Excellent or better in ずっとこのまま (Zutto Kono Mama)", "points":10, "songID":0x01, "Stars":6, "songName":"ずっとこのまま (Zutto Kono Mama)"},
+5:{"title":"Blue Bird", "description":"Get Excellent or better in blue bird", "points":10, "songID":0x10, "Stars":6, "songName":"blue bird"},
+6:{"title":"Cutoff Line", "description":"Get Excellent or better in キリトリセン (Kiritorisen)", "points":50, "songID":0x15, "Stars":9, "songName":"キリトリセン (Kiritorisen)"},
+7:{"title":"VERSUS", "description":"Get Excellent or better in VERSUS", "points":25, "songID":0x0b, "Stars":8, "songName":"VERSUS"},
+8:{"title":"Carnival", "description":"Get Excellent or better in カーニバル (Carnival)", "points":10, "songID":0x0f, "Stars":7, "songName":"カーニバル (Carnival)"},
+9:{"title":"Ten-Faced", "description":"Get Excellent or better in 十面相 (Juu-Mensou)", "points":25, "songID":0x0c, "Stars":8, "songName":"十面相 (Juu-Mensou)"},
+10:{"title":"Mozaik Role", "description":"Get Excellent or better in モザイクロール (Mozaik Role)", "points":10, "songID":0x14, "Stars":6, "songName":"モザイクロール (Mozaik Role)"},
+11:{"title":"Life Reset Button", "description":"Get Excellent or better in 人生リセットボタン (Jinsei Reset Button)", "points":25, "songID":0x06, "Stars":8, "songName":"人生リセットボタン (Jinsei Reset Button)"},
+12:{"title":"Electric Star", "description":"Get Excellent or better in エレクトリック・スター (Electric Star)", "points":10, "songID":0x1e, "Stars":7, "songName":"エレクトリック・スター (Electric Star)"},
+13:{"title":"The Color of the Next Blossom", "description":"Get Excellent or better in 次咲く花の色は (Tsugi Saku Hana no Iro wa)", "points":25, "songID":0x08, "Stars":8, "songName":"次咲く花の色は (Tsugi Saku Hana no Iro wa)"},
+14:{"title":"Sky-Colored Eyes", "description":"Get Excellent or better in 大空色のHi-To-Mi (Oozora Iro no Hi-To-Mi)", "points":10, "songID":0x0e, "Stars":6, "songName":"大空色のHi-To-Mi (Oozora Iro no Hi-To-Mi)"},
+15:{"title":"EAT ME", "description":"Get Excellent or better in EAT ME", "points":25, "songID":0x19, "Stars":8, "songName":"EAT ME"},
+16:{"title":"Requiem", "description":"Get Excellent or better in レクイヱム (Requiem)", "points":10, "songID":0x07, "Stars":7, "songName":"レクイヱム (Requiem)"},
+17:{"title":"Festival Music", "description":"Get Excellent or better in 祭囃子 (Matsuri Hayashi)", "points":25, "songID":0x13, "Stars":8, "songName":"祭囃子 (Matsuri Hayashi)"},
+18:{"title":"Kappas are Boiling Slugs in my Kitchen", "description":"Get Excellent or better in キッチンでカッパがタニシ茹でてる (Kitchen de Kappa ga Tanishi Yude Teru)", "points":25, "songID":0x0a, "Stars":8, "songName":"キッチンでカッパがタニシ茹でてる (Kitchen de Kappa ga Tanishi Yude Teru)"},
+19:{"title":"The Trumpet-Playing Boy", "description":"Get Excellent or better in ラッパ吹きの少年 (Rappa Fuki no Shounen)", "points":25, "songID":0x09, "Stars":8, "songName":"ラッパ吹きの少年 (Rappa Fuki no Shounen)"},
+20:{"title":"Raid of Glass", "description":"Get Excellent or better in raid of glass", "points":10, "songID":0x03, "Stars":6, "songName":"raid of glass"},
+21:{"title":"Dystopia Zipangu", "description":"Get Excellent or better in ディストピア・ジパング (Dystopia Zipangu)", "points":25, "songID":0x17, "Stars":8, "songName":"ディストピア・ジパング (Dystopia Zipangu)"},
+22:{"title":"Cattleya", "description":"Get Excellent or better in カトレア (Katorea)", "points":10, "songID":0x18, "Stars":7, "songName":"カトレア (Katorea)"},
+23:{"title":"Sleep Sky Walk", "description":"Get Excellent or better in スリープ・スカイ・ウォーク (Sleep Sky Walk)", "points":10, "songID":0x1d, "Stars":7, "songName":"スリープ・スカイ・ウォーク (Sleep Sky Walk)"},
+24:{"title":"I Want to Meet You", "description":"Get Excellent or better in 会いたい (Aitai)", "points":10, "songID":0x0d, "Stars":7, "songName":"会いたい (Aitai)"},
+25:{"title":"Happy × Shiny", "description":"Get Excellent or better in Happy × Shiny", "points":50, "songID":0x1a, "Stars":9, "songName":"Happy × Shiny"},
+26:{"title":"Megu Megu☆Fire Endless Night", "description":"Get Excellent or better in メグメグ☆ファイアーエンドレスナイト (Megu Megu☆Fire Endless Night)", "points":50, "songID":0x1c, "Stars":9, "songName":"メグメグ☆ファイアーエンドレスナイト (Megu Megu☆Fire Endless Night)"},
+27:{"title":"Holography", "description":"Get Excellent or better in Holography", "points":50, "songID":0x12, "Stars":9, "songName":"Holography"},
+28:{"title":"KiLLER LADY", "description":"Get Excellent or better in KiLLER LADY", "points":25, "songID":0x11, "Stars":8, "songName":"KiLLER LADY"},
+29:{"title":"A Born Coward", "description":"Get Excellent or better in 天ノ弱 (Amanojaku)", "points":10, "songID":0x16, "Stars":7, "songName":"天ノ弱 (Amanojaku)"},
+30:{"title":"The Cavaliere's Swan Song", "description":"Get Excellent or better in 絶唱のカヴァリエーレ (Zesshou no Cavaliere)", "points":25, "songID":0x1b, "Stars":8, "songName":"絶唱のカヴァリエーレ (Zesshou no Cavaliere)"},
 }
 
 
@@ -108,6 +110,16 @@ function SongExcellent(IDSong){
     ResultsRank <= Excellent &&
     ResultsScore > 0   
     return logic
+}
+
+function Leaderboard(difficulty, songID){
+return
+    ScreenID == InGame &&
+    SongID == songID &&
+    Difficulty == difficulty &&
+    prev(ResultsRank) == Bad &&
+    ResultsRank <= Well &&
+    ResultsScore > 0   
 }
 
 function SongChallenge(idSong, idCostume, difficulty, rank, combo, notes){
@@ -169,6 +181,55 @@ for song in SongsData{
         points = SongsData[song]["points"],
         trigger = SongExcellent(SongsData[song]["songID"])                    
    )
+   
+   
+   leaderboard(
+   title = SongsData[song]["songName"] + " - Easy Score", 
+   description = "", 
+   start = Leaderboard(
+       Easy, SongsData[song]["songID"]
+   ), 
+   cancel = always_false(),
+   submit = always_true(),
+   value = ResultsScore,
+   format="VALUE",
+   lower_is_better=false)
+   
+   leaderboard(
+   title = SongsData[song]["songName"] + " - Normal Score", 
+   description = "", 
+   start = Leaderboard(
+       Normal, SongsData[song]["songID"]
+   ), 
+   cancel = always_false(),
+   submit = always_true(),
+   value = ResultsScore,
+   format="VALUE",
+   lower_is_better=false)
+   
+   leaderboard(
+   title = SongsData[song]["songName"] + " - Challenge Score", 
+   description = "", 
+   start = Leaderboard(
+       Challenge, SongsData[song]["songID"]
+   ), 
+   cancel = always_false(),
+   submit = always_true(),
+   value = ResultsScore,
+   format="VALUE",
+   lower_is_better=false)
+   
+   leaderboard(
+   title = SongsData[song]["songName"] + " - Expert Score", 
+   description = "", 
+   start = Leaderboard(
+       Expert, SongsData[song]["songID"]
+   ), 
+   cancel = always_false(),
+   submit = always_true(),
+   value = ResultsScore,
+   format="VALUE",
+   lower_is_better=false)
 }
 
 for song in SongChallenges{
@@ -198,3 +259,4 @@ for title in Items{
         trigger = Collectables(Items[title]["pointer"], Items[title]["offset"], Items[title]["SecondOffset"])                    
    )
 }
+
