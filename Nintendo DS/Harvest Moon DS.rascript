@@ -249,7 +249,7 @@ SNPrincess = bit0(0x3dde59)
 SNLeia = bit2(0x3dde59)
 StarryNight = [SNCelia, SNMuffy, SNNami, SNLumina, SNFlora, SNGoddess, SNPrincess, SNLeia]
 //0x3dde12 Bit 7- Nina made socks for you
-NinaSocks = bit7(0x3dde12)
+NinaSocks = bit6(0x3de308)
 //0x3ddebe Christmas gift buffer [Item ID]
 ChristmasGift = word(0x3ddebe)
 //0x3dde59 Bit 5 - Entered New Years Eve area
@@ -458,7 +458,7 @@ YarnMaker = bit4(0x3de30a)
 SeedMaker = bit5(0x3de30a)
 CanFoodMaker = bit6(0x3de30a)
 
-Makers = [MayonnaiseMaker, CheeseMaker, YarnMaker, SeedMaker, CanFoodMaker]
+Makers = [MayonnaiseMaker, CheeseMaker, YogurtMaker, YarnMaker, SeedMaker, CanFoodMaker]
 
 //Furniture Flags
 //0x3de308 Bit 0 - Tool Box Bit 1 - Beauty Box Bit 2 - Round Table Bit 3 - Television Bit 4 - DVD Player Bit 5 - Clock Bit 6 - Sock on hanger? Bit 7 - Shelf
@@ -611,9 +611,9 @@ lpPopUp = 0x01
 //Cutscene Check
 InCutscene = bit0(0x3d31d8) == 1
 InCutscenePrev = prev(bit0(0x3d31d8)) == 1
-
+ASCII = dword(0x3ffa80)
 //OnCellphone Check
-OnCellphone = byte(0x3d687c) == 0x01
+OnCellphone = byte(0x3d687c) == 0x01 && never(ASCII != 0x44204d48)
 NotOnCellphone = byte(0x3d687c) != 0x01
 // Check if array of passed flags goes from previously all but one flag is true
 // to all flags being true.
@@ -631,7 +631,8 @@ function SumPreviousFlags(Flags, result){
     return sum_of(Flags, f => prev(f)) == result
 }
 
-function SaveProtection() => !(NotMap && BottomMenu == bmSaveLoad && LoadPop != lpNotLoading)
+
+function SaveProtection() => !(NotMap && BottomMenu == bmSaveLoad && LoadPop != lpNotLoading) && never(ASCII != 0x44204d48)
 
 function EventCheevo(title, description, points, eventFlag){
     achievement(
@@ -940,6 +941,7 @@ function CertainValueRange(prevrange, current, address, title, description, poin
         title, description, points,
         trigger = SaveProtection() &&
             prev(address) >= prevrange &&
+            prev(address)!= current &&
             address == current
     )
 }
@@ -1381,7 +1383,7 @@ PathToMusician = bit4(0x3dde13)
 //0x3dde0e Bit 2 - Family
 Family = bit2(0x3dde0e)
 //0x3dde12 Bit 0 - Fickleness Expert
-FicklenessExpert = bit0(0x3dde12)
+FicklenessExpert = bit1(0x3dde12)
 //0x3dde0d Bit 5 - Thankful Feelings
 ThankfulFeelings = bit5(0x3dde0d)
 //0x3dde16 Bit 0 - Budding Romance
@@ -1625,7 +1627,7 @@ HighLow("RNGoddess", "Score 10 points in the Guess High/Low minigame", 5)
 BitflagRangeQuestions(QuestionStart, QuestionEnd, ExtraQuestions, "Bokumono Encyclopedia", "Answer all 35 questions of Channel 9 correctly", 10)
 //Casino Cheevos
 MatchingCasino("Pairing and Matching", "Get 4 matches in the Casino Matching game", 3)
-PokerCasino("King of Poker", "Get a Straight of better in the Casino Poker game", 5)
+PokerCasino("King of Poker", "Get a Straight or better in the Casino Poker game", 5)
 BlackjackCasino("What's 9+10?", "Get a 5-Card Charlie or higher in the Casino Blackjack game", 5)
 BuyOrUpgradeCheevo("Teletransportation Gem", "Buy the Teleport Stone", 2, TeleportStone)
 BuyOrUpgradeCheevo("Rich Presence", "Buy the Truth Bangle", 2, TruthBangle)
