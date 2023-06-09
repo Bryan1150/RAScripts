@@ -18,7 +18,7 @@ NotLoading = 0x00
 ASCIIIdentifier = dword(0x3ffa80)
 function SaveProtection(){
     return
-    never(ASCIIIdentifier != 0x44204d48) &&
+    never(ASCIIIdentifier != 0x44204d48 || prev(ASCIIIdentifier) != 0x44204d48) &&
     !(
         MapIndicator == NormalMenu &&
         BottomMenu == SaveLoad &&
@@ -132,11 +132,11 @@ SimpleEvents =
 70:{"title":"Education Policy - Part 2 [m]", "description":"Judge the race between Wally and Chris", "points":2, "flag":bit7(0x3c0f38)},
 71:{"title":"A Man's Back [m]", "description":"See Griffin have a drink with Takakura and talk about his daughter *Married*", "points":2, "flag":bit2(0x3c0f3d)},
 72:{"title":"Chris' Fortune Telling [m]", "description":"Get your fortune told by Chris *Not married to Griffin*", "points":2, "flag":bit6(0x3c0f37)},
-73:{"title":"Galen's Date [m]", "description":"Hear Nina talk about where she would like to be burried *You are not married*", "points":2, "flag":bit0(0x3c0f3b)},
+73:{"title":"Galen's Date [m]", "description":"Hear Nina joke about entering a street fighter tournament *You are not married*", "points":2, "flag":bit0(0x3c0f3b)},
 74:{"title":"Likeable Child [m]", "description":"Let Mimi play with your child *Have a Child at Stage 1*", "points":2, "flag":bit3(0x3c0f3e)},
 75:{"title":"Memory Stories [m]", "description":"See Lumina sing a little song to Rock *Lumina and Rock are married*", "points":2, "flag":bit1(0x3c0f37)},
 76:{"title":"Small Adventure [m]", "description":"Look for a tree goblin with your kid *Have a Child at Stage 2*", "points":2, "flag":bit5(0x3c0f3e)},
-77:{"title":"Lumina's Advice [m]", "description":"See Lumina's realization aboyt music *Not married to Rock*", "points":2, "flag":bit7(0x3c0f3b)},
+77:{"title":"Lumina's Advice [m]", "description":"See Lumina's realization about music *Not married to Rock*", "points":2, "flag":bit7(0x3c0f3b)},
 78:{"title":"Lumina's Request [m] ", "description":"Rescue Sebastian from Mukumuku *You are not married*", "points":2, "flag":bit7(0x3c0f36)},
 79:{"title":"The Love Triangle [m]", "description":"See Popuri walk towards Kai and Muffy's conversation [GBA] *Muffy is not married*", "points":2, "flag":bit5(0x3c0f40)},
 80:{"title":"Marlin's Sickness - Part 1 [m]", "description":"Watch Marlin go to the clinic for a checkup [GBA] *Celia and Marlin are married*", "points":2, "flag":bit6(0x3c0f39)},
@@ -168,7 +168,7 @@ MediumRucksack = bit1(0x3c12b8)
 LargeRucksack = bit2(0x3c12b8)
 
 achievement(
-"Portable Shipping", "Buy the basquet", 1,
+"Portable Shipping", "Buy the basket", 1,
 DeltaMemFlag(Basquet)
 )
 
@@ -911,7 +911,7 @@ KatePumpkin = bit3(0x3c0f83)
 HughPumpkin = bit4(0x3c0f83)
 PopuriPumpkin = bit5(0x3c0f83)
 PumpkinFestival = [KatePumpkin, HughPumpkin, PopuriPumpkin]
-AllFlagsTrue(PumpkinFestival, "Pumpkin Day", "Play a part in the Pumpkin Festival and recieve the 3 kids that come to your house", 2)
+AllFlagsTrue(PumpkinFestival, "Pumpkin Day", "Play a part in the Pumpkin Festival and receive the 3 kids that come to your house", 2)
 SingleFlag(bit0(OrangeTeamStart), "Gift Day", "Help Thomas and get a Golden Lumber in exchange", 4)
 
 CookieMuffy = bit4(0x3c0f8e)

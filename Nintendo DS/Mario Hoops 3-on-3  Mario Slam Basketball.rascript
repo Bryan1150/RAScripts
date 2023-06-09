@@ -123,9 +123,9 @@ RanksData = {
 }
 
 // $0F8109: MSB Tourney - Team 1 [3 Bytes]
-TeamSlot1 = byte(0x0F8109)
-TeamSlot2 = byte(0x0F810a)
-TeamSlot3 = byte(0x0F810b)
+TeamSlot1 = low4(0x0F8109) + (bit4(0x0F8109) * 16)
+TeamSlot2 = low4(0x0F810a) + (bit4(0x0F810a) * 16)
+TeamSlot3 = low4(0x0F810b) + (bit4(0x0F810b) * 16)
 
 // $0F8134: [N-bit] Mushroom Cup Trophies
 //          Bit 0 = Bronze
@@ -467,12 +467,12 @@ function FlagsAddSource(flags){
 }
 
 function FlagActivation(flag){
-    logic = (flag == true && prev(flag) == false)
+    logic = (flag == 0x01 && prev(flag) == 0x00)
     return logic
 }
 
 function WonRainbowHardCup(){
-    logic = CurrentTournament == Rainbow && HardTournamentFlag == true && (TournamentState == WonRainbow && prev(TournamentState) == OnRainbow) && NotInTitleScreen
+    logic = CurrentTournament == Rainbow && HardTournamentFlag == 0x01 && (TournamentState == WonRainbow && prev(TournamentState) == OnRainbow) && NotInTitleScreen
     return logic
 }
 
@@ -480,9 +480,9 @@ function teamCheck(team){
     Character1 = team[0]
     Character2 = team[1]
     Character3 = team[2]
-    logic = (TeamSlot1 == Character1 || TeamSlot2 == Character1 || TeamSlot3 == Character1) &&
+    logic = (TeamSlot1  == Character1  || TeamSlot2 == Character1 || TeamSlot3 == Character1  ) &&
     (TeamSlot1 == Character2 || TeamSlot2 == Character2 || TeamSlot3 == Character2) &&
-    (TeamSlot1 == Character3 || TeamSlot2 == Character3 || TeamSlot3 == Character3)
+    (TeamSlot1 == Character3 || TeamSlot2  == Character3 || TeamSlot3== Character3)
     return logic
 }
 
@@ -555,7 +555,7 @@ title = "Noble Dribble",
 description = "Who can get the best time on Dribble Race (Time Trial) Peach's Castle?", 
 start = PeachCastleBestTime != prev(PeachCastleBestTime), 
 cancel = !NotInTitleScreen, 
-submit = 1==1, 
+submit = always_true(), 
 value = PeachCastleBestTime / 0x1000,
 format="FRAMES", 
 lower_is_better = true, id=1)
@@ -565,7 +565,7 @@ title = "Daylight Dribble",
 description = "Who can get the best time on Dribble Race (Time Trial) Sunshine Road?", 
 start = SunshineRoadBestTime != prev(SunshineRoadBestTime), 
 cancel = !NotInTitleScreen, 
-submit = 1==1, 
+submit = always_true(), 
 value = SunshineRoadBestTime,
 format="FRAMES", 
 lower_is_better = true, id=2)
@@ -575,7 +575,7 @@ title = "Prismatic Dribble",
 description = "Who can get the best time on Dribble Race (Time Trial) Rainbow Road?", 
 start = RainbowRoadBestTime != prev(RainbowRoadBestTime), 
 cancel = !NotInTitleScreen, 
-submit = 1==1, 
+submit = always_true(), 
 value = RainbowRoadBestTime,
 format="FRAMES", 
 lower_is_better = true, id=3)

@@ -268,24 +268,24 @@ for achievement in GoldMedalGroup{
         SumMedalGroup(GoldMedalGroup[achievement]["addresses"])
     )
 }
-
+RaceMedalQuantity = 73
 achievement(
-    "Compact DX", "Earn 4 Gold Medals", 2, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity) == 4) && prev(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity)) < 4
+    "Compact DX", "Earn 4 Race Gold Medals", 2, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity) == 4) && prev(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity)) < 4
 )
 
 achievement(
-    "Muscle DX", "Earn 10 Gold Medals", 3, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity) == 10) && prev(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity)) < 10
+    "Muscle DX", "Earn 10 Race Gold Medals", 3, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity) == 10) && prev(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity)) < 10
 )
 achievement(
-    "Coupe DX", "Earn 18 Gold Medals", 4, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity) == 18) && prev(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity)) < 18
-)
-
-achievement(
-    "Sports DX", "Earn 25 Gold Medals", 5, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity) == 25) && prev(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity)) < 25
+    "Coupe DX", "Earn 18 Race Gold Medals", 4, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity) == 18) && prev(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity)) < 18
 )
 
 achievement(
-    "Super DX", "Earn 32 Gold Medals", 5, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity) == 32) && prev(SumGoldMedals(GoldMedalsStart, GoldMedalsQuantity)) < 32
+    "Sports DX", "Earn 25 Race Gold Medals", 5, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity) == 25) && prev(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity)) < 25
+)
+
+achievement(
+    "Super DX", "Earn 32 Race Gold Medals", 5, BasicProtection() && measured(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity) == 32) && prev(SumGoldMedals(GoldMedalsStart, RaceMedalQuantity)) < 32
 )
 
 achievement(
