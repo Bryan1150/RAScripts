@@ -437,7 +437,7 @@ RainbowShipWithoutPanels = bit3(0x0F8180)
 OnlySpecialShots = bit7(0x0F8181)
 CompletePractice = bit4(0x0F8181)
 
-NotInTitleScreen = ScreenId != TitleScreen
+NotInTitleScreen = ScreenId != TitleScreen && ScreenId != 0xff && bit0(0x0f8180) == 1 && prev(bit0(0x0f8180)) == 1 && bit0(0x0f8180) == prev(bit0(0x0f8180)) 
 
 SingleUnlockablesData = {
     "SunsetBeach": {"title": "Twilight Shore", "description": "Unlock the Sunset Beach court", "points": 5, "flag": UnlockSunsetBeach},

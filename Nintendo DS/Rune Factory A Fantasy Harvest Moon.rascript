@@ -716,7 +716,7 @@ function CheckLevel(level, target){
     logic = 
     measured(level >= target) &&
     prev(level) < target &&
-    prev(level) > (target - 5)
+    prev(level) > (target - 10)
     return logic 
 }
 

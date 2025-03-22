@@ -744,7 +744,8 @@ for flags in GoldFlags{
         description = GoldFlags[flags]["description"],
         points = GoldFlags[flags]["points"],
         trigger = SaveProtection() &&
-        measured(16 - sum_of(GoldFlags[flags]["flags"], f => f) == 16) && (16 - sum_of(GoldFlags[flags]["flags"], f => prev(f)) <= 15)
+        measured(16 - sum_of(GoldFlags[flags]["flags"], f => f) == 16) && (16 - sum_of(GoldFlags[flags]["flags"], f => prev(f)) <= 15) 
+        && (16 - sum_of(GoldFlags[flags]["flags"], f => prev(f)) > 0) && byte(0x0065e345) != 0 && prev(byte(0x0065e345)) != 0
     )    
 }
 

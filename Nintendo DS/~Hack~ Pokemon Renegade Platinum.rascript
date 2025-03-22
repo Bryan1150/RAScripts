@@ -1044,6 +1044,12 @@ function GymChallenge(LevelCap, TrainerID, IDMap){
     never(prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= BlueFlute && LastItemUsedCurrent <= RedFlute)
 }
 
+musicID = word(0x1beb04)
+Elite4Room = 0x0434
+Elite4StartingFight = 0x0459
+Elite4Fight = 0x0470
+vsCynthia = 0x0462
+cynthiaPiano = 0x045a
 function Elite4Challenge(type, round, LevelCap){
       return 
     //Initial hit check for battle start [In set mode]
@@ -1080,15 +1086,15 @@ function Elite4Challenge(type, round, LevelCap){
     
     &&
     //Reset if player changes the mode to switch from set mode
-    never(prev(SetMode) == 1 && SetMode == 0) &&
+    never(prev(SetMode) == 1 && SetMode == 0)  &&
     //Reset if pokemon isnt the level cap, also check for ID
-    never(OpponentTrainerID != 0 && IDCurrentPokemon <= 493 && LevelCurrentPokemon > LevelCap && LevelCurrentPokemon <= 100) &&
+    never(OpponentTrainerID != 0 && IDCurrentPokemon <= 493 && LevelCurrentPokemon > LevelCap && LevelCurrentPokemon <= 100 && musicID != Elite4Room) &&
     
     
     //Reset if used item
     never(NoItemUsedCheck()) &&
-    never(OpponentTrainerID != 0 && prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= MasterBall && LastItemUsedCurrent <= CherishBall) &&
-    never(OpponentTrainerID != 0 && prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= BlueFlute && LastItemUsedCurrent <= RedFlute)
+    never(OpponentTrainerID != 0 && prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= MasterBall && LastItemUsedCurrent <= CherishBall && musicID != Elite4Room) &&
+    never(OpponentTrainerID != 0 && prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= BlueFlute && LastItemUsedCurrent <= RedFlute && musicID != Elite4Room)
     &&
     //Reset if map id isnt any of the elite 4 ones
     never(MapID < FirstElevator || MapID > Elite4WinRoom) &&
@@ -1135,13 +1141,13 @@ function Elite4ChallengeTyped(Type, round, LevelCap){
     //Reset if player changes the mode to switch from set mode
     never(prev(SetMode) == 1 && SetMode == 0) &&
     //Reset if pokemon isnt the level cap, also check for ID
-    never(OpponentTrainerID != 0 && IDCurrentPokemon <= 493 && LevelCurrentPokemon > LevelCap && LevelCurrentPokemon <= 100) &&
+    never(OpponentTrainerID != 0 && IDCurrentPokemon <= 493 && LevelCurrentPokemon > LevelCap && LevelCurrentPokemon <= 100 && musicID != Elite4Room) &&
     //Reset if not the type
-    never(OpponentTrainerID != 0 && IDCurrentPokemon > 0 && PokemonFirstType != Type && PokemonSecondType != Type && PokemonFirstType <= Dark && PokemonSecondType <= Dark) &&
+    never(OpponentTrainerID != 0 && IDCurrentPokemon > 0 && PokemonFirstType != Type && PokemonSecondType != Type && PokemonFirstType <= Dark && PokemonSecondType <= Dark && musicID != Elite4Room) &&
     //Reset if used item
     never(NoItemUsedCheck()) &&
-    never(OpponentTrainerID != 0 && prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= MasterBall && LastItemUsedCurrent <= CherishBall) &&
-    never(OpponentTrainerID != 0 && prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= BlueFlute && LastItemUsedCurrent <= RedFlute)
+    never(OpponentTrainerID != 0 && prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= MasterBall && LastItemUsedCurrent <= CherishBall && musicID != Elite4Room) &&
+    never(OpponentTrainerID != 0 && prev(LastItemUsedCurrent) != LastItemUsedCurrent && LastItemUsedCurrent >= BlueFlute && LastItemUsedCurrent <= RedFlute && musicID != Elite4Room)
     &&
     //Reset if map id isnt any of the elite 4 ones
     never(MapID < FirstElevator || MapID > Elite4WinRoom) &&
@@ -1432,7 +1438,7 @@ achievement(
     )
 
 achievement(
-    title = "Fear the Garchomp [m]",
+    title = "Fear the Garchomp",
     description = "Defeat the Elite 4 and Cynthia on Set Mode without using items in battle [Level Cap <= 78, Single Session, Round One]",
     points = 25,
 

@@ -345,7 +345,7 @@ titles = {
 65:{"flag":bit4(0x5d80cf), "points":5, "title":"Mushroom Master", "description":"Deliver a total of 30 Choice Mushrooms"},
 66:{"flag":bit5(0x5d80cf), "points":5, "title":"Egg Thief", "description":"Deliver a total of 30 Wyvern Eggs"},
 67:{"flag":bit6(0x5d80cf), "points":5, "title":"Crystal Hunter", "description":"Deliver a total of 30 Quartz Ore"},
-68:{"flag":bit7(0x5d80cf), "points":5, "title":"Danger Hunter", "description":"Deliver a total of 30 Powsderstone"},
+68:{"flag":bit7(0x5d80cf), "points":5, "title":"Danger Hunter", "description":"Deliver a total of 30 Powderstone"},
 69:{"flag":bit0(0x5d80d0), "points":5, "title":"Alpine Hunter", "description":"Plant 30 Guild Flags"},
 70:{"flag":bit1(0x5d80d0), "points":10, "title":"Transporter", "description":"Clear any Transport Quests 30 times"},
 71:{"flag":bit2(0x5d80d0), "points":10, "title":"Jungle Guide", "description":"Clear 100 quests in the Jungle"},
@@ -406,8 +406,13 @@ goldCrowns = {
 HunterBasics = [bit0(0x5d6a5c),bit1(0x5d6a5c),bit2(0x5d6a5c),bit3(0x5d6a5c),bit4(0x5d6a5c)]
 WeaponTraining = [bit5(0x5d6a5c),bit6(0x5d6a5c),bit7(0x5d6a5c),bit0(0x5d6a5d),bit1(0x5d6a5d),bit2(0x5d6a5d),bit3(0x5d6a5d),bit4(0x5d6a5d),bit5(0x5d6a5d),bit6(0x5d6a5d),bit7(0x5d6a5d)]
 
+
+Serial = dword(0x001c868c)
+saveFileTimer = dword(0x005d6a9c)
 function SaveProtection(){
-    return SaveFile == prev(SaveFile) && MapID != 0
+    return Serial == 0x4d504c53 && 
+    SaveFile == prev(SaveFile) &&
+    saveFileTimer - prior(saveFileTimer)  == 1
 }
 
 function QuestArrayCheck(array){
@@ -508,7 +513,7 @@ function GoldCrown(MaxAddresses, MinAddresses, min, max){
 }
 
 achievement(
-    title = "Hunter’s Journey Has Started",
+    title = "Hunter's Journey Has Started",
     description = "Complete all the Hunter Basics quests",
     points = 3,
     trigger = sumArray(HunterBasics)

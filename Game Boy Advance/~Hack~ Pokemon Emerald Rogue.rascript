@@ -86,7 +86,7 @@ DeepSpaceQuest = 0x03efdc
 AestheticsQuest = 0x03efe4
 
 function SaveProtection(){
-    logic = GlobalPointer != 0  && FullBank!= 0 && bit0(ToAdventureQuest) == 1 && bit0(ToAdventureQuest) == prev(bit0(ToAdventureQuest))
+    logic = GlobalPointer != 0  && FullBank!= 0 && prev(FullBank) != 0 && bit0(ToAdventureQuest) == 1 && bit0(ToAdventureQuest) == prev(bit0(ToAdventureQuest)) && prev(bit0(ToAdventureQuest)) == 1
     return logic
 }
 
@@ -95,7 +95,7 @@ function NoSeeds(){
 }
 
 Quests = {
-    1: {"title": "Rogue Journey has Started!", "points": 1, "description": "Complete your first run", "flag": ToAdventureQuest},
+    1: {"title": "Rogue Journey has Started!", "points": 1, "description": "Complete your first run [Most achievements are linked to ingame quests, so make sure to unlock them first, have fun!]", "flag": ToAdventureQuest},
     2: {"title": "Spelunking Fossils", "points": 5, "description": "Get the 1st badge", "flag": Badge1Quest},
     3: {"title": "The Binding Of Mimikyu", "points": 5, "description": "Get the 2nd badge", "flag": Badge2Quest},
     4: {"title": "Slay the Battle Tower", "points": 5, "description": "Get the 3rd badge", "flag": Badge3Quest},
@@ -116,7 +116,7 @@ Quests = {
     16: {"title": "Collector +", "points": 10, "description": "Have 100 Pokedex entries", "flag": CollectorPlusQuest},
     17: {"title": "Collector X", "points": 5, "description": "Beat the Elite Four with a Legendary Pokemon in your party", "flag": CollectorXQuest},
     18: {"title": "Can't Stop!", "points": 3, "description": "Exit a Tough Route within 2 minutes of entering", "flag": CantStopQuest},
-    19: {"title": "Won't Stop!", "points": 3, "description": "Exit a Tough Route within 1 minute of entering (after getting the 8th Badge in currrent run)", "flag": WontStopQuest},
+    19: {"title": "Won't Stop!", "points": 3, "description": "Exit a Tough Route within 1 minute of entering (after getting the 8th Badge in current run)", "flag": WontStopQuest},
     20: {"title": "Care Tactics", "points": 10, "description": "Defeat four Gyms without having your Partner Pokemon faint", "flag": CareTacticsQuest},
     21: {"title": "Smart Tactics", "points": 25, "description": "Defeat the eight Gyms without having any Pokemon faint", "flag": SmartTacticsQuest},
     
@@ -156,7 +156,7 @@ Quests = {
     
     52: {"title": "Deep Space", "points": 5, "description": "Reach the final battle with a Deoxys in your party (Need Gen limit at least 3 or Regional Dex with Deoxys in it)", "flag": DeepSpaceQuest},
     53: {"title": "Gratitude", "points": 5, "description": "Reach the final battle with a Shaymin in your party (Need Gen limit at least 4 or Regional Dex with Shaymin in it)", "flag": GratitudeQuest},
-    54: {"title": "Of Nature", "points": 5, "description": "Reach the final battle with Tornadus, Thundurus, Landorus (Gen limit at least 5 or Regional Dex with them in it)", "flag": OfNatureQuest},
+    54: {"title": "Of Nature", "points": 5, "description": "Reach the final battle with Tornadus, Thundurus or Landorus (Gen limit at least 5 or Regional Dex with them in it)", "flag": OfNatureQuest},
     55: {"title": "Mischief", "points": 5, "description": "Reach the final battle with a Hoopa in your party (Need Gen limit at least 6 or Regional Dex with Hoopa in it)", "flag": MischiefQuest},
     
     56: {"title": "Master of the Ordinary", "points": 25, "description": "Win a full Run only catching and using Normal type Pokemon", "flag": NormalMasterQuest},
@@ -252,7 +252,15 @@ for quest in Quests{
         title = Quests[quest]["title"],
         description = Quests[quest]["description"],
         points = Quests[quest]["points"],
-        trigger = SaveProtection() && NoSeeds() && prev(bit1(Quests[quest]["flag"])) == 0 && bit1(Quests[quest]["flag"]) == 1
+        trigger = SaveProtection() && NoSeeds() && 
+        
+        prev(bit1(Quests[quest]["flag"])) == 0
+        
+        && bit1(Quests[quest]["flag"]) == 1
+        
+        && dword(Quests[quest]["flag"]) <= 255
+        
+       // && never(GlobalPointer != prev(GlobalPointer))
     )
 }
 
@@ -271,7 +279,7 @@ for pokedex in Pokedex{
         title = Pokedex[pokedex]["title"],
         description = Pokedex[pokedex]["description"],
         points = Pokedex[pokedex]["points"],
-        trigger = SaveProtection() && NoSeeds() && GlobalPointer == prev(GlobalPointer) && FullBank == prev(FullBank) && CatchedPokemon(CaughtOffset, Pokedex[pokedex]["start"], Pokedex[pokedex]["end"])
+        trigger = SaveProtection() && GlobalPointer == prev(GlobalPointer) && FullBank == prev(FullBank) && CatchedPokemon(CaughtOffset, Pokedex[pokedex]["start"], Pokedex[pokedex]["end"])
         && never(GlobalPointer != prev(GlobalPointer))
     )
 }

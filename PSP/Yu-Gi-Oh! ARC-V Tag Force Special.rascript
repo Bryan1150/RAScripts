@@ -7913,7 +7913,7 @@ Packs = {
 function PackCheck(array){
     sum = 0
     for card in array{
-        sum = sum + (byte(ReversePointer + card) / byte(ReversePointer + card))
+        sum = sum + (low4(ReversePointer + card) / low4(ReversePointer + card))
     }
     return measured(sum == length(array)) && prev(sum) < length(array)
 }
@@ -7924,7 +7924,7 @@ for pack in Packs{
         description = "Collect all cards in the " + Packs[pack]["packName"] + " booster pack",
         points = Packs[pack]["points"],
         trigger = 
-        GameState == Store &&
+        (GameState == Store || GameState == Playing) &&
         PackCheck(Packs[pack]["packID"])
     )
 }
